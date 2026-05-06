@@ -762,13 +762,24 @@ html,body{background:var(--bg);font-family:'Kanit',sans-serif;color:var(--text);
       <div class="form-group"><label class="form-label">Category</label><input class="form-input" id="ap-cat" placeholder="Wedding · Client Project"/></div>
       <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="ap-year" placeholder="2025"/></div>
     </div>
-    <div class="form-group"><label class="form-label">Upload Photos (up to 10)</label>
-      <div class="gallery-placeholder" onclick="document.getElementById('ap-imgs').click()" style="height:100px;">
-        <div class="gallery-placeholder-icon">📁</div>
-        <div>Click to select images</div>
+    <!-- Upload from device -->
+    <div class="form-group">
+      <label class="form-label">📁 Upload Photos from Device</label>
+      <label style="display:flex;align-items:center;justify-content:center;gap:0.6rem;padding:0.9rem;border:2px dashed rgba(215,226,234,0.15);border-radius:0.75rem;cursor:pointer;font-size:0.8rem;color:var(--text-dim);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(182,0,168,0.5)'" onmouseout="this.style.borderColor='rgba(215,226,234,0.15)'">
+        📂 Click to Select Images (Multiple allowed)
+        <input type="file" id="ap-imgs" accept="image/*" multiple style="display:none;" onchange="previewProjectImgs(event)"/>
+      </label>
+      <div id="ap-preview" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;"></div>
+    </div>
+    <!-- Google Drive / URL -->
+    <div class="form-group">
+      <label class="form-label">🔗 Google Drive Link / Image URL</label>
+      <div style="display:flex;gap:0.5rem;">
+        <input id="ap-url-input" class="form-input" placeholder="Paste Google Drive link or direct image URL..." style="font-size:0.82rem;"/>
+        <button class="btn btn-primary btn-sm" onclick="addUrlToNewProject()" style="white-space:nowrap;">➕ Add URL</button>
       </div>
-      <input type="file" id="ap-imgs" accept="image/*" multiple style="display:none;" onchange="previewProjectImgs(event)"/>
-      <div class="gallery-grid" id="ap-preview" style="margin-top:0.75rem;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));"></div>
+      <div style="font-size:0.6rem;color:var(--text-dimmer);margin-top:0.3rem;">✅ Supports: drive.google.com/file/d/... · drive.google.com/open?id=... · Any direct .jpg .png .webp URL</div>
+      <div id="ap-url-list" style="margin-top:0.5rem;"></div>
     </div>
     <div class="form-actions">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-project')">Cancel</button>
@@ -1165,6 +1176,53 @@ function printInvoice(){
 // ════════════════════════════════════════════════════
 // PROJECTS
 // ════════════════════════════════════════════════════
+// ── GOOGLE DRIVE URL CONVERTER
+function convertDriveUrl(url){
+  if(!url) return url;
+  url=url.trim();
+  let m=url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  m=url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  m=url.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
+  if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  return url;
+}
+
+// ── IndexedDB for large image storage
+let imgDB=null;
+function openImgDB(){
+  return new Promise((res,rej)=>{
+    if(imgDB){res(imgDB);return;}
+    const req=indexedDB.open('pp_images',1);
+    req.onupgradeneeded=e=>e.target.result.createObjectStore('imgs',{keyPath:'key'});
+    req.onsuccess=e=>{imgDB=e.target.result;res(imgDB);};
+    req.onerror=()=>rej('DB error');
+  });
+}
+function saveImgToDB(key,dataUrl){
+  return openImgDB().then(db=>new Promise((res,rej)=>{
+    const tx=db.transaction('imgs','readwrite');
+    tx.objectStore('imgs').put({key,dataUrl});
+    tx.oncomplete=()=>res();tx.onerror=()=>rej();
+  }));
+}
+function getImgFromDB(key){
+  return openImgDB().then(db=>new Promise((res)=>{
+    const tx=db.transaction('imgs','readonly');
+    const req=tx.objectStore('imgs').get(key);
+    req.onsuccess=()=>res(req.result?req.result.dataUrl:null);
+    req.onerror=()=>res(null);
+  }));
+}
+function deleteImgFromDB(key){
+  return openImgDB().then(db=>new Promise((res)=>{
+    const tx=db.transaction('imgs','readwrite');
+    tx.objectStore('imgs').delete(key);
+    tx.oncomplete=()=>res();
+  }));
+}
+
 function renderProjects(){
   const el=document.getElementById('projects-list');
   if(!projects.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🖼️</div><div class="empty-title">No Projects Yet</div><div class="empty-desc">Add your first project to get started</div></div>';return;}
@@ -1173,56 +1231,95 @@ function renderProjects(){
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem;">
         <div>
           <div style="font-size:0.88rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">${p.name}</div>
-          <div style="font-size:0.68rem;color:var(--text-dim);margin-top:0.2rem;">${p.category} · ${p.year}</div>
+          <div style="font-size:0.68rem;color:var(--text-dim);margin-top:0.2rem;">${p.category} · ${p.year} · 📸 ${p.imgs.length} photos</div>
         </div>
-        <div style="display:flex;gap:0.5rem;">
-          <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">🗑 Delete</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">🗑 Delete</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+        <div>
+          <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem;">📁 Upload from Device</div>
+          <label style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem;border:2px dashed rgba(215,226,234,0.15);border-radius:0.75rem;cursor:pointer;font-size:0.75rem;color:var(--text-dim);">
+            <span>📂 Choose Photos</span>
+            <input type="file" accept="image/*" multiple style="display:none;" onchange="addProjectImgs(event,${p.id})"/>
+          </label>
+        </div>
+        <div>
+          <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem;">🔗 Google Drive / Image URL</div>
+          <div style="display:flex;gap:0.4rem;">
+            <input id="url-input-${p.id}" class="form-input" style="font-size:0.75rem;padding:0.6rem 0.8rem;" placeholder="Paste Drive link or image URL..."/>
+            <button class="btn btn-primary btn-sm" onclick="addUrlToProject(${p.id})">➕</button>
+          </div>
+          <div style="font-size:0.58rem;color:var(--text-dimmer);margin-top:0.3rem;">drive.google.com links ya direct image URL</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-        <div class="gallery-placeholder" onclick="document.getElementById('proj-upload-${p.id}').click()" style="height:80px;min-width:120px;flex:0 0 auto;">
-          <div style="font-size:1.2rem;">📁</div>
-          <div style="font-size:0.65rem;">Upload Photos</div>
-        </div>
-        <input type="file" id="proj-upload-${p.id}" accept="image/*" multiple style="display:none;" onchange="addProjectImgs(event,${p.id})"/>
-        <div class="gallery-grid" id="proj-gallery-${p.id}" style="flex:1;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));">
-          ${p.imgs.map((src,i)=>`
-            <div class="gallery-item">
-              <img src="${src}" alt="photo"/>
-              <div class="gallery-item-overlay">
-                <button class="btn btn-danger btn-sm" onclick="removeProjectImg(${p.id},${i})" style="padding:0.25rem 0.5rem;">✕</button>
-              </div>
-            </div>`).join('')}
-          ${!p.imgs.length?`<div style="font-size:0.72rem;color:var(--text-dimmer);padding:0.5rem;">No photos yet</div>`:''}
-        </div>
-      </div>
-      <div style="font-size:0.68rem;color:var(--text-dimmer);margin-top:0.75rem;">📸 ${p.imgs.length} photo${p.imgs.length!==1?'s':''} · Added: ${p.createdAt}</div>
+      <div id="proj-gallery-${p.id}" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:0.5rem;"></div>
+      ${!p.imgs.length?'<div style="font-size:0.72rem;color:var(--text-dimmer);padding:0.75rem;text-align:center;border:1px dashed rgba(215,226,234,0.08);border-radius:0.75rem;">No photos yet</div>':''}
     </div>`).join('');
+  projects.forEach(p=>loadProjectGallery(p));
+}
+
+async function loadProjectGallery(p){
+  const grid=document.getElementById(`proj-gallery-${p.id}`);
+  if(!grid||!p.imgs.length) return;
+  grid.innerHTML='';
+  for(let i=0;i<p.imgs.length;i++){
+    const entry=p.imgs[i];
+    let src=entry.startsWith('dbkey:')?(await getImgFromDB(entry.replace('dbkey:',''))||''):entry;
+    if(!src) continue;
+    const wrap=document.createElement('div');
+    wrap.className='gallery-item';
+    wrap.innerHTML=`<img src="${src}" alt="photo" onerror="this.parentElement.style.background='#1a1a1a'" loading="lazy"/><div class="gallery-item-overlay"><button class="btn btn-danger btn-sm" onclick="removeProjectImg(${p.id},${i})" style="padding:0.25rem 0.5rem;">✕</button></div>`;
+    grid.appendChild(wrap);
+  }
 }
 
 function addProjectImgs(event,id){
   const proj=projects.find(p=>p.id===id);if(!proj)return;
   const files=[...event.target.files];
-  let loaded=0;
+  if(!files.length) return;
+  let done=0;
+  toast(`Uploading ${files.length} photo${files.length>1?'s':''} ...`,'info');
   files.forEach(file=>{
     const reader=new FileReader();
-    reader.onload=e=>{
-      proj.imgs.push(e.target.result);
-      loaded++;
-      if(loaded===files.length){save('projects');renderProjects();toast(`${files.length} photo${files.length>1?'s':''} added!`,'success');}
+    reader.onload=async e=>{
+      const dbKey=`proj_${id}_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      await saveImgToDB(dbKey,e.target.result);
+      proj.imgs.push('dbkey:'+dbKey);
+      done++;
+      if(done===files.length){save('projects');renderProjects();toast(`✅ ${files.length} photo${files.length>1?'s':''} uploaded!`,'success');}
     };
+    reader.onerror=()=>{done++;toast('❌ File read error','error');};
     reader.readAsDataURL(file);
   });
 }
 
+function addUrlToProject(id){
+  const proj=projects.find(p=>p.id===id);if(!proj)return;
+  const inp=document.getElementById(`url-input-${id}`);
+  const rawUrl=inp.value.trim();
+  if(!rawUrl){toast('Please paste a URL first','error');return;}
+  const finalUrl=convertDriveUrl(rawUrl);
+  proj.imgs.push(finalUrl);
+  save('projects');
+  inp.value='';
+  renderProjects();
+  toast('✅ Image added!','success');
+}
+
 function removeProjectImg(id,idx){
   const proj=projects.find(p=>p.id===id);if(!proj)return;
-  proj.imgs.splice(idx,1);save('projects');renderProjects();toast('Photo removed','info');
+  const entry=proj.imgs[idx];
+  if(entry&&entry.startsWith('dbkey:')) deleteImgFromDB(entry.replace('dbkey:',''));
+  proj.imgs.splice(idx,1);
+  save('projects');renderProjects();toast('Photo removed','info');
 }
 
 function deleteProject(id){
-  if(!confirm('Delete this project?'))return;
-  projects=projects.filter(p=>p.id!==id);save('projects');renderProjects();toast('Project deleted','info');
+  if(!confirm('Delete this project and all its photos?'))return;
+  const proj=projects.find(p=>p.id===id);
+  if(proj) proj.imgs.forEach(e=>{if(e.startsWith('dbkey:')) deleteImgFromDB(e.replace('dbkey:',''));});
+  projects=projects.filter(p=>p.id!==id);
+  save('projects');renderProjects();toast('Project deleted','info');
 }
 
 let apImgData=[];
@@ -1230,38 +1327,61 @@ function openAddProject(){
   apImgData=[];
   ['ap-name','ap-cat','ap-year'].forEach(id=>{document.getElementById(id).value='';});
   document.getElementById('ap-preview').innerHTML='';
+  const ul=document.getElementById('ap-url-list');if(ul)ul.innerHTML='';
   openModal('modal-add-project');
 }
 
 function previewProjectImgs(event){
   const files=[...event.target.files];
   const preview=document.getElementById('ap-preview');
-  preview.innerHTML='';apImgData=[];
   files.slice(0,10).forEach(file=>{
     const reader=new FileReader();
     reader.onload=e=>{
-      apImgData.push(e.target.result);
+      apImgData.push({isFile:true,data:e.target.result});
       const img=document.createElement('img');
       img.src=e.target.result;
-      img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover;border-radius:0.5rem;';
+      img.style.cssText='width:80px;height:80px;object-fit:cover;border-radius:0.5rem;border:1px solid rgba(215,226,234,0.15);';
       preview.appendChild(img);
     };
     reader.readAsDataURL(file);
   });
 }
 
-function saveProject(){
+function addUrlToNewProject(){
+  const inp=document.getElementById('ap-url-input');
+  if(!inp) return;
+  const rawUrl=inp.value.trim();
+  if(!rawUrl){toast('Enter a URL first','error');return;}
+  const finalUrl=convertDriveUrl(rawUrl);
+  apImgData.push({isFile:false,data:finalUrl});
+  const list=document.getElementById('ap-url-list');
+  if(list){
+    const div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem;';
+    div.innerHTML=`<img src="${finalUrl}" style="width:48px;height:48px;object-fit:cover;border-radius:0.4rem;" loading="lazy"/><span style="font-size:0.68rem;color:var(--text-dim);">${rawUrl.slice(0,50)}...</span>`;
+    list.appendChild(div);
+  }
+  inp.value='';
+  toast('URL added ✅','success');
+}
+
+async function saveProject(){
   const name=document.getElementById('ap-name').value.trim();
   if(!name){toast('Project name required!','error');return;}
-  const proj={
-    id:Date.now(),name,
-    category:document.getElementById('ap-cat').value.trim()||'Photography',
-    year:document.getElementById('ap-year').value.trim()||new Date().getFullYear().toString(),
-    imgs:apImgData,
-    createdAt:new Date().toLocaleDateString('en-IN')
-  };
+  const imgs=[];
+  for(const item of apImgData){
+    if(item.isFile){
+      const dbKey=`proj_new_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      await saveImgToDB(dbKey,item.data);
+      imgs.push('dbkey:'+dbKey);
+    } else {
+      imgs.push(item.data);
+    }
+  }
+  const proj={id:Date.now(),name,category:document.getElementById('ap-cat').value.trim()||'Photography',year:document.getElementById('ap-year').value.trim()||new Date().getFullYear().toString(),imgs,createdAt:new Date().toLocaleDateString('en-IN')};
   projects.push(proj);save('projects');renderProjects();
   closeModal('modal-add-project');toast('Project added!','success');
+  apImgData=[];
 }
 
 // ════════════════════════════════════════════════════

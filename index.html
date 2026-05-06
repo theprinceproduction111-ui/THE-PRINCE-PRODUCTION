@@ -207,8 +207,34 @@ html,body{background:#0C0C0C;font-family:'Kanit',sans-serif;color:#D7E2EA;overfl
 .fade-right{opacity:0;transform:translateX(55px);}.fade-right.visible{animation:fadeFromRight 0.9s ease forwards;}
 .d1{animation-delay:0.1s;}.d2{animation-delay:0.2s;}.d3{animation-delay:0.3s;}.d4{animation-delay:0.4s;}
 body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.28;}
-.admin-trigger{position:fixed;bottom:1.8rem;right:1.8rem;z-index:9990;width:44px;height:44px;border-radius:50%;background:rgba(182,0,168,0.25);border:1.5px solid rgba(182,0,168,0.4);color:#D7E2EA;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;box-shadow:0 0 16px rgba(182,0,168,0.25);}
-.admin-trigger:hover{background:rgba(182,0,168,0.55);transform:scale(1.08);}
+.admin-trigger{
+  position:fixed;bottom:1.8rem;right:1.8rem;z-index:9990;
+  display:flex;align-items:center;gap:0.5rem;
+  background:rgba(12,12,12,0.92);
+  border:1.5px solid rgba(182,0,168,0.45);
+  color:#D7E2EA;cursor:pointer;
+  border-radius:9999px;
+  padding:0.55rem 1.1rem 0.55rem 0.85rem;
+  font-family:'Kanit',sans-serif;font-size:0.72rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.12em;
+  transition:all 0.25s;
+  box-shadow:0 0 18px rgba(182,0,168,0.2),0 4px 20px rgba(0,0,0,0.5);
+  backdrop-filter:blur(10px);
+  text-decoration:none;
+}
+.admin-trigger:hover{
+  background:rgba(182,0,168,0.18);
+  border-color:rgba(182,0,168,0.8);
+  box-shadow:0 0 28px rgba(182,0,168,0.45),0 4px 24px rgba(0,0,0,0.6);
+  transform:translateY(-2px);
+}
+.admin-trigger-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#B600A8;
+  box-shadow:0 0 6px #B600A8;
+  animation:pulse 2s ease infinite;
+  flex-shrink:0;
+}
 </style>
 </head>
 <body>
@@ -374,12 +400,15 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
     <a class="footer-link" href="#projects">Projects</a>
     <a class="footer-link" href="#booking">Book Now</a>
     <a class="footer-link" href="tel:+916350605427">+91 63506 05427</a>
-    <a class="footer-link" href="admin.html">Admin</a>
+    <a class="footer-link" href="admin.html" target="_blank" style="opacity:0.6;color:#B600A8;">⚙️ Admin Login</a>
   </div>
   <div class="footer-copy">© 2025 The Prince Production — Photography · Prem Shanker · All Rights Reserved.</div>
 </footer>
 
-<button class="admin-trigger" onclick="window.open('admin.html','_blank')" title="Admin Panel">⚙️</button>
+<a class="admin-trigger" href="admin.html" target="_blank" title="Admin Login Panel">
+  <span class="admin-trigger-dot"></span>
+  ⚙️ Admin Login
+</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

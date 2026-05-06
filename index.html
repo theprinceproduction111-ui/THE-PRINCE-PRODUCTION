@@ -12,199 +12,137 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#0C0C0C;font-family:'Kanit',sans-serif;color:#D7E2EA;overflow-x:hidden;scroll-behavior:smooth;}
 #root{background:#0C0C0C;overflow-x:clip;}
-
-/* ── GRADIENT TEXT ── */
-.hero-heading{
-  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-
-::-webkit-scrollbar{width:3px;}
-::-webkit-scrollbar-track{background:#0C0C0C;}
-::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
-
-/* ── CURSOR ── */
-.cursor{
-  width:14px;height:14px;border-radius:50%;
-  background:rgba(215,226,234,0.9);
-  position:fixed;pointer-events:none;z-index:99999;
-  transform:translate(-50%,-50%);
-  transition:width 0.3s,height 0.3s,background 0.3s,opacity 0.3s;
-  mix-blend-mode:difference;
-}
+.hero-heading{background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:#0C0C0C;}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+.cursor{width:14px;height:14px;border-radius:50%;background:rgba(215,226,234,0.9);position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,background 0.3s;mix-blend-mode:difference;}
 .cursor.big{width:52px;height:52px;background:rgba(182,0,168,0.55);}
 @media(hover:none){.cursor{display:none;}}
+.scroll-bar{position:fixed;top:0;left:0;height:2px;z-index:99998;background:linear-gradient(90deg,#B600A8,#7621B0,#BE4C00);width:0%;}
 
-/* ── SCROLL BAR ── */
-.scroll-bar{position:fixed;top:0;left:0;height:2px;z-index:99998;background:linear-gradient(90deg,#B600A8,#7621B0,#BE4C00);width:0%;transition:width 0.08s;}
-
-/* ── NAVBAR ── */
-.navbar{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.4rem 1.5rem 0;position:fixed;top:0;left:0;right:0;
-  z-index:1000;
-  background:linear-gradient(to bottom,rgba(12,12,12,0.97) 0%,transparent 100%);
-}
+/* NAVBAR */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.5rem 0;position:fixed;top:0;left:0;right:0;z-index:1000;background:linear-gradient(to bottom,rgba(12,12,12,0.97) 0%,transparent 100%);}
 @media(min-width:768px){.navbar{padding:1.7rem 3rem 0;}}
 .nav-logo{line-height:1.1;}
 .nav-logo-main{font-size:clamp(0.65rem,1.2vw,1rem);font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#D7E2EA;}
-.nav-logo-sub{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(0.6rem,1vw,0.88rem);color:rgba(215,226,234,0.5);letter-spacing:0.12em;margin-top:0.05rem;}
+.nav-logo-sub{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(0.58rem,0.9vw,0.82rem);color:rgba(215,226,234,0.45);letter-spacing:0.12em;margin-top:0.05rem;}
 .nav-links{display:flex;gap:clamp(0.8rem,2.5vw,2rem);align-items:center;}
 .nav-link{color:#D7E2EA;text-decoration:none;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;font-size:clamp(0.6rem,1.1vw,0.9rem);transition:opacity 0.2s;}
 .nav-link:hover{opacity:0.55;}
-.nav-book{
-  background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
-  color:white;font-family:'Kanit',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;
-  border-radius:9999px;border:none;cursor:pointer;padding:0.5rem 1.3rem;
-  font-size:clamp(0.55rem,0.95vw,0.82rem);box-shadow:0 0 12px rgba(182,0,168,0.35);
-  transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;display:inline-block;
-}
+.nav-book{background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);color:white;font-family:'Kanit',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;border-radius:9999px;border:none;cursor:pointer;padding:0.5rem 1.3rem;font-size:clamp(0.55rem,0.95vw,0.82rem);box-shadow:0 0 12px rgba(182,0,168,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;display:inline-block;}
 .nav-book:hover{transform:scale(1.05);box-shadow:0 0 24px rgba(182,0,168,0.65);}
 
-/* ── HERO ── */
+/* HERO */
 #hero{height:100vh;display:flex;flex-direction:column;overflow:hidden;position:relative;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 58%,rgba(118,33,176,0.1) 0%,transparent 70%);pointer-events:none;}
-
-.hero-top{padding-top:5.2rem;padding-left:1.5rem;padding-right:1.5rem;position:relative;z-index:20;}
-@media(min-width:768px){.hero-top{padding-top:5.8rem;padding-left:3rem;padding-right:3rem;}}
-
-.hero-badge{
-  display:inline-flex;align-items:center;gap:0.45rem;
-  border:1px solid rgba(215,226,234,0.15);border-radius:9999px;
-  padding:0.3rem 0.9rem;margin-bottom:0.9rem;
-  font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;
-  opacity:0;animation:fadeUp 0.6s ease forwards 0.1s;
-}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 55%,rgba(118,33,176,0.13) 0%,transparent 70%);pointer-events:none;}
+.hero-top{padding-top:5rem;padding-left:1.5rem;padding-right:1.5rem;position:relative;z-index:20;}
+@media(min-width:768px){.hero-top{padding-top:5.5rem;padding-left:3rem;padding-right:3rem;}}
+.hero-badge{display:inline-flex;align-items:center;gap:0.45rem;border:1px solid rgba(215,226,234,0.15);border-radius:9999px;padding:0.28rem 0.9rem;margin-bottom:0.75rem;font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0;animation:fadeUp 0.6s ease forwards 0.1s;}
 .hero-badge-dot{width:5px;height:5px;border-radius:50%;background:#B600A8;animation:pulse 2s ease infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.4);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.5);}}
 
-/* ── HERO TITLE — KEY CHANGE ── */
-.hero-title-wrap{
-  overflow:hidden;
-  opacity:0;transform:translateY(40px);
-  animation:fadeUp 0.85s ease forwards 0.2s;
-}
-/* "THE PRINCE PRODUCTION" all on one line, same font, same size */
-.hero-title-line1{
+/* ════════════════════════════════════
+   HERO TITLE — FIXED
+   THE PRINCE  → Line 1
+   PRODUCTION  → Line 2  (same font, same size)
+   Photography → Line 3  (italic serif, smaller)
+════════════════════════════════════ */
+.hero-title-wrap{opacity:0;transform:translateY(40px);animation:fadeUp 0.85s ease forwards 0.2s;}
+.hero-title-row{
+  display:block;
   font-family:'Kanit',sans-serif;
-  font-size:clamp(7vw,9.5vw,12.5vw);
-  font-weight:900;text-transform:uppercase;
-  letter-spacing:-0.025em;line-height:0.92;
-  white-space:nowrap;
+  font-size:clamp(4rem,7vw,9rem);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.02em;
+  line-height:0.92;
   background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-/* "Photography" — Cormorant Garamond italic, smaller, premium feel */
-.hero-title-line2{
+.hero-title-photo{
+  display:block;
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
   font-weight:300;
-  font-size:clamp(1.8rem,4.5vw,6rem);
-  letter-spacing:0.12em;line-height:1.1;
-  color:rgba(215,226,234,0.55);
-  margin-top:0.1em;
-  padding-left:0.05em;
+  font-size:clamp(1.2rem,2.2vw,2.8rem);
+  letter-spacing:0.18em;
+  line-height:1.2;
+  color:rgba(215,226,234,0.45);
+  -webkit-text-fill-color:rgba(215,226,234,0.45);
+  margin-top:0.2em;
+  padding-left:0.06em;
 }
 
-/* ── 3D CANVAS ── */
+/* 3D CAMERA CANVAS — large, right-center */
 .camera-wrap{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  z-index:10;width:clamp(300px,42vw,620px);height:clamp(300px,42vw,620px);
+  position:absolute;
+  right:-2%;top:50%;
+  transform:translateY(-50%);
+  z-index:10;
+  width:clamp(380px,48vw,720px);
+  height:clamp(380px,48vw,720px);
   opacity:0;animation:fadeUp 0.9s ease forwards 0.5s;
+  pointer-events:none;
 }
 #camera-canvas{width:100%;height:100%;display:block;}
 
-/* Gimbal glow rings (CSS only, decorative) */
-.gimbal-ring{
-  position:absolute;border-radius:50%;
-  border:1px solid rgba(182,0,168,0.12);
-  pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%);
-}
-.gr1{width:clamp(340px,48vw,700px);height:clamp(340px,48vw,700px);border-color:rgba(182,0,168,0.15);animation:gSpin 8s linear infinite;}
-.gr2{width:clamp(390px,56vw,800px);height:clamp(390px,56vw,800px);border-color:rgba(118,33,176,0.08);animation:gSpin 13s linear infinite reverse;}
-.gr3{width:clamp(440px,64vw,900px);height:clamp(440px,64vw,900px);border-color:rgba(215,226,234,0.04);animation:gSpin 20s linear infinite;}
+/* Glow rings */
+.gimbal-ring{position:absolute;border-radius:50%;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%);}
+.gr1{width:clamp(400px,50vw,760px);height:clamp(400px,50vw,760px);border:1px solid rgba(182,0,168,0.2);animation:gSpin 7s linear infinite;}
+.gr2{width:clamp(450px,57vw,860px);height:clamp(450px,57vw,860px);border:1px solid rgba(118,33,176,0.1);animation:gSpin 12s linear infinite reverse;}
+.gr3{width:clamp(500px,64vw,960px);height:clamp(500px,64vw,960px);border:1px solid rgba(215,226,234,0.04);animation:gSpin 20s linear infinite;}
 @keyframes gSpin{from{transform:translate(-50%,-50%) rotate(0);}to{transform:translate(-50%,-50%) rotate(360deg);}}
-.gimbal-dot{position:absolute;width:7px;height:7px;border-radius:50%;background:#B600A8;top:0;left:50%;transform:translateX(-50%);box-shadow:0 0 10px #B600A8,0 0 20px rgba(182,0,168,0.5);}
+.gimbal-dot{position:absolute;width:7px;height:7px;border-radius:50%;background:#B600A8;top:0;left:50%;transform:translateX(-50%);box-shadow:0 0 10px #B600A8,0 0 22px rgba(182,0,168,0.6);}
 
-.hero-bottom{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  padding:0 1.5rem clamp(1.5rem,3vw,2.5rem);
-  margin-top:auto;position:relative;z-index:20;
-}
-@media(min-width:768px){.hero-bottom{padding:0 3rem clamp(1.5rem,3vw,2.5rem);}}
-.hero-desc{
-  color:rgba(215,226,234,0.7);font-weight:300;text-transform:uppercase;
-  letter-spacing:0.08em;line-height:1.45;font-size:clamp(0.6rem,1.1vw,1rem);
-  max-width:clamp(150px,20vw,260px);
-  opacity:0;animation:fadeUp 0.7s ease forwards 0.4s;
-}
-.hero-stats{
-  display:flex;gap:clamp(1rem,3vw,2.5rem);
-  opacity:0;animation:fadeUp 0.7s ease forwards 0.6s;
-}
-.hero-stat-num{font-size:clamp(1.3rem,2.8vw,2.2rem);font-weight:900;line-height:1;}
-.hero-stat-label{font-size:0.6rem;font-weight:400;color:rgba(215,226,234,0.4);text-transform:uppercase;letter-spacing:0.15em;margin-top:0.2rem;}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding:0 1.5rem clamp(1.4rem,2.5vw,2.2rem);margin-top:auto;position:relative;z-index:20;}
+@media(min-width:768px){.hero-bottom{padding:0 3rem clamp(1.4rem,2.5vw,2.2rem);}}
+.hero-desc{color:rgba(215,226,234,0.65);font-weight:300;text-transform:uppercase;letter-spacing:0.08em;line-height:1.45;font-size:clamp(0.58rem,1vw,0.92rem);max-width:clamp(150px,18vw,240px);opacity:0;animation:fadeUp 0.7s ease forwards 0.4s;}
+.hero-stats{display:flex;gap:clamp(1rem,3vw,2.5rem);opacity:0;animation:fadeUp 0.7s ease forwards 0.6s;}
+.hero-stat-num{font-size:clamp(1.2rem,2.5vw,2rem);font-weight:900;line-height:1;}
+.hero-stat-label{font-size:0.58rem;font-weight:400;color:rgba(215,226,234,0.35);text-transform:uppercase;letter-spacing:0.15em;margin-top:0.2rem;}
 
-/* ── MARQUEE ── */
+/* MARQUEE */
 #marquee{background:#0C0C0C;padding:clamp(5rem,7vw,9rem) 0 2rem;overflow:hidden;}
 .marquee-row{display:flex;gap:0.65rem;margin-bottom:0.65rem;will-change:transform;}
 .marquee-img{width:360px;height:230px;min-width:360px;border-radius:0.9rem;object-fit:cover;display:block;}
-@media(max-width:768px){.marquee-img{width:230px;height:148px;min-width:230px;}}
+@media(max-width:768px){.marquee-img{width:220px;height:142px;min-width:220px;}}
 
-/* ── ABOUT ── */
-#about{
-  min-height:100vh;position:relative;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:6rem 1.5rem;text-align:center;overflow:hidden;
-}
+/* ABOUT */
+#about{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1.5rem;text-align:center;overflow:hidden;}
 .about-deco{position:absolute;pointer-events:none;}
 .about-title{font-size:clamp(2.8rem,10vw,130px);font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1;}
-.about-text{color:rgba(215,226,234,0.82);font-weight:400;line-height:1.72;max-width:580px;font-size:clamp(0.92rem,1.7vw,1.25rem);margin-top:clamp(1.8rem,3.5vw,3rem);}
+.about-text{color:rgba(215,226,234,0.82);font-weight:400;line-height:1.72;max-width:580px;font-size:clamp(0.9rem,1.6vw,1.2rem);margin-top:clamp(1.8rem,3.5vw,3rem);}
 .about-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;max-width:580px;}
 @media(max-width:560px){.about-info-grid{grid-template-columns:1fr;gap:1rem;}}
 .about-info-item{border:1px solid rgba(215,226,234,0.1);border-radius:1rem;padding:1rem 1.1rem;text-align:center;background:rgba(255,255,255,0.015);transition:border-color 0.3s;}
 .about-info-item:hover{border-color:rgba(182,0,168,0.35);}
 .about-info-icon{font-size:1.4rem;margin-bottom:0.35rem;}
-.about-info-val{font-size:0.82rem;font-weight:600;color:#D7E2EA;letter-spacing:0.04em;}
+.about-info-val{font-size:0.82rem;font-weight:600;color:#D7E2EA;}
 .about-info-key{font-size:0.6rem;font-weight:300;color:rgba(215,226,234,0.35);text-transform:uppercase;letter-spacing:0.15em;}
 
-/* ── SERVICES ── */
+/* SERVICES */
 #services{background:#fff;border-radius:clamp(2.5rem,5vw,4rem) clamp(2.5rem,5vw,4rem) 0 0;padding:clamp(4rem,7vw,7rem) clamp(1.5rem,4vw,3rem);}
 .services-title{font-size:clamp(2.8rem,10vw,130px);font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1;color:#0C0C0C;text-align:center;margin-bottom:clamp(3rem,5vw,6rem);}
 .service-list{max-width:62rem;margin:0 auto;}
-.service-item{
-  display:flex;align-items:flex-start;gap:1.2rem;
-  padding:clamp(1.5rem,2.5vw,2.5rem) 0;
-  border-bottom:1px solid rgba(12,12,12,0.1);
-  opacity:0;transform:translateY(22px);transition:opacity 0.65s ease,transform 0.65s ease;
-}
+.service-item{display:flex;align-items:flex-start;gap:1.2rem;padding:clamp(1.5rem,2.5vw,2.5rem) 0;border-bottom:1px solid rgba(12,12,12,0.1);opacity:0;transform:translateY(22px);transition:opacity 0.65s ease,transform 0.65s ease;}
 .service-item:first-child{border-top:1px solid rgba(12,12,12,0.1);}
 .service-item.visible{opacity:1;transform:translateY(0);}
 .service-num{font-size:clamp(2.2rem,7vw,110px);font-weight:900;color:#0C0C0C;line-height:1;min-width:fit-content;opacity:0.12;}
 .service-name{font-size:clamp(0.95rem,2vw,1.9rem);font-weight:600;text-transform:uppercase;color:#0C0C0C;margin-bottom:0.35rem;}
 .service-desc{font-size:clamp(0.78rem,1.4vw,1.12rem);font-weight:300;line-height:1.65;color:#0C0C0C;opacity:0.52;max-width:38rem;}
 
-/* ── PROJECTS ── */
-#projects{
-  background:#0C0C0C;border-radius:clamp(2.5rem,5vw,4rem) clamp(2.5rem,5vw,4rem) 0 0;
-  margin-top:clamp(-2rem,-3vw,-3rem);position:relative;z-index:10;
-  padding:clamp(4rem,7vw,7rem) clamp(1.5rem,4vw,3rem) clamp(4rem,7vw,7rem);
-}
+/* PROJECTS */
+#projects{background:#0C0C0C;border-radius:clamp(2.5rem,5vw,4rem) clamp(2.5rem,5vw,4rem) 0 0;margin-top:clamp(-2rem,-3vw,-3rem);position:relative;z-index:10;padding:clamp(4rem,7vw,7rem) clamp(1.5rem,4vw,3rem) clamp(4rem,7vw,7rem);}
 .projects-title{font-size:clamp(2.8rem,10vw,130px);font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1;text-align:center;margin-bottom:clamp(3rem,5vw,5rem);}
 .card-slot{height:85vh;position:relative;}
-.project-card{
-  position:sticky;top:5.5rem;border-radius:clamp(1.5rem,3vw,3rem);
-  border:1.5px solid rgba(215,226,234,0.15);background:#0F0F0F;
-  padding:clamp(1rem,2vw,1.8rem);will-change:transform;transform-origin:top center;transition:border-color 0.3s;
-}
+.project-card{position:sticky;top:5.5rem;border-radius:clamp(1.5rem,3vw,3rem);border:1.5px solid rgba(215,226,234,0.15);background:#0F0F0F;padding:clamp(1rem,2vw,1.8rem);will-change:transform;transform-origin:top center;transition:border-color 0.3s;}
 .project-card:hover{border-color:rgba(182,0,168,0.35);}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
 .card-num{font-size:clamp(2rem,6vw,80px);font-weight:900;color:#D7E2EA;line-height:1;opacity:0.12;}
 .card-meta{flex:1;}
 .card-category{font-size:clamp(0.58rem,0.95vw,0.82rem);font-weight:400;color:rgba(215,226,234,0.45);text-transform:uppercase;letter-spacing:0.18em;}
 .card-name{font-size:clamp(1rem,2.4vw,2rem);font-weight:700;color:#D7E2EA;text-transform:uppercase;}
-.live-btn{border-radius:9999px;border:1.5px solid rgba(215,226,234,0.3);color:#D7E2EA;font-family:'Kanit',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;padding:0.45rem 1.2rem;font-size:clamp(0.58rem,0.88vw,0.78rem);background:transparent;cursor:pointer;transition:background 0.2s,border-color 0.2s;text-decoration:none;display:inline-block;}
-.live-btn:hover{background:rgba(215,226,234,0.08);border-color:rgba(215,226,234,0.6);}
+.live-btn{border-radius:9999px;border:1.5px solid rgba(215,226,234,0.3);color:#D7E2EA;font-family:'Kanit',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;padding:0.45rem 1.2rem;font-size:clamp(0.58rem,0.88vw,0.78rem);background:transparent;cursor:pointer;transition:background 0.2s;text-decoration:none;display:inline-block;}
+.live-btn:hover{background:rgba(215,226,234,0.08);}
 .card-imgs{display:flex;gap:0.65rem;height:clamp(260px,36vh,500px);}
 .card-col1{width:40%;display:flex;flex-direction:column;gap:0.65rem;}
 .card-col2{width:60%;}
@@ -213,17 +151,17 @@ html,body{background:#0C0C0C;font-family:'Kanit',sans-serif;color:#D7E2EA;overfl
 .card-col1 .card-img:last-child{flex:1;}
 .card-col2 .card-img{height:100%;}
 
-/* ── BOOKING ── */
+/* BOOKING */
 #booking{background:#fff;border-radius:clamp(2.5rem,5vw,4rem) clamp(2.5rem,5vw,4rem) 0 0;padding:clamp(4rem,7vw,7rem) clamp(1.5rem,4vw,3rem);position:relative;z-index:20;}
 .booking-title{font-size:clamp(2.5rem,9vw,115px);font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;line-height:1;color:#0C0C0C;text-align:center;margin-bottom:0.4rem;}
 .booking-sub{text-align:center;font-size:clamp(0.85rem,1.4vw,1.1rem);font-weight:300;color:rgba(12,12,12,0.45);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:clamp(2.5rem,4vw,4rem);}
-.booking-form-wrap{max-width:780px;margin:0 auto;background:#0C0C0C;border-radius:2rem;padding:clamp(2rem,4vw,3.5rem);box-shadow:0 40px 100px rgba(0,0,0,0.12);}
+.booking-form-wrap{max-width:780px;margin:0 auto;background:#0C0C0C;border-radius:2rem;padding:clamp(2rem,4vw,3.5rem);}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
 @media(max-width:580px){.form-grid{grid-template-columns:1fr;}}
 .form-group{display:flex;flex-direction:column;gap:0.35rem;}
 .form-group.full{grid-column:1/-1;}
 .form-label{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:rgba(215,226,234,0.45);}
-.form-input,.form-select,.form-textarea{background:rgba(255,255,255,0.04);border:1.5px solid rgba(215,226,234,0.1);border-radius:0.7rem;padding:0.8rem 1rem;color:#D7E2EA;font-family:'Kanit',sans-serif;font-size:0.9rem;transition:border-color 0.2s,background 0.2s;outline:none;width:100%;}
+.form-input,.form-select,.form-textarea{background:rgba(255,255,255,0.04);border:1.5px solid rgba(215,226,234,0.1);border-radius:0.7rem;padding:0.8rem 1rem;color:#D7E2EA;font-family:'Kanit',sans-serif;font-size:0.9rem;transition:border-color 0.2s;outline:none;width:100%;}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(182,0,168,0.55);background:rgba(182,0,168,0.04);}
 .form-select option{background:#1a1a1a;color:#D7E2EA;}
 .form-textarea{resize:vertical;min-height:90px;}
@@ -231,15 +169,13 @@ html,body{background:#0C0C0C;font-family:'Kanit',sans-serif;color:#D7E2EA;overfl
 @media(max-width:460px){.form-services-grid{grid-template-columns:repeat(2,1fr);}}
 .service-check{display:none;}
 .service-label{display:flex;align-items:center;justify-content:center;padding:0.65rem 0.4rem;border-radius:0.55rem;border:1.5px solid rgba(215,226,234,0.1);font-size:0.68rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:rgba(215,226,234,0.55);cursor:pointer;transition:all 0.2s;text-align:center;}
-.service-label:hover{border-color:rgba(182,0,168,0.35);color:#D7E2EA;}
 .service-check:checked+.service-label{background:rgba(182,0,168,0.18);border-color:#B600A8;color:#fff;}
 .form-submit{margin-top:1.4rem;width:100%;background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);color:white;font-family:'Kanit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;border-radius:9999px;border:none;cursor:pointer;padding:1.05rem 2rem;font-size:clamp(0.78rem,1.1vw,0.95rem);transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 0 18px rgba(182,0,168,0.28);}
 .form-submit:hover{transform:scale(1.02);box-shadow:0 0 38px rgba(182,0,168,0.55);}
 .form-success{display:none;text-align:center;padding:2rem;color:#D7E2EA;}
 .form-success h3{font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;color:#B600A8;}
-.form-success p{opacity:0.65;font-size:0.88rem;}
 
-/* ── CONTACT ── */
+/* CONTACT */
 #contact-strip{background:#0C0C0C;padding:4rem 1.5rem;}
 .contact-grid{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center;}
 @media(max-width:580px){.contact-grid{grid-template-columns:1fr;gap:1rem;}}
@@ -251,36 +187,26 @@ html,body{background:#0C0C0C;font-family:'Kanit',sans-serif;color:#D7E2EA;overfl
 .contact-val a{color:#D7E2EA;text-decoration:none;}
 .contact-val a:hover{color:#B600A8;}
 
-/* ── FOOTER ── */
+/* FOOTER */
 #footer{background:#0C0C0C;padding:4rem 1.5rem 2rem;border-top:1px solid rgba(215,226,234,0.05);text-align:center;}
-.footer-logo{font-size:clamp(1rem,3.5vw,2.2rem);font-weight:900;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.2rem;line-height:1.1;}
-.footer-logo-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(0.9rem,2vw,1.4rem);color:rgba(215,226,234,0.35);letter-spacing:0.15em;display:block;margin-top:0.1rem;}
-.footer-info{font-size:0.72rem;color:rgba(215,226,234,0.28);margin-top:0.6rem;letter-spacing:0.1em;}
+.footer-logo{font-size:clamp(1rem,3.5vw,2.2rem);font-weight:900;text-transform:uppercase;letter-spacing:0.04em;line-height:1.1;}
+.footer-logo-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(0.9rem,2vw,1.4rem);color:rgba(215,226,234,0.3);letter-spacing:0.15em;display:block;margin-top:0.1rem;}
+.footer-info{font-size:0.72rem;color:rgba(215,226,234,0.22);margin-top:0.6rem;letter-spacing:0.1em;}
 .footer-links{display:flex;gap:1.5rem;justify-content:center;margin:1.5rem 0;flex-wrap:wrap;}
-.footer-link{color:#D7E2EA;text-decoration:none;font-size:0.72rem;font-weight:400;opacity:0.3;text-transform:uppercase;letter-spacing:0.12em;transition:opacity 0.2s;}
+.footer-link{color:#D7E2EA;text-decoration:none;font-size:0.72rem;opacity:0.28;text-transform:uppercase;letter-spacing:0.12em;transition:opacity 0.2s;}
 .footer-link:hover{opacity:1;}
-.footer-copy{font-size:0.65rem;opacity:0.18;letter-spacing:0.15em;text-transform:uppercase;margin-top:2rem;}
-
-/* ── CONTACT BTN ── */
+.footer-copy{font-size:0.65rem;opacity:0.15;letter-spacing:0.15em;text-transform:uppercase;margin-top:2rem;}
 .contact-btn{background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);color:white;font-family:'Kanit',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;border-radius:9999px;border:none;cursor:pointer;padding:0.85rem 2.2rem;font-size:clamp(0.72rem,1.05vw,0.92rem);box-shadow:0 0 15px rgba(182,0,168,0.3);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;display:inline-block;}
 .contact-btn:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(182,0,168,0.55);}
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeFromLeft{from{opacity:0;transform:translateX(-55px);}to{opacity:1;transform:translateX(0);}}
 @keyframes fadeFromRight{from{opacity:0;transform:translateX(55px);}to{opacity:1;transform:translateX(0);}}
-.fade-up{opacity:0;transform:translateY(28px);}
-.fade-up.visible{animation:fadeUp 0.8s ease forwards;}
-.fade-left{opacity:0;transform:translateX(-55px);}
-.fade-left.visible{animation:fadeFromLeft 0.9s ease forwards;}
-.fade-right{opacity:0;transform:translateX(55px);}
-.fade-right.visible{animation:fadeFromRight 0.9s ease forwards;}
+.fade-up{opacity:0;transform:translateY(28px);}.fade-up.visible{animation:fadeUp 0.8s ease forwards;}
+.fade-left{opacity:0;transform:translateX(-55px);}.fade-left.visible{animation:fadeFromLeft 0.9s ease forwards;}
+.fade-right{opacity:0;transform:translateX(55px);}.fade-right.visible{animation:fadeFromRight 0.9s ease forwards;}
 .d1{animation-delay:0.1s;}.d2{animation-delay:0.2s;}.d3{animation-delay:0.3s;}.d4{animation-delay:0.4s;}
-
-/* grain */
 body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.28;}
-
-/* Admin trigger */
 .admin-trigger{position:fixed;bottom:1.8rem;right:1.8rem;z-index:9990;width:44px;height:44px;border-radius:50%;background:rgba(182,0,168,0.25);border:1.5px solid rgba(182,0,168,0.4);color:#D7E2EA;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;box-shadow:0 0 16px rgba(182,0,168,0.25);}
 .admin-trigger:hover{background:rgba(182,0,168,0.55);transform:scale(1.08);}
 </style>
@@ -310,20 +236,22 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
   <div class="hero-bg"></div>
   <div class="hero-top">
     <div class="hero-badge"><span class="hero-badge-dot"></span>Est. 2015 · Udaipur, Rajasthan</div>
+    <!-- ✅ THE PRINCE on line 1, PRODUCTION on line 2 — same font, same size -->
     <div class="hero-title-wrap">
-      <div class="hero-title-line1">The Prince Production</div>
-      <div class="hero-title-line2">Photography</div>
+      <span class="hero-title-row">The Prince</span>
+      <span class="hero-title-row">Production</span>
+      <span class="hero-title-photo">Photography</span>
     </div>
   </div>
 
-  <!-- Gimbal decorative rings (CSS) -->
-  <div style="position:absolute;left:50%;top:50%;pointer-events:none;z-index:5;">
+  <!-- Glow rings (positioned with camera, right side) -->
+  <div style="position:absolute;right:22%;top:50%;transform:translateY(-50%);pointer-events:none;z-index:5;">
     <div class="gimbal-ring gr1"><div class="gimbal-dot"></div></div>
     <div class="gimbal-ring gr2"><div class="gimbal-dot" style="background:#7621B0;box-shadow:0 0 10px #7621B0;top:auto;bottom:0;"></div></div>
     <div class="gimbal-ring gr3"></div>
   </div>
 
-  <!-- THREE.JS 3D Camera -->
+  <!-- 3D Camera Canvas -->
   <div class="camera-wrap" id="camera-wrap">
     <canvas id="camera-canvas"></canvas>
   </div>
@@ -364,11 +292,11 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
 <section id="services">
   <h2 class="services-title">Services</h2>
   <div class="service-list">
-    <div class="service-item"><span class="service-num">01</span><div><div class="service-name">Documentary Shoot</div><div class="service-desc">Professional documentary filmmaking capturing real stories, cultural events, and corporate narratives with cinematic authenticity and journalistic integrity.</div></div></div>
-    <div class="service-item" style="transition-delay:0.1s;"><span class="service-num">02</span><div><div class="service-name">Cinematography</div><div class="service-desc">High-end cinematic video production using the Sony FX3 with professional gimbal — for films, advertisements, music videos, and brand content.</div></div></div>
-    <div class="service-item" style="transition-delay:0.2s;"><span class="service-num">03</span><div><div class="service-name">Drone Shoot</div><div class="service-desc">Breathtaking aerial photography and videography using advanced drone technology — bird's-eye perspectives for events, real estate, and tourism.</div></div></div>
-    <div class="service-item" style="transition-delay:0.3s;"><span class="service-num">04</span><div><div class="service-name">Candid Photography</div><div class="service-desc">Natural, unscripted photography capturing genuine emotions in real moments — ideal for weddings, engagements, and lifestyle shoots.</div></div></div>
-    <div class="service-item" style="transition-delay:0.4s;"><span class="service-num">05</span><div><div class="service-name">Traditional Photography</div><div class="service-desc">Timeless, structured photography for portraits, family sessions, corporate headshots, and formal events with classic elegance and precision.</div></div></div>
+    <div class="service-item"><span class="service-num">01</span><div><div class="service-name">Documentary Shoot</div><div class="service-desc">Professional documentary filmmaking capturing real stories, cultural events, and corporate narratives with cinematic authenticity.</div></div></div>
+    <div class="service-item" style="transition-delay:.1s"><span class="service-num">02</span><div><div class="service-name">Cinematography</div><div class="service-desc">High-end cinematic video production using the Sony FX3 with professional gimbal — for films, ads, music videos, and brand content.</div></div></div>
+    <div class="service-item" style="transition-delay:.2s"><span class="service-num">03</span><div><div class="service-name">Drone Shoot</div><div class="service-desc">Breathtaking aerial photography and videography — stunning bird's-eye views for events, real estate, and tourism.</div></div></div>
+    <div class="service-item" style="transition-delay:.3s"><span class="service-num">04</span><div><div class="service-name">Candid Photography</div><div class="service-desc">Natural, unscripted photography capturing genuine emotions — ideal for weddings, engagements, and lifestyle shoots.</div></div></div>
+    <div class="service-item" style="transition-delay:.4s"><span class="service-num">05</span><div><div class="service-name">Traditional Photography</div><div class="service-desc">Timeless structured photography for portraits, family sessions, corporate headshots, and formal events with classic elegance.</div></div></div>
   </div>
 </section>
 
@@ -402,16 +330,16 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
         <div class="form-group"><label class="form-label">Phone Number *</label><input class="form-input" id="f-phone" type="tel" placeholder="+91 XXXXX XXXXX" required/></div>
         <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="f-email" type="email" placeholder="you@email.com"/></div>
         <div class="form-group"><label class="form-label">Preferred Date *</label><input class="form-input" id="f-date" type="date" required/></div>
-        <div class="form-group"><label class="form-label">Event / Location</label><input class="form-input" id="f-location" type="text" placeholder="e.g. Udaipur Palace, Lake Pichola"/></div>
+        <div class="form-group"><label class="form-label">Event / Location</label><input class="form-input" id="f-location" type="text" placeholder="e.g. Udaipur Palace"/></div>
         <div class="form-group"><label class="form-label">Budget (₹)</label><select class="form-select" id="f-budget"><option value="">Select Budget</option><option>Under ₹10,000</option><option>₹10,000 – ₹25,000</option><option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option><option>Above ₹1,00,000</option></select></div>
         <div class="form-group full"><label class="form-label">Service Required *</label>
           <div class="form-services-grid">
             <div><input class="service-check" type="checkbox" id="s1" value="Documentary"/><label class="service-label" for="s1">🎬 Documentary</label></div>
             <div><input class="service-check" type="checkbox" id="s2" value="Cinematography"/><label class="service-label" for="s2">🎥 Cinematography</label></div>
             <div><input class="service-check" type="checkbox" id="s3" value="Drone Shoot"/><label class="service-label" for="s3">🚁 Drone Shoot</label></div>
-            <div><input class="service-check" type="checkbox" id="s4" value="Candid Photography"/><label class="service-label" for="s4">📷 Candid</label></div>
-            <div><input class="service-check" type="checkbox" id="s5" value="Traditional Photography"/><label class="service-label" for="s5">🖼️ Traditional</label></div>
-            <div><input class="service-check" type="checkbox" id="s6" value="Wedding Coverage"/><label class="service-label" for="s6">💍 Wedding</label></div>
+            <div><input class="service-check" type="checkbox" id="s4" value="Candid"/><label class="service-label" for="s4">📷 Candid</label></div>
+            <div><input class="service-check" type="checkbox" id="s5" value="Traditional"/><label class="service-label" for="s5">🖼️ Traditional</label></div>
+            <div><input class="service-check" type="checkbox" id="s6" value="Wedding"/><label class="service-label" for="s6">💍 Wedding</label></div>
           </div>
         </div>
         <div class="form-group full"><label class="form-label">Additional Details</label><textarea class="form-textarea" id="f-message" placeholder="Tell us about your project..."></textarea></div>
@@ -422,7 +350,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
       <div style="font-size:2.5rem;margin-bottom:1rem;">🎉</div>
       <h3>Booking Received!</h3>
       <p>Prem Shanker will contact you at <strong id="success-phone"></strong> within 24 hours.</p>
-      <p style="margin-top:0.65rem;">Call directly: <a href="tel:+916350605427" style="color:#B600A8;font-weight:700;">+91 63506 05427</a></p>
+      <p style="margin-top:.65rem;">Call: <a href="tel:+916350605427" style="color:#B600A8;font-weight:700;">+91 63506 05427</a></p>
     </div>
   </div>
 </section>
@@ -438,10 +366,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
 
 <!-- FOOTER -->
 <footer id="footer">
-  <div class="footer-logo hero-heading">
-    The Prince Production
-    <span class="footer-logo-sub">Photography</span>
-  </div>
+  <div class="footer-logo hero-heading">The Prince Production<span class="footer-logo-sub">Photography</span></div>
   <div class="footer-info">Est. 2015 · Udaipur, Rajasthan · Owner: Prem Shanker</div>
   <div class="footer-links">
     <a class="footer-link" href="#about">About</a>
@@ -455,397 +380,344 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
 </footer>
 
 <button class="admin-trigger" onclick="window.open('admin.html','_blank')" title="Admin Panel">⚙️</button>
-
 </div>
 
-<!-- THREE.JS CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ── CURSOR ─────────────────────────────────────────
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('a,button,.project-card,.contact-card,.service-item').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-});
+// ── CURSOR
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,.project-card,.contact-card,.service-item').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('big'));el.addEventListener('mouseleave',()=>cursor.classList.remove('big'));});
 
-// ── SCROLL PROGRESS ─────────────────────────────────
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  document.getElementById('scrollBar').style.width = pct + '%';
-}, { passive: true });
+// ── SCROLL BAR
+window.addEventListener('scroll',()=>{document.getElementById('scrollBar').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';},{passive:true});
 
-// ══════════════════════════════════════════════════
-// THREE.JS — PROFESSIONAL SONY FX3 + GIMBAL 3D
-// ══════════════════════════════════════════════════
-(function() {
-  const canvas = document.getElementById('camera-canvas');
-  const wrap = document.getElementById('camera-wrap');
-  
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+// ════════════════════════════════════════
+// ULTRA-REALISTIC SONY FX3 + GIMBAL (Three.js)
+// Shooting motion — pan, tilt, float, sway
+// ════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('camera-canvas');
+  const wrap=document.getElementById('camera-wrap');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.25;
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  camera.position.set(0, 0.4, 5.5);
+  const scene=new THREE.Scene();
+  const cam3=new THREE.PerspectiveCamera(36,1,0.1,100);
+  cam3.position.set(0,0.6,7.5);
+  cam3.lookAt(0,0.2,0);
 
-  function resize() {
-    const w = wrap.clientWidth, h = wrap.clientHeight;
-    renderer.setSize(w, h);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize', resize);
+  function resize(){const w=wrap.clientWidth,h=wrap.clientHeight;renderer.setSize(w,h);cam3.aspect=w/h;cam3.updateProjectionMatrix();}
+  resize();window.addEventListener('resize',resize);
 
-  // ── MATERIALS ──
-  const bodyMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.55, metalness: 0.85 });
-  const darkMat = new THREE.MeshStandardMaterial({ color: 0x080808, roughness: 0.6, metalness: 0.9 });
-  const ridgeMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.45, metalness: 0.9 });
-  const lensRingMat = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 0.3, metalness: 0.95 });
-  const lensMat = new THREE.MeshStandardMaterial({ color: 0x030d1a, roughness: 0.05, metalness: 0.1, envMapIntensity: 1.5 });
-  const lensGlassMat = new THREE.MeshStandardMaterial({ color: 0x05182e, roughness: 0, metalness: 0.05, transparent: true, opacity: 0.92 });
-  const redMat = new THREE.MeshStandardMaterial({ color: 0xcc0000, roughness: 0.3, metalness: 0.4, emissive: 0x660000 });
-  const screenMat = new THREE.MeshStandardMaterial({ color: 0x081525, roughness: 0.8, metalness: 0.1, emissive: 0x051020, emissiveIntensity: 0.4 });
-  const purpleMat = new THREE.MeshStandardMaterial({ color: 0x9900aa, emissive: 0x7700aa, emissiveIntensity: 0.8, roughness: 0.3, metalness: 0.5 });
-  const gimbalMat = new THREE.MeshStandardMaterial({ color: 0x1c1c1c, roughness: 0.35, metalness: 0.95 });
-  const gimbalDarkMat = new THREE.MeshStandardMaterial({ color: 0x0f0f0f, roughness: 0.4, metalness: 0.98 });
-  const handleMat = new THREE.MeshStandardMaterial({ color: 0x141414, roughness: 0.7, metalness: 0.7 });
-  const rubbMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.95, metalness: 0.1 });
+  // Materials
+  const mat=(col,rough,metal,opts={})=>new THREE.MeshStandardMaterial({color:col,roughness:rough,metalness:metal,...opts});
+  const mBody=  mat(0x111111,0.50,0.88);
+  const mDark=  mat(0x070707,0.55,0.92);
+  const mRidge= mat(0x1d1d1d,0.38,0.93);
+  const mRubber=mat(0x080808,0.96,0.04);
+  const mChrome=mat(0x909090,0.08,1.00);
+  const mSilver=mat(0x777777,0.15,0.98);
+  const mLensB= mat(0x181818,0.18,0.99);
+  const mLensG= mat(0x02070e,0.02,0.04,{transparent:true,opacity:0.95});
+  const mLensC= mat(0x010406,0.00,0.00,{transparent:true,opacity:0.99});
+  const mScreen=mat(0x061020,0.80,0.10,{emissive:0x071828,emissiveIntensity:0.55});
+  const mRed=   mat(0xcc0000,0.28,0.42,{emissive:0x880000,emissiveIntensity:0.7});
+  const mPurple=mat(0xaa00bb,0.28,0.50,{emissive:0x9900aa,emissiveIntensity:1.1});
+  const mGreen= mat(0x00cc44,0.28,0.42,{emissive:0x009933,emissiveIntensity:0.9});
+  const mGimbal=mat(0x181818,0.28,0.97);
+  const mGimD=  mat(0x0c0c0c,0.33,0.98);
+  const mGold=  mat(0xc8a020,0.18,1.00);
 
-  function box(w,h,d,mat,x,y,z,rx,ry,rz){ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);if(rx)m.rotation.x=rx;if(ry)m.rotation.y=ry;if(rz)m.rotation.z=rz;m.castShadow=true;return m;}
-  function cyl(rt,rb,h,s,mat,x,y,z,rx,ry,rz){ const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s),mat);m.position.set(x,y,z);if(rx)m.rotation.x=rx;if(ry)m.rotation.y=ry;if(rz)m.rotation.z=rz;m.castShadow=true;return m;}
-  function sph(r,s,mat,x,y,z){ const m=new THREE.Mesh(new THREE.SphereGeometry(r,s,s),mat);m.position.set(x,y,z);m.castShadow=true;return m;}
-  function ring3d(innerR,outerR,mat,x,y,z,rx){ const shape=new THREE.Shape();shape.absarc(0,0,outerR,0,Math.PI*2,false);const hole=new THREE.Path();hole.absarc(0,0,innerR,0,Math.PI*2,true);shape.holes.push(hole);const geo=new THREE.ShapeGeometry(shape,64);const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);if(rx)m.rotation.x=rx;return m;}
+  // Helpers
+  const B=(w,h,d,m,x=0,y=0,z=0)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;return o;};
+  const CY=(rt,rb,h,s,m,x=0,y=0,z=0,rx=0,ry=0,rz=0)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s),m);o.position.set(x,y,z);o.rotation.set(rx,ry,rz);o.castShadow=true;return o;};
+  const SP=(r,s,m,x=0,y=0,z=0)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(r,s,s),m);o.position.set(x,y,z);o.castShadow=true;return o;};
+  const TR=(r,t,s,m,x=0,y=0,z=0,rx=0)=>{const o=new THREE.Mesh(new THREE.TorusGeometry(r,t,s,64),m);o.position.set(x,y,z);o.rotation.x=rx;return o;};
 
-  // ── GIMBAL GROUP ──
-  const gimbalG = new THREE.Group();
+  const root=new THREE.Group();
+  root.position.set(0,-0.4,0);
+  scene.add(root);
 
-  // --- GIMBAL HANDLE (bottom rod) ---
-  const handle = new THREE.Group();
-  const handleRod = cyl(0.12,0.1,1.4,12,handleMat,0,0,0);
-  const handleTop = cyl(0.14,0.12,0.06,12,gimbalMat,0,0.73,0);
-  const handleGrip = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.13,0.11,0.9,12),
-    rubbMat
-  );
-  handleGrip.position.set(0,-0.15,0);
-  handleGrip.castShadow=true;
-  handle.add(handleRod,handleTop,handleGrip);
-  handle.position.set(0,-2.0,0);
-  gimbalG.add(handle);
+  // ─ GIMBAL HANDLE ─
+  const hG=new THREE.Group();
+  hG.add(CY(0.17,0.13,2.2,16,mRubber,0,-1.1,0));           // rod
+  hG.add(CY(0.19,0.17,0.1,16,mGimbal,0,-0.04,0));           // top collar
+  hG.add(CY(0.14,0.12,0.1,16,mGimbal,0,-2.22,0));           // bottom cap
+  for(let i=0;i<8;i++) hG.add(TR(0.165,0.009,6,mGimD,0,-0.18-i*0.23,0,Math.PI/2)); // grip rings
+  hG.add(B(0.11,0.06,0.06,mGimbal,0.17,-0.6,0.05));         // trigger btn
+  hG.add(SP(0.024,8,mGreen,0.19,-0.85,0));                  // LED green
+  hG.add(SP(0.024,8,mRed,0.19,-0.96,0));                    // LED red
+  root.add(hG);
 
-  // --- GIMBAL MOTOR BASE ---
-  const motorBase = cyl(0.22,0.2,0.18,16,gimbalMat,0,-1.28,0);
-  gimbalG.add(motorBase);
+  // ─ BOTTOM MOTOR ─
+  root.add(CY(0.27,0.25,0.3,20,mGimbal,0,0.1,0));
+  root.add(CY(0.25,0.25,0.14,20,mGimD,0,0.32,0));
+  root.add(TR(0.255,0.018,8,mChrome,0,0.08,0,Math.PI/2));
+  root.add(TR(0.255,0.018,8,mChrome,0,-0.04,0,Math.PI/2));
 
-  // --- GIMBAL ARM 1 (roll axis - horizontal arms) ---
-  const arm1G = new THREE.Group();
-  arm1G.position.set(0,-1.0,0);
-  // Left arm
-  const armL = box(0.9,0.07,0.07,gimbalDarkMat,-0.45,0,0);
-  const armR = box(0.9,0.07,0.07,gimbalDarkMat,0.45,0,0);
-  // Motor joints
-  const mJointL = cyl(0.13,0.13,0.12,12,gimbalMat,-0.9,0,0,0,0,Math.PI/2);
-  const mJointR = cyl(0.13,0.13,0.12,12,gimbalMat,0.9,0,0,0,0,Math.PI/2);
-  arm1G.add(armL,armR,mJointL,mJointR);
-  gimbalG.add(arm1G);
+  // ─ ARM 1 (roll / horizontal) ─
+  const a1=new THREE.Group();
+  a1.position.set(0,0.38,0);
+  a1.add(B(0.058,0.058,1.35,mGimD,-0.68,0,0));
+  a1.add(B(0.058,0.058,1.35,mGimD, 0.68,0,0));
+  a1.add(CY(0.155,0.145,0.24,16,mGimbal,-1.36,0,0,0,0,Math.PI/2));
+  a1.add(TR(0.15,0.014,8,mChrome,-1.36,0,0,0));
+  a1.add(CY(0.155,0.145,0.24,16,mGimbal, 1.36,0,0,0,0,Math.PI/2));
+  a1.add(TR(0.15,0.014,8,mChrome, 1.36,0,0,0));
+  root.add(a1);
 
-  // --- GIMBAL ARM 2 (tilt axis - vertical curved arms) ---
-  const arm2G = new THREE.Group();
-  arm2G.position.set(0,-0.55,0);
-  const vArmL = box(0.07,0.9,0.07,gimbalDarkMat,-0.9,-0.08,0);
-  const vArmR = box(0.07,0.9,0.07,gimbalDarkMat,0.9,-0.08,0);
-  const mJointL2 = cyl(0.13,0.13,0.12,12,gimbalMat,-0.9,0.32,0,Math.PI/2,0,0);
-  const mJointR2 = cyl(0.13,0.13,0.12,12,gimbalMat,0.9,0.32,0,Math.PI/2,0,0);
-  // Top cross bar
-  const crossBar = box(1.85,0.07,0.07,gimbalMat,0,0.35,0);
-  arm2G.add(vArmL,vArmR,mJointL2,mJointR2,crossBar);
-  gimbalG.add(arm2G);
+  // ─ ARM 2 (tilt / vertical) ─
+  const a2=new THREE.Group();
+  a2.position.set(0,0.38,0);
+  a2.add(B(0.058,1.15,0.058,mGimD,-1.36,0.58,0));
+  a2.add(B(0.058,1.15,0.058,mGimD, 1.36,0.58,0));
+  a2.add(B(2.78,0.058,0.058,mGimbal,0,1.18,0));             // crossbar
+  a2.add(CY(0.155,0.145,0.24,16,mGimbal,-1.36,1.18,0,Math.PI/2,0,0));
+  a2.add(TR(0.15,0.014,8,mChrome,-1.36,1.18,0,0));
+  a2.add(CY(0.155,0.145,0.24,16,mGimbal, 1.36,1.18,0,Math.PI/2,0,0));
+  a2.add(TR(0.15,0.014,8,mChrome, 1.36,1.18,0,0));
+  root.add(a2);
 
-  // --- CAMERA PLATE ---
-  const plate = box(1.9,0.06,0.55,gimbalMat,0,0.25,0);
-  gimbalG.add(plate);
+  // ─ CAMERA MOUNTING PLATE ─
+  const plateG=new THREE.Group();
+  plateG.position.set(0,1.32,0);
+  plateG.add(B(2.35,0.075,0.68,mGimbal,0,0,0));
+  [[-0.78,0,0.26],[0.78,0,0.26],[-0.78,0,-0.26],[0.78,0,-0.26]].forEach(([x,y,z])=>{
+    plateG.add(CY(0.038,0.038,0.1,8,mChrome,x,0.09,z));
+  });
+  root.add(plateG);
 
-  // ── CAMERA GROUP (Sony FX3) ──
-  const cameraG = new THREE.Group();
-  cameraG.position.set(0, 0.58, 0);
+  // ══ SONY FX3 CAMERA ══
+  const camG=new THREE.Group();
+  camG.position.set(0,1.58,0);
 
-  // MAIN BODY
-  const mainBody = box(2.2,1.35,1.1,bodyMat,0,0,0);
-  cameraG.add(mainBody);
+  // Main chassis
+  camG.add(B(2.55,1.48,1.28,mBody,0,0,0));
+  camG.add(B(2.5,1.42,0.06,mDark,0,0,0.67));     // front plate
+  camG.add(B(0.52,1.48,1.3,mRubber,1.02,0,0));    // right grip rubber
+  camG.add(B(2.54,0.2,1.26,mRidge,0,0.84,0));     // top ridge
+  camG.add(B(2.54,0.1,1.26,mGimbal,0,-0.79,0));   // bottom plate
+  camG.add(B(0.06,1.38,1.18,mDark,-1.33,0,0));    // port side
 
-  // Top ridge / hot shoe area
-  const topRidge = box(2.0,0.22,0.9,ridgeMat,0,0.77,0);
-  cameraG.add(topRidge);
+  // ── LENS MOUNT (E-mount style) ──
+  camG.add(CY(0.58,0.58,0.1,64,mLensB,-0.2,0,0.7));
+  camG.add(CY(0.56,0.56,0.07,64,mGimD,-0.2,0,0.76));
+  camG.add(TR(0.57,0.023,8,mChrome,-0.2,0,0.72,Math.PI/2));
 
-  // Front face panel (slightly recessed)
-  const frontPanel = box(2.15,1.3,0.05,darkMat,0,0,0.58);
-  cameraG.add(frontPanel);
+  // ── LENS (FE 24-70mm GM style) ──
+  const lG=new THREE.Group();
+  lG.position.set(-0.2,0,0.72);
+  lG.rotation.x=Math.PI/2;
 
-  // RIGHT side grip area
-  const grip = box(0.48,1.35,1.12,new THREE.MeshStandardMaterial({color:0x0d0d0d,roughness:0.8,metalness:0.5}),0.87,0,0);
-  cameraG.add(grip);
+  lG.add(CY(0.52,0.52,0.1,64,mLensB,  0,0.05,0));  // mount ring
+  lG.add(CY(0.48,0.48,0.3,64,mBody,   0,0.22,0));  // rear barrel
+  lG.add(CY(0.46,0.46,0.04,64,mGimD,  0,0.39,0));  // sep ring
+  lG.add(CY(0.44,0.44,0.38,64,mDark,  0,0.60,0));  // focus ring body
 
-  // Grip rubber texture
-  const gripRub = box(0.44,1.1,1.0,rubbMat,0.88,0,0);
-  cameraG.add(gripRub);
-
-  // ── LENS MOUNT SYSTEM ──
-  const lensMount = cyl(0.52,0.52,0.08,64,new THREE.MeshStandardMaterial({color:0x181818,roughness:0.3,metalness:0.98}),-0.25,0,0.58);
-  lensMount.rotation.x = Math.PI/2;
-  cameraG.add(lensMount);
-
-  // Lens outer ring
-  const lensOuter = cyl(0.46,0.46,0.45,64,lensRingMat,-0.25,0,0.65);
-  lensOuter.rotation.x = Math.PI/2;
-  cameraG.add(lensOuter);
-
-  // Lens barrel rings
-  for(let i=0;i<4;i++){
-    const lr = cyl(0.42,0.42,0.06,64,new THREE.MeshStandardMaterial({color:0x282828,roughness:0.25,metalness:0.98}),-0.25,0,0.72+i*0.09);
-    lr.rotation.x=Math.PI/2;
-    cameraG.add(lr);
+  // Focus ring knurling
+  for(let i=0;i<28;i++){
+    const a=i*(Math.PI*2/28),rx=Math.cos(a)*0.45,ry=Math.sin(a)*0.45;
+    lG.add(CY(0.011,0.011,0.36,6,mRubber,rx,0.60,ry));
   }
 
-  // Lens glass (front element)
-  const lensG1 = cyl(0.38,0.38,0.04,64,lensMat,-0.25,0,1.1);
-  lensG1.rotation.x = Math.PI/2;
-  cameraG.add(lensG1);
-  const lensG2 = cyl(0.32,0.32,0.03,64,lensGlassMat,-0.25,0,1.13);
-  lensG2.rotation.x = Math.PI/2;
-  cameraG.add(lensG2);
-  // Lens center deep glass
-  const lensDeep = cyl(0.22,0.22,0.05,64,new THREE.MeshStandardMaterial({color:0x01070f,roughness:0,metalness:0,transparent:true,opacity:0.98}),-0.25,0,1.15);
-  lensDeep.rotation.x = Math.PI/2;
-  cameraG.add(lensDeep);
+  lG.add(CY(0.46,0.46,0.03,64,mGold,  0,0.82,0));  // gold ring
+  lG.add(CY(0.42,0.42,0.34,64,mBody,  0,1.01,0));  // zoom ring
+  lG.add(CY(0.44,0.44,0.03,64,mChrome,0,1.20,0));  // chrome ring
+  lG.add(CY(0.40,0.44,0.42,64,mDark,  0,1.43,0));  // front barrel
 
-  // Lens reflection (bright spot)
-  const lensRefl = cyl(0.08,0.08,0.01,32,new THREE.MeshStandardMaterial({color:0x8ab4d4,roughness:0,metalness:0,transparent:true,opacity:0.18}),-0.35,0.1,1.17);
-  lensRefl.rotation.x = Math.PI/2;
-  cameraG.add(lensRefl);
+  // Front glass elements
+  lG.add(CY(0.37,0.37,0.04,64,mLensB, 0,1.68,0));
+  lG.add(CY(0.33,0.33,0.04,64,mLensG, 0,1.71,0));
+  lG.add(CY(0.26,0.26,0.03,64,mat(0x0a1f35,0.02,0.05,{transparent:true,opacity:0.93}),0,1.74,0));
+  lG.add(CY(0.16,0.16,0.02,64,mLensC, 0,1.76,0));  // deepest element
+  lG.add(CY(0.09,0.09,0.01,32,mat(0x000408,0,0),  0,1.77,0));  // aperture
 
-  // ── LCD SCREEN (flip out) ──
-  const screenBase = box(0.72,0.52,0.04,darkMat,0.82,0,-0.55);
-  cameraG.add(screenBase);
-  const screen = box(0.68,0.48,0.02,screenMat,0.82,0,-0.57);
-  cameraG.add(screen);
+  // AR reflection spot
+  lG.add(CY(0.07,0.07,0.008,32,mat(0x3366bb,0,0,{transparent:true,opacity:0.14}),0.04,0.06,1.78));
+
+  lG.add(CY(0.42,0.42,0.055,64,mLensB,0,1.80,0)); // hood ring
+
+  camG.add(lG);
 
   // ── TOP HANDLE ──
-  const topHandle = box(0.95,0.18,0.38,ridgeMat,-0.12,0.97,0);
-  cameraG.add(topHandle);
-  const hotShoe = box(0.28,0.05,0.2,new THREE.MeshStandardMaterial({color:0x2a2a2a,roughness:0.2,metalness:0.98}),0.2,1.07,0);
-  cameraG.add(hotShoe);
+  const tH=new THREE.Group();
+  tH.position.set(-0.12,0.97,0);
+  tH.add(B(1.08,0.2,0.46,mRidge,0,0,0));
+  tH.add(B(0.98,0.14,0.38,mRubber,0,0,0));
+  tH.add(B(0.28,0.055,0.22,mChrome,0.24,0.128,0)); // hot shoe
+  tH.add(CY(0.042,0.042,0.06,8,mDark,-0.28,0.095,0.25,Math.PI/2)); // mic jack
+  camG.add(tH);
 
-  // ── BUTTONS ──
-  // Record button (red)
-  const recBtn = cyl(0.085,0.085,0.06,16,redMat,0.95,-0.35,0.38);
-  recBtn.rotation.x = Math.PI/2;
-  cameraG.add(recBtn);
+  // ── LCD SCREEN (flipped out, angled) ──
+  const scrG=new THREE.Group();
+  scrG.position.set(1.24,-0.06,-0.22);
+  scrG.rotation.y=-0.22;
+  scrG.add(B(0.058,0.58,0.83,mGimD,0,0,0));
+  scrG.add(B(0.048,0.56,0.80,mScreen,0.052,0,0));
+  scrG.add(B(0.038,0.50,0.74,mat(0x0a2540,0.8,0.1,{emissive:0x0a2540,emissiveIntensity:0.65}),0.062,0,0));
+  camG.add(scrG);
 
-  // Mode dial
-  const dialBase = cyl(0.15,0.15,0.06,24,ridgeMat,0.95,0.1,0.28);
-  dialBase.rotation.x = Math.PI/2;
-  cameraG.add(dialBase);
-  const dialKnob = cyl(0.1,0.1,0.04,8,darkMat,0.95,0.1,0.32);
-  dialKnob.rotation.x = Math.PI/2;
-  cameraG.add(dialKnob);
+  // ── RECORD BUTTON ──
+  camG.add(CY(0.092,0.092,0.068,16,mRed,0.87,-0.4,0.38,Math.PI/2));
+  camG.add(CY(0.055,0.055,0.04,16,mat(0xff1111,0.28,0.42,{emissive:0xff0000,emissiveIntensity:0.6}),0.93,-0.4,0.38,Math.PI/2));
 
-  // Purple indicator light
-  const indLight = sph(0.04,8,purpleMat,0.95,0.3,0.38);
-  cameraG.add(indLight);
+  // ── MODE DIAL ──
+  camG.add(CY(0.155,0.155,0.068,24,mRidge,0.87,0.68,0.08,Math.PI/2));
+  camG.add(CY(0.095,0.095,0.048,8,mGimD,0.93,0.68,0.08,Math.PI/2));
 
-  // SONY text plate
-  const sonyPlate = box(0.35,0.06,0.01,new THREE.MeshStandardMaterial({color:0xaaaaaa,roughness:0.1,metalness:0.9}),0.55,-0.1,0.56);
-  cameraG.add(sonyPlate);
+  // ── CONTROL BUTTONS ──
+  [[-0.18,0.58,0.27],[0.0,0.58,0.27],[0.18,0.58,0.27]].forEach(([x,y,z])=>{
+    camG.add(CY(0.038,0.038,0.048,8,mRidge,x,y,z,Math.PI/2));
+  });
 
-  // Port covers (left side)
-  const portL1 = box(0.04,0.2,0.12,darkMat,-1.1,-0.1,0.1);
-  const portL2 = box(0.04,0.15,0.1,darkMat,-1.1,-0.35,0.1);
-  cameraG.add(portL1,portL2);
+  // Joystick
+  camG.add(CY(0.065,0.065,0.048,16,mChrome,0.87,0.28,0.08,Math.PI/2));
+  camG.add(SP(0.038,8,mDark,0.93,0.28,0.08));
 
-  // Memory card slot
-  const memSlot = box(0.04,0.25,0.1,darkMat,-1.1,0.2,-0.1);
-  cameraG.add(memSlot);
+  // ── LEDs ──
+  camG.add(SP(0.028,8,mPurple,0.87,0.52,0.54));    // purple indicator
+  camG.add(SP(0.018,8,mGreen,0.87,0.62,0.54));     // green
 
-  // ── ASSEMBLE ──
-  gimbalG.add(cameraG);
-  gimbalG.scale.set(0.38, 0.38, 0.38);
-  gimbalG.rotation.y = Math.PI * 0.08;
-  scene.add(gimbalG);
+  // ── PORTS (left) ──
+  camG.add(B(0.042,0.13,0.08,mDark,-1.37,-0.32,0.18));  // XLR
+  camG.add(B(0.042,0.09,0.15,mDark,-1.37,-0.12,-0.12)); // HDMI
+  camG.add(B(0.042,0.075,0.11,mDark,-1.37,0.08,-0.12)); // USB-C
+  camG.add(CY(0.038,0.038,0.05,8,mDark,-1.37,-0.5,-0.06,0,0,Math.PI/2)); // headphone
+
+  // ── MEMORY CARD SLOT ──
+  camG.add(B(0.048,0.19,0.11,mDark,-1.37,-0.57,0.34));
+
+  // ── VIEWFINDER ──
+  camG.add(B(0.28,0.21,0.075,mDark,-0.52,0.7,-0.7));
+  camG.add(CY(0.065,0.065,0.085,16,mRubber,-0.52,0.7,-0.72,Math.PI/2));
+
+  // ── LOGO PLATES ──
+  camG.add(B(0.38,0.055,0.018,mSilver,0.32,-0.16,0.695));  // SONY
+  camG.add(B(0.1,0.038,0.015,mSilver,0.32,0.04,0.695));    // FX3
+
+  // ── GRIP TEXTURE BUMPS ──
+  for(let i=0;i<3;i++) for(let j=0;j<5;j++){
+    camG.add(SP(0.011,6,mRubber,0.78+i*0.06,-0.55+j*0.18,0.675));
+  }
+
+  // ── BOTTOM TRIPOD MOUNT ──
+  camG.add(CY(0.058,0.058,0.038,8,mChrome,0,-0.79,-0.08));
+  camG.add(CY(0.028,0.028,0.028,8,mGimD,0,-0.83,-0.08));
+
+  root.add(camG);
 
   // ── LIGHTING ──
-  // Ambient
-  scene.add(new THREE.AmbientLight(0x1a1a2e, 0.8));
+  scene.add(new THREE.AmbientLight(0x181828,1.1));
 
-  // Key light (left top - simulates studio strobe)
-  const keyLight = new THREE.DirectionalLight(0xd0d8e8, 3.5);
-  keyLight.position.set(-3, 4, 4);
-  keyLight.castShadow = true;
-  scene.add(keyLight);
+  const key=new THREE.DirectionalLight(0xd8e4f0,4.8);
+  key.position.set(-4,6,5);key.castShadow=true;
+  key.shadow.mapSize.set(2048,2048);scene.add(key);
 
-  // Fill light (right, warm)
-  const fillLight = new THREE.DirectionalLight(0x8060a0, 1.2);
-  fillLight.position.set(4, 1, 2);
-  scene.add(fillLight);
+  const fill=new THREE.DirectionalLight(0x705080,1.6);
+  fill.position.set(5,2,3);scene.add(fill);
 
-  // Purple rim light (back left)
-  const rimLight = new THREE.PointLight(0xB600A8, 3.0, 10);
-  rimLight.position.set(-2.5, 0, -3);
-  scene.add(rimLight);
+  const top=new THREE.DirectionalLight(0xffffff,1.0);
+  top.position.set(0,8,2);scene.add(top);
 
-  // Blue-purple rim (back right)
-  const rimLight2 = new THREE.PointLight(0x4422cc, 2.0, 10);
-  rimLight2.position.set(2.5, -1, -2.5);
-  scene.add(rimLight2);
+  const rim1=new THREE.PointLight(0xB600A8,5.5,14);
+  rim1.position.set(-3,1,-4);scene.add(rim1);
 
-  // Screen glow
-  const screenGlow = new THREE.PointLight(0x1040a0, 0.8, 2);
-  screenGlow.position.set(1.5, 0, -0.5);
-  scene.add(screenGlow);
+  const rim2=new THREE.PointLight(0x3322cc,3.0,12);
+  rim2.position.set(3,-1,-3);scene.add(rim2);
 
-  // Lens front light (small point to give glass reflection)
-  const lensLight = new THREE.PointLight(0x6688bb, 1.5, 3);
-  lensLight.position.set(-0.5, 0.5, 2.5);
-  scene.add(lensLight);
+  const scGlow=new THREE.PointLight(0x1a4080,1.8,3.5);
+  scGlow.position.set(2.5,0,-0.5);scene.add(scGlow);
 
-  // ── MOUSE INTERACTION ──
-  let mouseX = 0, mouseY = 0;
-  let targetRotX = 0, targetRotY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  const lensL=new THREE.PointLight(0x88aadd,2.8,5);
+  lensL.position.set(-1,1.5,3.5);scene.add(lensL);
+
+  // ── MOUSE TRACKING ──
+  let mx=0,my=0,trX=0,trY=0;
+  document.addEventListener('mousemove',e=>{
+    mx=(e.clientX/window.innerWidth-0.5)*2;
+    my=(e.clientY/window.innerHeight-0.5)*2;
   });
 
   // ── ANIMATION LOOP ──
-  let t = 0;
-  function animate() {
+  let t=0;
+  function animate(){
     requestAnimationFrame(animate);
-    t += 0.008;
+    t+=0.007;
 
-    // Smooth mouse follow
-    targetRotY += (mouseX * 0.4 - targetRotY) * 0.04;
-    targetRotX += (-mouseY * 0.25 - targetRotX) * 0.04;
+    // Smooth mouse
+    trX+=(mx*0.5-trX)*0.032;
+    trY+=(-my*0.28-trY)*0.032;
 
-    // Auto slow rotation + float
-    gimbalG.rotation.y = Math.sin(t * 0.4) * 0.35 + targetRotY;
-    gimbalG.rotation.x = Math.sin(t * 0.3) * 0.08 + targetRotX;
-    gimbalG.position.y = Math.sin(t * 0.7) * 0.08;
+    // ── CAMERA OPERATOR SHOOTING MOTION ──
+    // Slow cinematic pan left-right
+    const panY = Math.sin(t*0.22)*0.55 + Math.sin(t*0.08)*0.12 + trX*0.42;
+    // Tilt up-down (following action)
+    const tiltX = Math.sin(t*0.16+0.9)*0.16 + Math.cos(t*0.28)*0.05 + trY*0.28;
+    // Operator breathing / micro-sway
+    const swayZ = Math.sin(t*0.38)*0.038 + Math.sin(t*0.95)*0.012;
+    // Float (handheld feel)
+    const floatY = Math.sin(t*0.55)*0.07 + Math.sin(t*1.2)*0.025;
+    // Subtle push in/out (zoom rack simulation)
+    const pushZ = Math.sin(t*0.18)*0.06;
 
-    // Subtle gimbal axis simulation
-    arm1G.rotation.z = Math.sin(t * 0.6) * 0.04;
-    arm2G.rotation.x = Math.sin(t * 0.5 + 0.5) * 0.04;
+    root.rotation.y = panY;
+    root.rotation.x = tiltX;
+    root.rotation.z = swayZ;
+    root.position.y = -0.4 + floatY;
+    root.position.z = pushZ;
 
-    // Purple light pulse
-    rimLight.intensity = 2.5 + Math.sin(t * 2.1) * 0.8;
-    rimLight2.intensity = 1.5 + Math.sin(t * 1.7 + 1) * 0.5;
+    // Gimbal stabilisation (arms counter-rotate slightly)
+    a1.rotation.z = -swayZ * 0.35;
+    a2.rotation.x = -tiltX * 0.28;
 
-    // Screen glow flicker (slight)
-    screenMat.emissiveIntensity = 0.35 + Math.sin(t * 3.1) * 0.05;
+    // Lens ring slow manual focus rotation
+    lG.rotation.z = t * 0.06;
 
-    renderer.render(scene, camera);
+    // Lights pulse
+    rim1.intensity = 5.0 + Math.sin(t*2.3)*1.4;
+    rim2.intensity = 2.6 + Math.sin(t*1.9+1.2)*0.9;
+    scGlow.intensity = 1.6 + Math.sin(t*3.8)*0.35;
+
+    // Screen live-view flicker
+    mScreen.emissiveIntensity = 0.48 + Math.sin(t*4.2)*0.09;
+
+    // Lens light drift (studio light swing)
+    lensL.position.x = -1 + Math.sin(t*0.42)*0.45;
+    lensL.position.y = 1.5 + Math.sin(t*0.31)*0.3;
+
+    renderer.render(scene,cam3);
   }
   animate();
 })();
 
-// ── MARQUEE ─────────────────────────────────────────
-const gifs = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif'
-];
-function buildRow(el, imgs) {
-  [...imgs,...imgs,...imgs].forEach(src => {
-    const img=document.createElement('img');
-    img.src=src;img.loading='lazy';img.className='marquee-img';img.alt='work';
-    el.appendChild(img);
-  });
-}
-buildRow(document.getElementById('row1'), gifs.slice(0,11));
-buildRow(document.getElementById('row2'), gifs.slice(11));
-const marqueeEl=document.getElementById('marquee');
-const r1=document.getElementById('row1'),r2=document.getElementById('row2');
-function updateMarquee(){
-  const top=marqueeEl.getBoundingClientRect().top+window.scrollY;
-  const off=(window.scrollY-top+window.innerHeight)*0.28;
-  r1.style.transform=`translateX(${off-180}px)`;
-  r2.style.transform=`translateX(${-(off-180)}px)`;
-}
-window.addEventListener('scroll',updateMarquee,{passive:true});
-updateMarquee();
+// ── MARQUEE
+const gifs=['https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif','https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif','https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif','https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif','https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif','https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif','https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif','https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif','https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif','https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif','https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif','https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif','https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif','https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif','https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif','https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif','https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif','https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif','https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif','https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif','https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif'];
+function bRow(el,imgs){[...imgs,...imgs,...imgs].forEach(src=>{const i=document.createElement('img');i.src=src;i.loading='lazy';i.className='marquee-img';i.alt='';el.appendChild(i);});}
+bRow(document.getElementById('row1'),gifs.slice(0,11));
+bRow(document.getElementById('row2'),gifs.slice(11));
+const mSec=document.getElementById('marquee'),rr1=document.getElementById('row1'),rr2=document.getElementById('row2');
+function updM(){const tp=mSec.getBoundingClientRect().top+window.scrollY,off=(window.scrollY-tp+window.innerHeight)*0.28;rr1.style.transform=`translateX(${off-180}px)`;rr2.style.transform=`translateX(${-(off-180)}px)`;}
+window.addEventListener('scroll',updM,{passive:true});updM();
 
-// ── INTERSECTION OBSERVER ────────────────────────────
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
+// ── INTERSECTION OBSERVER
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.fade-up,.fade-left,.fade-right,.service-item').forEach(el=>io.observe(el));
 
-// ── ABOUT TEXT CHAR ANIMATION ────────────────────────
+// ── ABOUT TEXT
 const abt=document.getElementById('about-text');
-if(abt){
-  const txt=abt.textContent;abt.innerHTML='';
-  [...txt].forEach(c=>{
-    const span=document.createElement('span');
-    span.style.cssText='display:inline;position:relative;white-space:pre;';
-    const base=document.createElement('span');base.style.opacity='0';base.textContent=c;
-    const anim=document.createElement('span');anim.textContent=c;
-    anim.style.cssText='position:absolute;top:0;left:0;opacity:0.12;transition:opacity 0.12s;white-space:pre;';
-    span.appendChild(base);span.appendChild(anim);abt.appendChild(span);
-  });
-  const chars=abt.querySelectorAll('span > span:last-child');
-  function animChars(){
-    const r=abt.getBoundingClientRect(),wh=window.innerHeight;
-    const prog=1-Math.max(0,Math.min(1,(r.top-wh*0.2)/(wh*0.6)));
-    const lit=Math.floor(prog*chars.length);
-    chars.forEach((c,i)=>c.style.opacity=i<lit?'1':'0.12');
-  }
-  window.addEventListener('scroll',animChars,{passive:true});
-  animChars();
-}
+if(abt){const txt=abt.textContent;abt.innerHTML='';[...txt].forEach(c=>{const s=document.createElement('span');s.style.cssText='display:inline;position:relative;white-space:pre;';const b=document.createElement('span');b.style.opacity='0';b.textContent=c;const a=document.createElement('span');a.textContent=c;a.style.cssText='position:absolute;top:0;left:0;opacity:0.12;transition:opacity 0.12s;white-space:pre;';s.appendChild(b);s.appendChild(a);abt.appendChild(s);});const chars=abt.querySelectorAll('span > span:last-child');function ac(){const r=abt.getBoundingClientRect(),wh=window.innerHeight,p=1-Math.max(0,Math.min(1,(r.top-wh*0.2)/(wh*0.6))),l=Math.floor(p*chars.length);chars.forEach((c,i)=>c.style.opacity=i<l?'1':'0.12');}window.addEventListener('scroll',ac,{passive:true});ac();}
 
-// ── STICKY CARD SCALE ────────────────────────────────
+// ── STICKY CARDS
 const cards=[document.getElementById('card0'),document.getElementById('card1'),document.getElementById('card2')];
-function updateCards(){
-  cards.forEach((card,i)=>{
-    if(!card)return;
-    const slot=card.closest('.card-slot');
-    const r=slot.getBoundingClientRect();
-    const scrolled=Math.max(0,Math.min(1,-r.top/(r.height-window.innerHeight*0.85)));
-    const targetScale=1-(cards.length-1-i)*0.03;
-    const scale=1-(1-targetScale)*Math.min(1,scrolled+0.3);
-    card.style.transform=`scale(${scale})`;
-    card.style.top=(5.5+i*28)+'px';
-  });
-}
-window.addEventListener('scroll',updateCards,{passive:true});
-updateCards();
+function updC(){cards.forEach((c,i)=>{if(!c)return;const sl=c.closest('.card-slot'),r=sl.getBoundingClientRect(),sc=Math.max(0,Math.min(1,-r.top/(r.height-window.innerHeight*0.85))),ts=1-(cards.length-1-i)*0.03,scale=1-(1-ts)*Math.min(1,sc+0.3);c.style.transform=`scale(${scale})`;c.style.top=(5.5+i*28)+'px';});}
+window.addEventListener('scroll',updC,{passive:true});updC();
 
-// ── BOOKING FORM ─────────────────────────────────────
+// ── BOOKING
 function submitBooking(){
   const name=document.getElementById('f-name').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
@@ -853,10 +725,8 @@ function submitBooking(){
   const services=[...document.querySelectorAll('.service-check:checked')].map(c=>c.value).join(', ');
   if(!name||!phone||!date){alert('Please fill Name, Phone and Date.');return;}
   if(!services){alert('Please select at least one service.');return;}
-  const booking={id:Date.now(),name,phone,email:document.getElementById('f-email').value.trim(),date,services,budget:document.getElementById('f-budget').value,location:document.getElementById('f-location').value.trim(),message:document.getElementById('f-message').value.trim(),status:'new',created:new Date().toLocaleString('en-IN')};
-  const all=JSON.parse(localStorage.getItem('pp_bookings')||'[]');
-  all.push(booking);
-  localStorage.setItem('pp_bookings',JSON.stringify(all));
+  const b={id:Date.now(),name,phone,email:document.getElementById('f-email').value.trim(),date,services,budget:document.getElementById('f-budget').value,location:document.getElementById('f-location').value.trim(),message:document.getElementById('f-message').value.trim(),status:'new',created:new Date().toLocaleString('en-IN')};
+  const all=JSON.parse(localStorage.getItem('pp_bookings')||'[]');all.push(b);localStorage.setItem('pp_bookings',JSON.stringify(all));
   document.getElementById('booking-form-inner').style.display='none';
   document.getElementById('form-success').style.display='block';
   document.getElementById('success-phone').textContent=phone;

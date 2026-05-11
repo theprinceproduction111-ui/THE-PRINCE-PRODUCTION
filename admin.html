@@ -4,1549 +4,844 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Admin Panel — The Prince Production Photography</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg: #080808;
-  --bg2: #0f0f0f;
-  --bg3: #161616;
-  --bg4: #1e1e1e;
-  --border: rgba(215,226,234,0.08);
-  --border-hover: rgba(182,0,168,0.4);
-  --text: #D7E2EA;
-  --text-dim: rgba(215,226,234,0.4);
-  --text-dimmer: rgba(215,226,234,0.2);
-  --gold: #D4AF37;
-  --purple: #B600A8;
-  --purple-dim: rgba(182,0,168,0.15);
-  --purple-glow: rgba(182,0,168,0.3);
-  --blue: #3B82F6;
-  --green: #22C55E;
-  --red: #EF4444;
-  --orange: #F97316;
-  --grad: linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);
-}
+:root{--bg:#080808;--bg2:#0f0f0f;--bg3:#161616;--border:rgba(215,226,234,0.08);--bh:rgba(182,0,168,0.4);--text:#D7E2EA;--dim:rgba(215,226,234,0.4);--dimmer:rgba(215,226,234,0.2);--purple:#B600A8;--pdim:rgba(182,0,168,0.15);--pglow:rgba(182,0,168,0.3);--grad:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);--green:#22C55E;--red:#EF4444;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:var(--bg);font-family:'Kanit',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:#222;border-radius:2px;}
 
-/* ── LOGIN SCREEN ── */
-#login-screen {
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
-  background:var(--bg);
-  background-image:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(118,33,176,0.12) 0%,transparent 70%);
-  position:relative;
-}
-#login-screen::before{
-  content:'';position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:0.4;pointer-events:none;
-}
-.login-box {
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:2rem;padding:3rem 2.5rem;
-  width:100%;max-width:420px;text-align:center;
-  box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 60px rgba(182,0,168,0.08);
-  animation:loginIn 0.6s ease;
-}
-@keyframes loginIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-.login-logo{
-  font-size:1.05rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:0.08em;line-height:1.2;
-  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;margin-bottom:0.25rem;
-}
-.login-sub{font-size:0.65rem;color:var(--text-dim);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:2.5rem;}
-.login-title{font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;}
-.login-desc{font-size:0.78rem;color:var(--text-dim);margin-bottom:2rem;}
-.login-field{
-  background:var(--bg3);border:1.5px solid var(--border);
-  border-radius:0.75rem;padding:0.9rem 1.1rem;
-  color:var(--text);font-family:'Kanit',sans-serif;font-size:0.95rem;
-  width:100%;margin-bottom:1rem;outline:none;
-  transition:border-color 0.2s,background 0.2s;
-  letter-spacing:0.05em;
-}
-.login-field:focus{border-color:var(--purple);background:rgba(182,0,168,0.05);}
-.login-btn{
-  width:100%;background:var(--grad);
-  color:white;font-family:'Kanit',sans-serif;font-weight:700;
-  text-transform:uppercase;letter-spacing:0.2em;
-  border-radius:9999px;border:none;cursor:pointer;
-  padding:1rem 2rem;font-size:0.9rem;
-  transition:transform 0.2s,box-shadow 0.2s;
-  box-shadow:0 0 20px var(--purple-glow);margin-top:0.5rem;
-}
-.login-btn:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(182,0,168,0.5);}
-.login-hint{font-size:0.68rem;color:var(--text-dimmer);margin-top:1.2rem;letter-spacing:0.1em;}
-.login-error{
-  background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);
-  color:#f87171;padding:0.65rem 1rem;border-radius:0.6rem;
-  font-size:0.78rem;margin-bottom:1rem;display:none;
-}
+/* SETUP BANNER */
+#setup-banner{background:linear-gradient(135deg,#1a0030,#3d0060);border-bottom:2px solid var(--purple);padding:1.2rem 2rem;display:none;}
+.sb-inner{max-width:960px;margin:0 auto;}
+.sb-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.75rem;}
+.sb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+@media(max-width:700px){.sb-grid{grid-template-columns:1fr;}}
+.sb-step{background:rgba(255,255,255,0.06);border-radius:0.7rem;padding:0.9rem;}
+.sb-step-n{font-size:0.58rem;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.25rem;}
+.sb-step-t{font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:0.25rem;}
+.sb-step-d{font-size:0.7rem;color:rgba(255,255,255,0.58);line-height:1.5;}
+.sb-step a{color:#cc88ff;text-decoration:none;font-weight:600;}
+.sb-inputs{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0.65rem;align-items:end;}
+@media(max-width:700px){.sb-inputs{grid-template-columns:1fr;}}
+.sb-input{background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);border-radius:0.55rem;padding:0.6rem 0.85rem;color:#fff;font-family:'Kanit',sans-serif;font-size:0.8rem;outline:none;width:100%;}
+.sb-input:focus{border-color:var(--purple);}
+.sb-lbl{font-size:0.58rem;color:rgba(255,255,255,0.45);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.12em;}
+.sb-btn{background:var(--grad);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;border:none;border-radius:0.55rem;padding:0.6rem 1.2rem;cursor:pointer;white-space:nowrap;}
+.sb-note{font-size:0.62rem;color:rgba(255,255,255,0.35);margin-top:0.6rem;}
 
-/* ── MAIN APP ── */
-#app{display:none;min-height:100vh;flex-direction:column;}
-#app.active{display:flex;}
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(118,33,176,0.12) 0%,transparent 70%);}
+.login-box{background:var(--bg2);border:1px solid var(--border);border-radius:2rem;padding:2.8rem 2.4rem;width:100%;max-width:400px;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,0.6);animation:fadeUp 0.5s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.l-logo{font-size:0.95rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.l-sub{font-size:0.6rem;color:var(--dim);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:2.2rem;margin-top:0.2rem;}
+.l-field{background:var(--bg3);border:1.5px solid var(--border);border-radius:0.7rem;padding:0.82rem 1rem;color:var(--text);font-family:'Kanit',sans-serif;font-size:0.92rem;width:100%;margin-bottom:0.9rem;outline:none;transition:border-color 0.2s;}
+.l-field:focus{border-color:var(--purple);}
+.l-btn{width:100%;background:var(--grad);color:#fff;font-family:'Kanit',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;border-radius:9999px;border:none;cursor:pointer;padding:0.95rem 2rem;font-size:0.85rem;box-shadow:0 0 18px var(--pglow);transition:transform 0.2s,box-shadow 0.2s;}
+.l-btn:hover{transform:scale(1.02);box-shadow:0 0 36px rgba(182,0,168,0.5);}
+.l-err{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;padding:0.6rem 0.9rem;border-radius:0.55rem;font-size:0.75rem;margin-bottom:0.9rem;display:none;}
+.l-hint{font-size:0.62rem;color:var(--dimmer);margin-top:0.9rem;}
 
-/* Sidebar + Content layout */
+/* APP */
+#app{display:none;min-height:100vh;}
+#app.active{display:flex;flex-direction:column;}
 .app-layout{display:flex;flex:1;overflow:hidden;height:100vh;}
 
-/* ── SIDEBAR ── */
-.sidebar{
-  width:260px;min-width:260px;background:var(--bg2);
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  overflow-y:auto;position:relative;
-  transition:width 0.3s;
-}
-.sidebar-logo{
-  padding:1.5rem 1.4rem 1rem;
-  border-bottom:1px solid var(--border);
-}
-.sidebar-brand{
-  font-size:0.82rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:0.06em;line-height:1.3;
-  background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.sidebar-brand-sub{font-size:0.58rem;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.15rem;}
-.sidebar-user{
-  padding:1rem 1.4rem;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:0.75rem;
-}
-.sidebar-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:0.85rem;color:white;flex-shrink:0;
-}
-.sidebar-uname{font-size:0.8rem;font-weight:600;color:var(--text);}
-.sidebar-urole{font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.12em;}
-.sidebar-nav{padding:1rem 0.8rem;flex:1;}
-.nav-section-label{
-  font-size:0.58rem;font-weight:600;color:var(--text-dimmer);
-  text-transform:uppercase;letter-spacing:0.25em;
-  padding:0 0.6rem;margin:1rem 0 0.4rem;
-}
-.nav-item{
-  display:flex;align-items:center;gap:0.75rem;
-  padding:0.65rem 0.75rem;border-radius:0.65rem;
-  font-size:0.82rem;font-weight:500;color:var(--text-dim);
-  cursor:pointer;transition:all 0.2s;margin-bottom:0.15rem;
-  border:1px solid transparent;text-decoration:none;
-  position:relative;
-}
+/* SIDEBAR */
+.sidebar{width:238px;min-width:238px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.s-logo{padding:1.3rem 1.2rem 0.75rem;border-bottom:1px solid var(--border);}
+.s-brand{font-size:0.76rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;background:linear-gradient(180deg,#646973 0%,#BBCCD7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s-brand-sub{font-size:0.54rem;color:var(--dim);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.1rem;}
+.s-user{padding:0.85rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;}
+.s-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;color:#fff;flex-shrink:0;}
+.s-uname{font-size:0.72rem;font-weight:600;}
+.s-urole{font-size:0.56rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;}
+.s-nav{padding:0.75rem 0.65rem;flex:1;}
+.s-sec{font-size:0.53rem;font-weight:600;color:var(--dimmer);text-transform:uppercase;letter-spacing:0.25em;padding:0 0.5rem;margin:0.75rem 0 0.3rem;}
+.nav-item{display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.6rem;border-radius:0.55rem;font-size:0.76rem;font-weight:500;color:var(--dim);cursor:pointer;transition:all 0.2s;margin-bottom:0.1rem;border:1px solid transparent;position:relative;}
 .nav-item:hover{color:var(--text);background:var(--bg3);}
-.nav-item.active{
-  color:var(--text);background:var(--purple-dim);
-  border-color:var(--border-hover);
-}
-.nav-item.active::before{
-  content:'';position:absolute;left:0;top:20%;bottom:20%;
-  width:3px;border-radius:9999px;background:var(--purple);
-}
-.nav-icon{font-size:1rem;width:1.2rem;text-align:center;flex-shrink:0;}
-.nav-badge{
-  margin-left:auto;background:var(--purple);color:white;
-  font-size:0.58rem;font-weight:700;padding:0.15rem 0.45rem;
-  border-radius:9999px;min-width:18px;text-align:center;
-}
-.sidebar-footer{
-  padding:1rem 1.4rem;border-top:1px solid var(--border);
-}
-.logout-btn{
-  width:100%;padding:0.6rem 1rem;border-radius:0.65rem;
-  background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);
-  color:#f87171;font-family:'Kanit',sans-serif;font-size:0.78rem;
-  font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;
-  transition:all 0.2s;
-}
-.logout-btn:hover{background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.4);}
+.nav-item.active{color:var(--text);background:var(--pdim);border-color:var(--bh);}
+.nav-item.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;border-radius:9999px;background:var(--purple);}
+.nav-icon{font-size:0.88rem;width:1rem;text-align:center;flex-shrink:0;}
+.nav-badge{margin-left:auto;background:var(--purple);color:#fff;font-size:0.53rem;font-weight:700;padding:0.1rem 0.38rem;border-radius:9999px;min-width:15px;text-align:center;}
+.s-footer{padding:0.85rem 1.2rem;border-top:1px solid var(--border);}
+.logout-btn{width:100%;padding:0.52rem 0.85rem;border-radius:0.55rem;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#f87171;font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;transition:all 0.2s;}
+.logout-btn:hover{background:rgba(239,68,68,0.18);}
 
-/* ── MAIN CONTENT ── */
+/* MAIN */
 .main-content{flex:1;overflow-y:auto;background:var(--bg);}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.25rem 2rem;border-bottom:1px solid var(--border);
-  background:rgba(8,8,8,0.9);backdrop-filter:blur(10px);
-  position:sticky;top:0;z-index:100;
-}
-.topbar-title{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
-.topbar-right{display:flex;align-items:center;gap:1rem;}
-.topbar-date{font-size:0.72rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
-.topbar-status{
-  display:flex;align-items:center;gap:0.4rem;
-  font-size:0.68rem;color:var(--green);
-  text-transform:uppercase;letter-spacing:0.12em;
-}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.6rem;border-bottom:1px solid var(--border);background:rgba(8,8,8,0.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.topbar-title{font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.topbar-right{display:flex;align-items:center;gap:0.9rem;}
+.t-status{display:flex;align-items:center;gap:0.32rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;}
+.s-dot{width:6px;height:6px;border-radius:50%;animation:pulse 2s ease infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.4);}}
+.t-date{font-size:0.65rem;color:var(--dim);}
 
-.page-content{padding:2rem;display:none;animation:pageIn 0.4s ease;}
+/* ALERT */
+.alert-warn{background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.3);border-radius:0.7rem;padding:0.9rem 1.1rem;margin-bottom:1.3rem;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;font-size:0.78rem;color:#fb923c;flex-wrap:wrap;}
+.alert-ok{background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.22);border-radius:0.7rem;padding:0.7rem 1.1rem;margin-bottom:1.3rem;font-size:0.75rem;color:#4ade80;}
+
+.page-content{padding:1.6rem;display:none;animation:pageIn 0.3s ease;}
 .page-content.active{display:block;}
-@keyframes pageIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── CARDS & COMPONENTS ── */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.9rem;margin-bottom:1.6rem;}
 @media(max-width:900px){.stats-row{grid-template-columns:repeat(2,1fr);}}
-.stat-card{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:1.2rem;padding:1.4rem 1.5rem;
-  transition:border-color 0.3s,transform 0.2s;position:relative;overflow:hidden;
-}
-.stat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:var(--grad);opacity:0;transition:opacity 0.3s;
-}
-.stat-card:hover{border-color:var(--border-hover);transform:translateY(-2px);}
-.stat-card:hover::before{opacity:1;}
-.stat-icon{font-size:1.6rem;margin-bottom:0.75rem;}
-.stat-num{font-size:2.2rem;font-weight:900;color:var(--text);line-height:1;}
-.stat-label{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.35rem;}
-.stat-change{font-size:0.7rem;color:var(--green);margin-top:0.3rem;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:1rem;padding:1.2rem;transition:border-color 0.3s,transform 0.2s;}
+.stat-card:hover{border-color:var(--bh);transform:translateY(-2px);}
+.stat-icon{font-size:1.4rem;margin-bottom:0.6rem;}
+.stat-num{font-size:1.9rem;font-weight:900;line-height:1;}
+.stat-label{font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.18em;margin-top:0.28rem;}
 
-.section-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;
-}
-.section-title{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;}
-.section-actions{display:flex;gap:0.6rem;align-items:center;}
-
-/* Buttons */
-.btn{
-  padding:0.55rem 1.2rem;border-radius:0.6rem;
-  font-family:'Kanit',sans-serif;font-size:0.75rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;
-  transition:all 0.2s;border:1.5px solid transparent;
-  display:inline-flex;align-items:center;gap:0.4rem;
-}
-.btn-primary{background:var(--grad);color:white;border-color:transparent;box-shadow:0 0 12px var(--purple-glow);}
-.btn-primary:hover{box-shadow:0 0 24px rgba(182,0,168,0.5);transform:scale(1.02);}
-.btn-ghost{background:transparent;color:var(--text-dim);border-color:var(--border);}
+/* BUTTONS */
+.btn{padding:0.48rem 1rem;border-radius:0.52rem;font-family:'Kanit',sans-serif;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;transition:all 0.2s;border:1.5px solid transparent;display:inline-flex;align-items:center;gap:0.32rem;}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 0 9px var(--pglow);}
+.btn-primary:hover{box-shadow:0 0 20px rgba(182,0,168,0.5);transform:scale(1.02);}
+.btn-ghost{background:transparent;color:var(--dim);border-color:var(--border);}
 .btn-ghost:hover{color:var(--text);border-color:rgba(215,226,234,0.3);background:var(--bg3);}
 .btn-danger{background:rgba(239,68,68,0.1);color:#f87171;border-color:rgba(239,68,68,0.2);}
-.btn-danger:hover{background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.5);}
+.btn-danger:hover{background:rgba(239,68,68,0.2);}
 .btn-success{background:rgba(34,197,94,0.1);color:#4ade80;border-color:rgba(34,197,94,0.2);}
-.btn-success:hover{background:rgba(34,197,94,0.2);}
-.btn-warning{background:rgba(249,115,22,0.1);color:#fb923c;border-color:rgba(249,115,22,0.2);}
-.btn-sm{padding:0.35rem 0.8rem;font-size:0.65rem;}
-.btn-wa{background:rgba(37,211,102,0.12);color:#25D366;border-color:rgba(37,211,102,0.25);}
-.btn-wa:hover{background:rgba(37,211,102,0.22);}
+.btn-wa{background:rgba(37,211,102,0.1);color:#25D366;border-color:rgba(37,211,102,0.2);}
+.btn-sm{padding:0.28rem 0.65rem;font-size:0.6rem;}
 
-/* Table */
-.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:1.2rem;overflow:hidden;}
-.table-search{
-  padding:1rem 1.5rem;border-bottom:1px solid var(--border);
-  display:flex;gap:1rem;align-items:center;flex-wrap:wrap;
-}
-.search-input{
-  background:var(--bg3);border:1.5px solid var(--border);border-radius:0.6rem;
-  padding:0.55rem 1rem;color:var(--text);font-family:'Kanit',sans-serif;font-size:0.82rem;
-  outline:none;transition:border-color 0.2s;min-width:220px;
-}
-.search-input:focus{border-color:var(--purple);}
-.filter-select{
-  background:var(--bg3);border:1.5px solid var(--border);border-radius:0.6rem;
-  padding:0.55rem 1rem;color:var(--text);font-family:'Kanit',sans-serif;font-size:0.82rem;
-  outline:none;cursor:pointer;
-}
-.data-table{width:100%;border-collapse:collapse;}
-.data-table th{
-  padding:0.75rem 1.2rem;text-align:left;
-  background:rgba(215,226,234,0.03);
-  color:var(--text-dimmer);font-weight:600;
-  font-size:0.62rem;text-transform:uppercase;letter-spacing:0.18em;
-  border-bottom:1px solid var(--border);white-space:nowrap;
-}
-.data-table td{
-  padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);
-  color:var(--text);font-size:0.8rem;vertical-align:middle;
-}
-.data-table tr:last-child td{border-bottom:none;}
-.data-table tbody tr{transition:background 0.15s;}
-.data-table tbody tr:hover td{background:rgba(215,226,234,0.02);}
+/* SEC HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.65rem;}
+.sec-title{font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;}
 
-/* Badges */
-.badge{
-  display:inline-flex;align-items:center;gap:0.3rem;
-  padding:0.25rem 0.75rem;border-radius:9999px;
-  font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;
-}
-.badge-new{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);}
-.badge-confirmed{background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.25);}
-.badge-done{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
-.badge-cancelled{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+/* TABLE */
+.tbl-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:1rem;overflow:hidden;margin-bottom:1.3rem;}
+.tbl-search{padding:0.82rem 1.2rem;border-bottom:1px solid var(--border);display:flex;gap:0.7rem;flex-wrap:wrap;align-items:center;}
+.srch-in,.filt-sel{background:var(--bg3);border:1.5px solid var(--border);border-radius:0.52rem;padding:0.48rem 0.85rem;color:var(--text);font-family:'Kanit',sans-serif;font-size:0.76rem;outline:none;}
+.srch-in:focus,.filt-sel:focus{border-color:var(--purple);}
+.srch-in{min-width:190px;}
+.dtbl{width:100%;border-collapse:collapse;}
+.dtbl th{padding:0.65rem 1rem;text-align:left;background:rgba(215,226,234,0.025);color:var(--dimmer);font-weight:600;font-size:0.56rem;text-transform:uppercase;letter-spacing:0.18em;border-bottom:1px solid var(--border);white-space:nowrap;}
+.dtbl td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);color:var(--text);font-size:0.76rem;vertical-align:middle;}
+.dtbl tr:last-child td{border-bottom:none;}
+.dtbl tbody tr:hover td{background:rgba(215,226,234,0.018);}
 
-/* Modal */
-.modal-overlay{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);
-  z-index:9000;align-items:center;justify-content:center;padding:1rem;
-  backdrop-filter:blur(4px);
-}
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:0.2rem 0.6rem;border-radius:9999px;font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.b-new{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.25);}
+.b-conf{background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.25);}
+.b-done{background:rgba(34,197,94,0.15);color:#4ade80;border:1px solid rgba(34,197,94,0.25);}
+.b-cancel{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9000;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
 .modal-overlay.active{display:flex;}
-.modal{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:1.5rem;padding:2rem;width:100%;max-width:580px;
-  max-height:90vh;overflow-y:auto;
-  animation:modalIn 0.3s ease;
-  box-shadow:0 40px 120px rgba(0,0,0,0.7);
-}
-@keyframes modalIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
-.modal-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);
-}
-.modal-title{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;}
-.modal-close{
-  background:none;border:1.5px solid var(--border);color:var(--text-dim);
-  width:32px;height:32px;border-radius:0.5rem;cursor:pointer;font-size:1rem;
-  display:flex;align-items:center;justify-content:center;transition:all 0.2s;
-}
-.modal-close:hover{border-color:rgba(215,226,234,0.3);color:var(--text);}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:1.3rem;padding:1.7rem;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;animation:mIn 0.25s ease;box-shadow:0 40px 100px rgba(0,0,0,0.7);}
+@keyframes mIn{from{opacity:0;transform:scale(0.96);}to{opacity:1;transform:scale(1);}}
+.m-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;padding-bottom:0.85rem;border-bottom:1px solid var(--border);}
+.m-title{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;}
+.m-close{background:none;border:1.5px solid var(--border);color:var(--dim);width:28px;height:28px;border-radius:0.42rem;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.m-close:hover{color:var(--text);}
 
-/* Form elements */
-.form-group{margin-bottom:1rem;}
-.form-label{
-  display:block;font-size:0.65rem;font-weight:600;
-  color:var(--text-dim);text-transform:uppercase;
-  letter-spacing:0.18em;margin-bottom:0.4rem;
-}
-.form-input,.form-select,.form-textarea{
-  width:100%;background:var(--bg3);border:1.5px solid var(--border);
-  border-radius:0.7rem;padding:0.8rem 1rem;
-  color:var(--text);font-family:'Kanit',sans-serif;font-size:0.88rem;
-  outline:none;transition:border-color 0.2s,background 0.2s;
-}
-.form-input:focus,.form-select:focus,.form-textarea:focus{
-  border-color:var(--purple);background:rgba(182,0,168,0.04);
-}
-.form-select option{background:#1a1a1a;}
-.form-textarea{resize:vertical;min-height:80px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
-.form-actions{display:flex;gap:0.75rem;justify-content:flex-end;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);}
+/* FORMS */
+.fg{margin-bottom:0.85rem;}
+.fl{display:block;font-size:0.6rem;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0.32rem;}
+.fi,.fs,.fta{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:0.62rem;padding:0.72rem 0.92rem;color:var(--text);font-family:'Kanit',sans-serif;font-size:0.83rem;outline:none;transition:border-color 0.2s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--purple);background:rgba(182,0,168,0.03);}
+.fs option{background:#1a1a1a;}
+.fta{resize:vertical;min-height:72px;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+@media(max-width:460px){.f-row{grid-template-columns:1fr;}}
+.f-actions{display:flex;gap:0.6rem;justify-content:flex-end;margin-top:1.2rem;padding-top:0.85rem;border-top:1px solid var(--border);}
 
-/* Invoice */
-.invoice-box{
-  background:#fff;color:#111;border-radius:1rem;
-  padding:2rem;font-family:'Kanit',sans-serif;
-  max-width:500px;
-}
-.invoice-header{display:flex;justify-content:space-between;margin-bottom:1.5rem;align-items:flex-start;}
-.invoice-company{font-size:1rem;font-weight:800;text-transform:uppercase;color:#0C0C0C;}
-.invoice-sub{font-size:0.65rem;color:#555;margin-top:0.2rem;letter-spacing:0.12em;}
-.invoice-num{text-align:right;}
-.invoice-num h3{font-size:1rem;font-weight:700;color:#B600A8;}
-.invoice-num p{font-size:0.72rem;color:#888;}
-.invoice-divider{border:none;border-top:2px solid #eee;margin:1rem 0;}
-.invoice-table{width:100%;border-collapse:collapse;margin:1rem 0;}
-.invoice-table th{text-align:left;font-size:0.68rem;color:#888;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:0.5rem;border-bottom:1px solid #eee;}
-.invoice-table td{padding:0.6rem 0;font-size:0.82rem;border-bottom:1px solid #f5f5f5;color:#333;}
-.invoice-total-row{font-weight:800;font-size:0.95rem;color:#0C0C0C;}
-.invoice-footer{font-size:0.68rem;color:#888;margin-top:1.5rem;text-align:center;line-height:1.6;}
+/* PROJECTS */
+.proj-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:1rem;padding:1.2rem;margin-bottom:1rem;transition:border-color 0.3s;}
+.proj-card:hover{border-color:var(--bh);}
+.proj-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.9rem;flex-wrap:wrap;gap:0.5rem;}
+.proj-name{font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.proj-meta{font-size:0.62rem;color:var(--dim);margin-top:0.12rem;}
+.proj-add-row{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.85rem;}
+@media(max-width:580px){.proj-add-row{grid-template-columns:1fr;}}
+.upload-lbl{display:flex;align-items:center;justify-content:center;gap:0.38rem;padding:0.65rem;border:2px dashed rgba(215,226,234,0.14);border-radius:0.65rem;cursor:pointer;font-size:0.7rem;color:var(--dim);transition:all 0.2s;}
+.upload-lbl:hover{border-color:rgba(182,0,168,0.5);color:var(--text);background:rgba(182,0,168,0.04);}
+.url-row{display:flex;gap:0.38rem;}
+.proj-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:0.42rem;margin-top:0.55rem;}
+.pimg-wrap{position:relative;aspect-ratio:1;border-radius:0.55rem;overflow:hidden;background:var(--bg3);border:1px solid var(--border);}
+.pimg-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.pimg-del{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.78);border:none;color:#f87171;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:0.62rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;}
+.pimg-wrap:hover .pimg-del{opacity:1;}
+.up-prog{background:rgba(182,0,168,0.13);border:1px solid rgba(182,0,168,0.28);border-radius:0.5rem;padding:0.45rem 0.75rem;font-size:0.7rem;color:#cc88ff;margin-top:0.45rem;display:none;}
 
-/* ── GALLERY ── */
-.gallery-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:0.75rem;
-}
-.gallery-item{
-  aspect-ratio:4/3;border-radius:0.75rem;overflow:hidden;
-  background:var(--bg3);border:1.5px solid var(--border);
-  position:relative;cursor:pointer;group:true;
-  transition:border-color 0.2s;
-}
-.gallery-item:hover{border-color:var(--border-hover);}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s;}
-.gallery-item:hover img{transform:scale(1.05);}
-.gallery-item-overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,0.7);
-  display:flex;align-items:center;justify-content:center;gap:0.5rem;
-  opacity:0;transition:opacity 0.2s;
-}
-.gallery-item:hover .gallery-item-overlay{opacity:1;}
-.gallery-placeholder{
-  aspect-ratio:4/3;border-radius:0.75rem;
-  border:2px dashed var(--border);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  cursor:pointer;transition:all 0.2s;gap:0.5rem;color:var(--text-dimmer);
-  font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;
-}
-.gallery-placeholder:hover{border-color:var(--purple);color:var(--text);background:var(--purple-dim);}
-.gallery-placeholder-icon{font-size:1.8rem;}
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.9rem;}
+.pc{background:var(--bg2);border:1.5px solid var(--border);border-radius:1rem;padding:1.2rem;transition:border-color 0.3s;}
+.pc.featured{border-color:var(--purple);background:var(--pdim);}
+.pc:hover{border-color:var(--bh);}
+.pc-name{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--dim);margin-bottom:0.38rem;}
+.pc-price{font-size:1.7rem;font-weight:900;line-height:1;}
+.pc-unit{font-size:0.65rem;color:var(--dim);margin-top:0.12rem;}
+.pc-features{margin:0.85rem 0;display:flex;flex-direction:column;gap:0.32rem;}
+.pc-feat{font-size:0.7rem;color:var(--dim);display:flex;align-items:center;gap:0.38rem;}
+.pc-feat::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
 
-/* ── PRICING ── */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;}
-.pricing-card{
-  background:var(--bg2);border:1.5px solid var(--border);
-  border-radius:1.2rem;padding:1.5rem;
-  transition:border-color 0.3s;
-}
-.pricing-card.featured{border-color:var(--purple);background:var(--purple-dim);}
-.pricing-card:hover{border-color:var(--border-hover);}
-.pricing-name{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);margin-bottom:0.5rem;}
-.pricing-amount{font-size:2rem;font-weight:900;color:var(--text);line-height:1;}
-.pricing-unit{font-size:0.72rem;color:var(--text-dim);margin-top:0.2rem;}
-.pricing-features{margin:1rem 0;display:flex;flex-direction:column;gap:0.4rem;}
-.pricing-feature{font-size:0.78rem;color:var(--text-dim);display:flex;align-items:center;gap:0.5rem;}
-.pricing-feature::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
-.pricing-actions{display:flex;gap:0.5rem;margin-top:1rem;}
+/* TESTIMONIALS */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:0.9rem;}
+.tc{background:var(--bg2);border:1.5px solid var(--border);border-radius:1rem;padding:1.2rem;transition:border-color 0.3s;}
+.tc:hover{border-color:var(--bh);}
+.tc-stars{color:#F59E0B;font-size:0.82rem;margin-bottom:0.42rem;}
+.tc-quote{font-size:0.78rem;color:var(--text);line-height:1.6;margin-bottom:0.85rem;font-style:italic;}
+.tc-author{display:flex;align-items:center;gap:0.6rem;}
+.tc-av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;color:#fff;}
+.tc-name{font-size:0.75rem;font-weight:700;}
+.tc-meta{font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;}
+.tc-pub{font-size:0.56rem;padding:0.15rem 0.5rem;border-radius:9999px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-left:auto;}
+.pub-y{background:rgba(34,197,94,0.14);color:#4ade80;}
+.pub-n{background:rgba(249,115,22,0.14);color:#fb923c;}
 
-/* ── TESTIMONIALS ── */
-.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
-.testimonial-card{
-  background:var(--bg2);border:1.5px solid var(--border);
-  border-radius:1.2rem;padding:1.5rem;
-  transition:border-color 0.3s;
-}
-.testimonial-card:hover{border-color:var(--border-hover);}
-.testimonial-quote{font-size:0.85rem;color:var(--text);line-height:1.6;margin-bottom:1rem;font-style:italic;}
-.testimonial-stars{color:#F59E0B;font-size:0.9rem;margin-bottom:0.5rem;}
-.testimonial-author{display:flex;align-items:center;gap:0.75rem;}
-.testimonial-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:0.85rem;color:white;
-}
-.testimonial-name{font-size:0.82rem;font-weight:700;color:var(--text);}
-.testimonial-meta{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;}
-.testimonial-status{
-  font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:9999px;
-  margin-left:auto;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;
-}
-.ts-published{background:rgba(34,197,94,0.15);color:#4ade80;}
-.ts-pending{background:rgba(249,115,22,0.15);color:#fb923c;}
+/* INVOICE */
+.inv-box{background:#fff;color:#111;border-radius:0.85rem;padding:1.6rem;font-family:'Kanit',sans-serif;}
+.inv-hdr{display:flex;justify-content:space-between;margin-bottom:1.2rem;}
+.inv-co{font-size:0.88rem;font-weight:800;text-transform:uppercase;}
+hr.inv-d{border:none;border-top:1.5px solid #eee;margin:0.85rem 0;}
+.inv-tbl{width:100%;border-collapse:collapse;margin:0.85rem 0;}
+.inv-tbl th{text-align:left;font-size:0.6rem;color:#888;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:0.38rem;border-bottom:1px solid #eee;}
+.inv-tbl td{padding:0.48rem 0;font-size:0.76rem;border-bottom:1px solid #f5f5f5;}
+.inv-total{font-weight:800;font-size:0.88rem;}
+.inv-footer{font-size:0.6rem;color:#888;margin-top:1.1rem;text-align:center;line-height:1.6;}
 
-/* ── TOAST ── */
-.toast-container{position:fixed;top:1.5rem;right:1.5rem;z-index:99999;display:flex;flex-direction:column;gap:0.6rem;}
-.toast{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:0.75rem;padding:0.75rem 1.2rem;
-  font-size:0.78rem;color:var(--text);
-  animation:toastIn 0.3s ease;
-  display:flex;align-items:center;gap:0.6rem;min-width:260px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.5);
-}
-@keyframes toastIn{from{opacity:0;transform:translateX(60px);}to{opacity:1;transform:translateX(0);}}
-.toast.success{border-color:rgba(34,197,94,0.4);}
-.toast.error{border-color:rgba(239,68,68,0.4);}
-.toast.info{border-color:rgba(59,130,246,0.4);}
+/* TOAST */
+.toast-wrap{position:fixed;top:1.2rem;right:1.2rem;z-index:99999;display:flex;flex-direction:column;gap:0.45rem;}
+.toast{background:var(--bg2);border:1px solid var(--border);border-radius:0.65rem;padding:0.65rem 1rem;font-size:0.73rem;color:var(--text);animation:tIn 0.25s ease;display:flex;align-items:center;gap:0.45rem;min-width:230px;box-shadow:0 10px 40px rgba(0,0,0,0.5);}
+@keyframes tIn{from{opacity:0;transform:translateX(45px);}to{opacity:1;transform:translateX(0);}}
+.toast.success{border-color:rgba(34,197,94,0.38);}
+.toast.error{border-color:rgba(239,68,68,0.38);}
+.toast.info{border-color:rgba(59,130,246,0.38);}
 
-/* ── EMPTY STATE ── */
-.empty-state{
-  text-align:center;padding:4rem 2rem;color:var(--text-dimmer);
-}
-.empty-icon{font-size:3rem;margin-bottom:1rem;opacity:0.4;}
-.empty-title{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem;}
-.empty-desc{font-size:0.78rem;line-height:1.5;}
+.empty-st{text-align:center;padding:2.8rem 1.5rem;color:var(--dimmer);}
+.empty-ic{font-size:2.3rem;margin-bottom:0.7rem;opacity:0.38;}
+.empty-t{font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.32rem;}
 
-/* ── QUICK BOOKING DETAIL ── */
-.booking-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-@media(max-width:480px){.booking-detail-grid{grid-template-columns:1fr;}}
-.detail-item{background:var(--bg3);border-radius:0.7rem;padding:0.9rem 1rem;}
-.detail-label{font-size:0.6rem;color:var(--text-dimmer);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.25rem;}
-.detail-val{font-size:0.85rem;color:var(--text);font-weight:500;}
-
-/* Mobile sidebar toggle */
-.mobile-menu-btn{
-  display:none;background:none;border:1.5px solid var(--border);
-  color:var(--text-dim);width:36px;height:36px;border-radius:0.5rem;
-  cursor:pointer;font-size:1rem;align-items:center;justify-content:center;
-}
-@media(max-width:768px){
-  .mobile-menu-btn{display:flex;}
-  .sidebar{position:fixed;left:-260px;top:0;bottom:0;z-index:500;transition:left 0.3s;}
-  .sidebar.open{left:0;box-shadow:0 0 0 100vw rgba(0,0,0,0.6);}
-  .main-content{width:100%;}
-}
-
-/* Scrollbar */
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(215,226,234,0.1);border-radius:2px;}
+/* Mobile */
+.mob-btn{display:none;background:none;border:1.5px solid var(--border);color:var(--dim);width:32px;height:32px;border-radius:0.42rem;cursor:pointer;align-items:center;justify-content:center;font-size:0.9rem;}
+@media(max-width:768px){.mob-btn{display:flex;}.sidebar{position:fixed;left:-238px;top:0;bottom:0;z-index:500;transition:left 0.3s;}.sidebar.open{left:0;box-shadow:0 0 0 100vw rgba(0,0,0,0.65);}.main-content{width:100%;}}
 </style>
 </head>
 <body>
+<div class="toast-wrap" id="toast-wrap"></div>
 
-<div class="toast-container" id="toast-container"></div>
-
-<!-- ════════════════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════════════════ -->
+<!-- ══ LOGIN ══ -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">The Prince Production</div>
-    <div class="login-sub">Photography · Admin Portal</div>
-    <h2 class="login-title">🔐 Secure Login</h2>
-    <p class="login-desc">Enter your credentials to access the admin panel</p>
-    <div class="login-error" id="login-error">❌ Incorrect username or password</div>
-    <input class="login-field" id="login-user" type="text" placeholder="Username" autocomplete="username"/>
-    <input class="login-field" id="login-pass" type="password" placeholder="Password" autocomplete="current-password"
-      onkeydown="if(event.key==='Enter')doLogin()"/>
-    <button class="login-btn" onclick="doLogin()">🚀 Enter Admin Panel</button>
-    <p class="login-hint">Default: admin / prince2015</p>
+    <div class="l-logo">The Prince Production</div>
+    <div class="l-sub">Photography · Admin Portal</div>
+    <div class="l-err" id="l-err">❌ Wrong username or password</div>
+    <input class="l-field" id="l-user" type="text" placeholder="Username" autocomplete="username"/>
+    <input class="l-field" id="l-pass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="l-btn" onclick="doLogin()">🚀 Enter Admin Panel</button>
+    <p class="l-hint">Default: admin / prince2015</p>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     MAIN APP
-════════════════════════════════════════════════════ -->
+<!-- ══ APP ══ -->
 <div id="app">
+  <!-- SETUP BANNER -->
+  <div id="setup-banner">
+    <div class="sb-inner">
+      <div class="sb-title">⚙️ Connect Online Storage — One Time Setup (5 minutes)</div>
+      <div class="sb-grid">
+        <div class="sb-step"><div class="sb-step-n">Step 1 — Free Image Hosting</div><div class="sb-step-t">ImgBB API Key</div><div class="sb-step-d">Go to <a href="https://api.imgbb.com" target="_blank">api.imgbb.com</a> → Sign up free → Get API Key → Paste below</div></div>
+        <div class="sb-step"><div class="sb-step-n">Step 2 — Free Online Database</div><div class="sb-step-t">JSONBin Setup</div><div class="sb-step-d">Go to <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> → Sign up → API Keys → Copy Master Key → Create New Bin → content: <span style="color:#cc88ff">{"projects":[],"bookings":[],"pricing":[],"testimonials":[]}</span> → Copy Bin ID</div></div>
+        <div class="sb-step"><div class="sb-step-n">Step 3 — Save Keys</div><div class="sb-step-t">Paste & Connect</div><div class="sb-step-d">Paste all 3 keys below and click Save. After this, photos and bookings will sync across ALL devices automatically!</div></div>
+      </div>
+      <div class="sb-inputs">
+        <div><div class="sb-lbl">ImgBB API Key</div><input class="sb-input" id="sb-imgbb" placeholder="e.g. 1a2b3c4d5e6f..."/></div>
+        <div><div class="sb-lbl">JSONBin Master Key</div><input class="sb-input" id="sb-jkey" placeholder="$2a$10$..."/></div>
+        <div><div class="sb-lbl">JSONBin Bin ID</div><input class="sb-input" id="sb-binid" placeholder="64abc123..."/></div>
+        <button class="sb-btn" onclick="saveApiKeys()">💾 Save & Connect</button>
+      </div>
+      <div class="sb-note">🔒 Keys saved in browser only. Images hosted on ImgBB (free, 32MB/image). All bookings & projects sync via JSONBin (free).</div>
+    </div>
+  </div>
+
   <div class="app-layout">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-logo">
-        <div class="sidebar-brand">The Prince Production</div>
-        <div class="sidebar-brand-sub">Photography · Admin Panel</div>
-      </div>
-      <div class="sidebar-user">
-        <div class="sidebar-avatar">PS</div>
-        <div>
-          <div class="sidebar-uname">Prem Shanker</div>
-          <div class="sidebar-urole">Owner · Administrator</div>
-        </div>
-      </div>
-      <nav class="sidebar-nav">
-        <div class="nav-section-label">Main</div>
+      <div class="s-logo"><div class="s-brand">The Prince Production</div><div class="s-brand-sub">Photography · Admin</div></div>
+      <div class="s-user"><div class="s-avatar">PS</div><div><div class="s-uname">Prem Shanker</div><div class="s-urole">Owner · Admin</div></div></div>
+      <nav class="s-nav">
+        <div class="s-sec">Main</div>
         <div class="nav-item active" onclick="goTo('dashboard',this)"><span class="nav-icon">📊</span>Dashboard</div>
-        <div class="nav-item" onclick="goTo('bookings',this)"><span class="nav-icon">📅</span>Bookings<span class="nav-badge" id="nb-bookings">0</span></div>
-
-        <div class="nav-section-label">Content</div>
+        <div class="nav-item" onclick="goTo('bookings',this)"><span class="nav-icon">📅</span>Bookings<span class="nav-badge" id="nb">0</span></div>
+        <div class="s-sec">Content</div>
         <div class="nav-item" onclick="goTo('projects',this)"><span class="nav-icon">🖼️</span>Projects & Gallery</div>
         <div class="nav-item" onclick="goTo('pricing',this)"><span class="nav-icon">💰</span>Pricing Plans</div>
         <div class="nav-item" onclick="goTo('testimonials',this)"><span class="nav-icon">⭐</span>Testimonials</div>
-
-        <div class="nav-section-label">System</div>
+        <div class="s-sec">System</div>
         <div class="nav-item" onclick="goTo('settings',this)"><span class="nav-icon">⚙️</span>Settings</div>
-        <div class="nav-item" onclick="window.open('ThePrinceProduction_Photography.html','_blank')"><span class="nav-icon">🌐</span>View Website</div>
+        <div class="nav-item" onclick="window.open('index.html','_blank')"><span class="nav-icon">🌐</span>View Website</div>
       </nav>
-      <div class="sidebar-footer">
-        <button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
-      </div>
+      <div class="s-footer"><button class="logout-btn" onclick="doLogout()">🚪 Logout</button></div>
     </aside>
 
-    <!-- MAIN -->
     <div class="main-content">
       <div class="topbar">
-        <div style="display:flex;align-items:center;gap:1rem;">
-          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
-          <div class="topbar-title" id="topbar-title">Dashboard</div>
+        <div style="display:flex;align-items:center;gap:0.85rem;">
+          <button class="mob-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+          <div class="topbar-title" id="pg-title">Dashboard</div>
         </div>
         <div class="topbar-right">
-          <div class="topbar-status"><span class="status-dot"></span>Live</div>
-          <div class="topbar-date" id="topbar-date"></div>
+          <div class="t-status"><span class="s-dot" id="s-dot" style="background:#fb923c"></span><span id="s-txt" style="color:#fb923c">Connecting...</span></div>
+          <div class="t-date" id="t-date"></div>
         </div>
       </div>
 
-      <!-- ── DASHBOARD ── -->
+      <!-- DASHBOARD -->
       <div class="page-content active" id="page-dashboard">
+        <div id="cfg-alert"></div>
         <div class="stats-row">
-          <div class="stat-card">
-            <div class="stat-icon">📅</div>
-            <div class="stat-num" id="ds-total">0</div>
-            <div class="stat-label">Total Bookings</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🆕</div>
-            <div class="stat-num" id="ds-new">0</div>
-            <div class="stat-label">New Requests</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <div class="stat-num" id="ds-confirmed">0</div>
-            <div class="stat-label">Confirmed</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🏆</div>
-            <div class="stat-num" id="ds-done">0</div>
-            <div class="stat-label">Completed</div>
-          </div>
+          <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-num" id="st-total">0</div><div class="stat-label">Total Bookings</div></div>
+          <div class="stat-card"><div class="stat-icon">🆕</div><div class="stat-num" id="st-new">0</div><div class="stat-label">New</div></div>
+          <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num" id="st-conf">0</div><div class="stat-label">Confirmed</div></div>
+          <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num" id="st-done">0</div><div class="stat-label">Completed</div></div>
         </div>
-
-        <!-- Recent Bookings -->
-        <div class="section-header">
-          <div class="section-title">📋 Recent Bookings</div>
-          <button class="btn btn-ghost btn-sm" onclick="goTo('bookings',null)">View All →</button>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Client</th><th>Service</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="dash-bookings-body">
-              <tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No Bookings Yet</div><div class="empty-desc">When clients book from the website, they'll appear here</div></div></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Studio Info -->
-        <div style="margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-          <div class="stat-card" style="padding:1.5rem;">
-            <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:1rem;">Studio Info</div>
-            <div style="display:flex;flex-direction:column;gap:0.6rem;">
-              <div style="font-size:0.82rem;">👤 <strong>Owner:</strong> Prem Shanker</div>
-              <div style="font-size:0.82rem;">📞 <a href="tel:+916350605427" style="color:var(--text);text-decoration:none;"><strong>+91 63506 05427</strong></a></div>
-              <div style="font-size:0.82rem;">📍 <strong>Udaipur, Rajasthan</strong></div>
-              <div style="font-size:0.82rem;">🗓️ <strong>Est. 2015</strong> (10+ years)</div>
-            </div>
-          </div>
-          <div class="stat-card" style="padding:1.5rem;">
-            <div style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:1rem;">Quick Actions</div>
-            <div style="display:flex;flex-direction:column;gap:0.6rem;">
-              <button class="btn btn-primary btn-sm" onclick="openAddBooking()" style="width:100%;justify-content:center;">➕ Add Manual Booking</button>
-              <button class="btn btn-ghost btn-sm" onclick="goTo('projects',null)" style="width:100%;justify-content:center;">🖼️ Update Gallery Photos</button>
-              <button class="btn btn-ghost btn-sm" onclick="goTo('pricing',null)" style="width:100%;justify-content:center;">💰 Edit Pricing</button>
-              <button class="btn btn-wa btn-sm" onclick="openWhatsApp('','')" style="width:100%;justify-content:center;">💬 Open WhatsApp</button>
-            </div>
-          </div>
+        <div class="sec-hdr"><div class="sec-title">📋 Recent Bookings</div><button class="btn btn-ghost btn-sm" onclick="goTo('bookings',null)">View All →</button></div>
+        <div class="tbl-wrap"><table class="dtbl"><thead><tr><th>Client</th><th>Service</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="dash-tb"></tbody></table></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-top:0.5rem;">
+          <div class="stat-card" style="padding:1.2rem;"><div style="font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0.8rem;">Studio Info</div><div style="font-size:0.78rem;display:flex;flex-direction:column;gap:0.45rem;"><div>👤 <strong>Prem Shanker</strong></div><div>📞 <a href="tel:+916350605427" style="color:var(--text);text-decoration:none">+91 63506 05427</a></div><div>📍 Udaipur, Rajasthan</div><div>🗓️ Est. 2015</div></div></div>
+          <div class="stat-card" style="padding:1.2rem;"><div style="font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0.8rem;">Quick Actions</div><div style="display:flex;flex-direction:column;gap:0.45rem;"><button class="btn btn-primary btn-sm" onclick="openAddBooking()" style="width:100%;justify-content:center">➕ Add Booking</button><button class="btn btn-ghost btn-sm" onclick="goTo('projects',null)" style="width:100%;justify-content:center">🖼️ Update Gallery</button><button class="btn btn-wa btn-sm" onclick="window.open('https://wa.me/916350605427','_blank')" style="width:100%;justify-content:center">💬 WhatsApp</button></div></div>
         </div>
       </div>
 
-      <!-- ── BOOKINGS ── -->
+      <!-- BOOKINGS -->
       <div class="page-content" id="page-bookings">
-        <div class="section-header">
-          <div class="section-title">📅 All Bookings</div>
-          <div class="section-actions">
-            <button class="btn btn-primary btn-sm" onclick="openAddBooking()">➕ Add Booking</button>
-            <button class="btn btn-ghost btn-sm" onclick="exportBookings()">⬇️ Export CSV</button>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <div class="table-search">
-            <input class="search-input" id="booking-search" placeholder="🔍 Search by name, phone, service..." oninput="renderBookings()"/>
-            <select class="filter-select" id="booking-filter" onchange="renderBookings()">
-              <option value="">All Status</option>
-              <option value="new">New</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="done">Done</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-          </div>
-          <div style="overflow-x:auto;">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>#</th><th>Client</th><th>Phone</th><th>Date</th>
-                  <th>Services</th><th>Budget</th><th>Status</th><th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="bookings-body">
-                <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No Bookings Yet</div></div></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="sec-hdr"><div class="sec-title">📅 All Bookings</div><div style="display:flex;gap:0.45rem;"><button class="btn btn-primary btn-sm" onclick="openAddBooking()">➕ Add</button><button class="btn btn-ghost btn-sm" onclick="exportCSV()">⬇️ Export</button></div></div>
+        <div class="tbl-wrap">
+          <div class="tbl-search"><input class="srch-in" id="bsrch" placeholder="🔍 Search..." oninput="renderBookings()"/><select class="filt-sel" id="bfilt" onchange="renderBookings()"><option value="">All</option><option value="new">New</option><option value="confirmed">Confirmed</option><option value="done">Done</option><option value="cancelled">Cancelled</option></select></div>
+          <div style="overflow-x:auto;"><table class="dtbl"><thead><tr><th>#</th><th>Client</th><th>Phone</th><th>Date</th><th>Services</th><th>Budget</th><th>Status</th><th>Actions</th></tr></thead><tbody id="book-tb"></tbody></table></div>
         </div>
       </div>
 
-      <!-- ── PROJECTS & GALLERY ── -->
+      <!-- PROJECTS -->
       <div class="page-content" id="page-projects">
-        <div class="section-header">
-          <div class="section-title">🖼️ Projects & Gallery</div>
-          <button class="btn btn-primary btn-sm" onclick="openAddProject()">➕ Add Project</button>
-        </div>
+        <div class="sec-hdr"><div class="sec-title">🖼️ Projects & Gallery</div><button class="btn btn-primary btn-sm" onclick="openModal('m-new-proj')">➕ New Project</button></div>
         <div id="projects-list"></div>
       </div>
 
-      <!-- ── PRICING ── -->
+      <!-- PRICING -->
       <div class="page-content" id="page-pricing">
-        <div class="section-header">
-          <div class="section-title">💰 Pricing Plans</div>
-          <button class="btn btn-primary btn-sm" onclick="openAddPricing()">➕ Add Package</button>
-        </div>
-        <div class="pricing-grid" id="pricing-grid"></div>
+        <div class="sec-hdr"><div class="sec-title">💰 Pricing Plans</div><button class="btn btn-primary btn-sm" onclick="openModal('m-add-price')">➕ Add Package</button></div>
+        <div class="pricing-grid" id="price-grid"></div>
       </div>
 
-      <!-- ── TESTIMONIALS ── -->
+      <!-- TESTIMONIALS -->
       <div class="page-content" id="page-testimonials">
-        <div class="section-header">
-          <div class="section-title">⭐ Testimonials & Reviews</div>
-          <button class="btn btn-primary btn-sm" onclick="openAddTestimonial()">➕ Add Review</button>
-        </div>
-        <div class="testimonial-grid" id="testimonials-grid"></div>
+        <div class="sec-hdr"><div class="sec-title">⭐ Testimonials</div><button class="btn btn-primary btn-sm" onclick="openModal('m-add-test')">➕ Add Review</button></div>
+        <div class="test-grid" id="test-grid"></div>
       </div>
 
-      <!-- ── SETTINGS ── -->
+      <!-- SETTINGS -->
       <div class="page-content" id="page-settings">
-        <div style="max-width:560px;">
-          <div class="section-title" style="margin-bottom:1.5rem;">⚙️ Studio Settings</div>
-          <div class="table-wrap" style="padding:1.5rem;">
-            <div class="form-group"><label class="form-label">Studio Name</label><input class="form-input" id="set-name" value="The Prince Production — Photography"/></div>
-            <div class="form-row">
-              <div class="form-group"><label class="form-label">Owner Name</label><input class="form-input" id="set-owner" value="Prem Shanker"/></div>
-              <div class="form-group"><label class="form-label">Phone / WhatsApp</label><input class="form-input" id="set-phone" value="+91 6350605427"/></div>
+        <div style="max-width:500px;">
+          <div class="sec-title" style="margin-bottom:1.2rem;">⚙️ Settings</div>
+          <div class="tbl-wrap" style="padding:1.3rem;">
+            <div class="fg"><label class="fl">Studio Name</label><input class="fi" id="s-name" value="The Prince Production — Photography"/></div>
+            <div class="f-row"><div class="fg"><label class="fl">Owner</label><input class="fi" id="s-owner" value="Prem Shanker"/></div><div class="fg"><label class="fl">Phone</label><input class="fi" id="s-phone" value="+91 6350605427"/></div></div>
+            <div class="fg"><label class="fl">Location</label><input class="fi" id="s-loc" value="Udaipur, Rajasthan"/></div>
+            <div class="f-row"><div class="fg"><label class="fl">Admin Username</label><input class="fi" id="s-user" value="admin"/></div><div class="fg"><label class="fl">New Password</label><input class="fi" type="password" id="s-pass" placeholder="Leave blank to keep"/></div></div>
+            <div style="border-top:1px solid var(--border);margin:1rem 0;padding-top:1rem;">
+              <div style="font-size:0.66rem;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.7rem;">🔗 Online Storage Keys</div>
+              <div class="fg"><label class="fl">ImgBB API Key (from api.imgbb.com)</label><input class="fi" id="s-imgbb" placeholder="Your ImgBB API key"/></div>
+              <div class="f-row"><div class="fg"><label class="fl">JSONBin Master Key</label><input class="fi" id="s-jkey" placeholder="$2a$10$..."/></div><div class="fg"><label class="fl">JSONBin Bin ID</label><input class="fi" id="s-binid" placeholder="64abc..."/></div></div>
             </div>
-            <div class="form-group"><label class="form-label">Location</label><input class="form-input" id="set-location" value="Udaipur, Rajasthan"/></div>
-            <div class="form-row">
-              <div class="form-group"><label class="form-label">Instagram URL</label><input class="form-input" id="set-ig" placeholder="https://instagram.com/..."/></div>
-              <div class="form-group"><label class="form-label">YouTube URL</label><input class="form-input" id="set-yt" placeholder="https://youtube.com/..."/></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label class="form-label">Admin Username</label><input class="form-input" id="set-user" value="admin"/></div>
-              <div class="form-group"><label class="form-label">Admin Password</label><input class="form-input" type="password" id="set-pass" placeholder="Change password..."/></div>
-            </div>
-            <button class="btn btn-primary" onclick="saveSettings()" style="width:100%;justify-content:center;padding:0.85rem;">💾 Save All Settings</button>
+            <button class="btn btn-primary" onclick="saveSettings()" style="width:100%;justify-content:center;padding:0.75rem;">💾 Save All Settings</button>
           </div>
         </div>
       </div>
-
-    </div><!-- main-content -->
-  </div><!-- app-layout -->
-</div><!-- #app -->
-
-<!-- ════════ MODALS ════════ -->
-
-<!-- Booking Detail Modal -->
-<div class="modal-overlay" id="modal-booking">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-booking-title">Booking Detail</div>
-      <button class="modal-close" onclick="closeModal('modal-booking')">✕</button>
-    </div>
-    <div id="modal-booking-body"></div>
-    <div class="form-actions" id="modal-booking-actions"></div>
-  </div>
-</div>
-
-<!-- Add/Edit Booking Modal -->
-<div class="modal-overlay" id="modal-add-booking">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">➕ Add Manual Booking</div>
-      <button class="modal-close" onclick="closeModal('modal-add-booking')">✕</button>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Client Name *</label><input class="form-input" id="ab-name" placeholder="Full Name"/></div>
-      <div class="form-group"><label class="form-label">Phone *</label><input class="form-input" id="ab-phone" placeholder="+91 XXXXX XXXXX"/></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="ab-email" type="email" placeholder="email@example.com"/></div>
-      <div class="form-group"><label class="form-label">Shoot Date *</label><input class="form-input" id="ab-date" type="date"/></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Services</label><input class="form-input" id="ab-services" placeholder="e.g. Wedding, Drone Shoot"/></div>
-      <div class="form-group"><label class="form-label">Budget</label><input class="form-input" id="ab-budget" placeholder="e.g. ₹25,000"/></div>
-    </div>
-    <div class="form-group"><label class="form-label">Location / Event</label><input class="form-input" id="ab-location" placeholder="Event venue or location"/></div>
-    <div class="form-group"><label class="form-label">Notes</label><textarea class="form-textarea" id="ab-notes" placeholder="Additional details..."></textarea></div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-add-booking')">Cancel</button>
-      <button class="btn btn-primary" onclick="saveManualBooking()">💾 Save Booking</button>
     </div>
   </div>
 </div>
 
-<!-- Invoice Modal -->
-<div class="modal-overlay" id="modal-invoice">
-  <div class="modal" style="max-width:540px;">
-    <div class="modal-header">
-      <div class="modal-title">🧾 Invoice</div>
-      <button class="modal-close" onclick="closeModal('modal-invoice')">✕</button>
-    </div>
-    <div id="invoice-content"></div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-invoice')">Close</button>
-      <button class="btn btn-primary" onclick="printInvoice()">🖨️ Print Invoice</button>
-    </div>
-  </div>
-</div>
+<!-- ══ MODALS ══ -->
+<div class="modal-overlay" id="m-book-det"><div class="modal"><div class="m-hdr"><div class="m-title" id="mbd-title">Booking</div><button class="m-close" onclick="closeModal('m-book-det')">✕</button></div><div id="mbd-body"></div><div class="f-actions" id="mbd-act"></div></div></div>
 
-<!-- Add Project Modal -->
-<div class="modal-overlay" id="modal-add-project">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">🖼️ Add / Edit Project</div>
-      <button class="modal-close" onclick="closeModal('modal-add-project')">✕</button>
-    </div>
-    <div class="form-group"><label class="form-label">Project Name *</label><input class="form-input" id="ap-name" placeholder="e.g. Royal Wedding 2025"/></div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Category</label><input class="form-input" id="ap-cat" placeholder="Wedding · Client Project"/></div>
-      <div class="form-group"><label class="form-label">Year</label><input class="form-input" id="ap-year" placeholder="2025"/></div>
-    </div>
-    <!-- Upload from device -->
-    <div class="form-group">
-      <label class="form-label">📁 Upload Photos from Device</label>
-      <label style="display:flex;align-items:center;justify-content:center;gap:0.6rem;padding:0.9rem;border:2px dashed rgba(215,226,234,0.15);border-radius:0.75rem;cursor:pointer;font-size:0.8rem;color:var(--text-dim);transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(182,0,168,0.5)'" onmouseout="this.style.borderColor='rgba(215,226,234,0.15)'">
-        📂 Click to Select Images (Multiple allowed)
-        <input type="file" id="ap-imgs" accept="image/*" multiple style="display:none;" onchange="previewProjectImgs(event)"/>
-      </label>
-      <div id="ap-preview" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;"></div>
-    </div>
-    <!-- Google Drive / URL -->
-    <div class="form-group">
-      <label class="form-label">🔗 Google Drive Link / Image URL</label>
-      <div style="display:flex;gap:0.5rem;">
-        <input id="ap-url-input" class="form-input" placeholder="Paste Google Drive link or direct image URL..." style="font-size:0.82rem;"/>
-        <button class="btn btn-primary btn-sm" onclick="addUrlToNewProject()" style="white-space:nowrap;">➕ Add URL</button>
-      </div>
-      <div style="font-size:0.6rem;color:var(--text-dimmer);margin-top:0.3rem;">✅ Supports: drive.google.com/file/d/... · drive.google.com/open?id=... · Any direct .jpg .png .webp URL</div>
-      <div id="ap-url-list" style="margin-top:0.5rem;"></div>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-add-project')">Cancel</button>
-      <button class="btn btn-primary" onclick="saveProject()">💾 Save Project</button>
-    </div>
-  </div>
-</div>
+<div class="modal-overlay" id="m-add-book"><div class="modal">
+  <div class="m-hdr"><div class="m-title">➕ Add Booking</div><button class="m-close" onclick="closeModal('m-add-book')">✕</button></div>
+  <div class="f-row"><div class="fg"><label class="fl">Name *</label><input class="fi" id="ab-n" placeholder="Full Name"/></div><div class="fg"><label class="fl">Phone *</label><input class="fi" id="ab-ph" placeholder="+91 XXXXX XXXXX"/></div></div>
+  <div class="f-row"><div class="fg"><label class="fl">Email</label><input class="fi" id="ab-em" type="email"/></div><div class="fg"><label class="fl">Date *</label><input class="fi" id="ab-dt" type="date"/></div></div>
+  <div class="f-row"><div class="fg"><label class="fl">Services</label><input class="fi" id="ab-sv" placeholder="Wedding, Drone..."/></div><div class="fg"><label class="fl">Budget</label><input class="fi" id="ab-bg" placeholder="₹25,000"/></div></div>
+  <div class="fg"><label class="fl">Location</label><input class="fi" id="ab-lc" placeholder="Udaipur Palace..."/></div>
+  <div class="fg"><label class="fl">Notes</label><textarea class="fta" id="ab-nt" placeholder="Additional details..."></textarea></div>
+  <div class="f-actions"><button class="btn btn-ghost" onclick="closeModal('m-add-book')">Cancel</button><button class="btn btn-primary" onclick="saveManualBooking()">💾 Save</button></div>
+</div></div>
 
-<!-- Add Pricing Modal -->
-<div class="modal-overlay" id="modal-add-pricing">
-  <div class="modal" style="max-width:480px;">
-    <div class="modal-header">
-      <div class="modal-title">💰 Add Package</div>
-      <button class="modal-close" onclick="closeModal('modal-add-pricing')">✕</button>
-    </div>
-    <div class="form-group"><label class="form-label">Package Name *</label><input class="form-input" id="pp-name" placeholder="e.g. Wedding Basic"/></div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Price (₹) *</label><input class="form-input" id="pp-price" placeholder="25000"/></div>
-      <div class="form-group"><label class="form-label">Duration</label><input class="form-input" id="pp-dur" placeholder="4 Hours"/></div>
-    </div>
-    <div class="form-group"><label class="form-label">Features (one per line)</label>
-      <textarea class="form-textarea" id="pp-features" placeholder="Candid Photography&#10;1 Photographer&#10;200 Edited Photos&#10;Online Gallery"></textarea>
-    </div>
-    <div class="form-group" style="display:flex;align-items:center;gap:0.75rem;">
-      <input type="checkbox" id="pp-featured" style="accent-color:var(--purple);width:16px;height:16px;"/>
-      <label class="form-label" for="pp-featured" style="margin:0;cursor:pointer;">Mark as Featured / Popular</label>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-add-pricing')">Cancel</button>
-      <button class="btn btn-primary" onclick="savePricing()">💾 Save Package</button>
-    </div>
-  </div>
-</div>
+<div class="modal-overlay" id="m-invoice"><div class="modal" style="max-width:510px;"><div class="m-hdr"><div class="m-title">🧾 Invoice</div><button class="m-close" onclick="closeModal('m-invoice')">✕</button></div><div id="inv-body"></div><div class="f-actions"><button class="btn btn-ghost" onclick="closeModal('m-invoice')">Close</button><button class="btn btn-primary" onclick="printInv()">🖨️ Print</button></div></div></div>
 
-<!-- Add Testimonial Modal -->
-<div class="modal-overlay" id="modal-add-testimonial">
-  <div class="modal" style="max-width:480px;">
-    <div class="modal-header">
-      <div class="modal-title">⭐ Add Review</div>
-      <button class="modal-close" onclick="closeModal('modal-add-testimonial')">✕</button>
-    </div>
-    <div class="form-group"><label class="form-label">Client Name *</label><input class="form-input" id="tm-name" placeholder="Client Name"/></div>
-    <div class="form-row">
-      <div class="form-group"><label class="form-label">Service</label><input class="form-input" id="tm-service" placeholder="Wedding Photography"/></div>
-      <div class="form-group"><label class="form-label">Rating (1-5)</label>
-        <select class="form-select" id="tm-rating">
-          <option value="5">⭐⭐⭐⭐⭐ — 5 Stars</option>
-          <option value="4">⭐⭐⭐⭐ — 4 Stars</option>
-          <option value="3">⭐⭐⭐ — 3 Stars</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">Review Text *</label>
-      <textarea class="form-textarea" id="tm-text" placeholder="What did the client say about the shoot..."></textarea>
-    </div>
-    <div class="form-group" style="display:flex;align-items:center;gap:0.75rem;">
-      <input type="checkbox" id="tm-published" checked style="accent-color:var(--green);width:16px;height:16px;"/>
-      <label class="form-label" for="tm-published" style="margin:0;cursor:pointer;">Publish on website</label>
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('modal-add-testimonial')">Cancel</button>
-      <button class="btn btn-primary" onclick="saveTestimonial()">💾 Save Review</button>
-    </div>
-  </div>
-</div>
+<div class="modal-overlay" id="m-new-proj"><div class="modal" style="max-width:440px;">
+  <div class="m-hdr"><div class="m-title">🖼️ New Project</div><button class="m-close" onclick="closeModal('m-new-proj')">✕</button></div>
+  <div class="fg"><label class="fl">Project Name *</label><input class="fi" id="np-n" placeholder="e.g. Royal Wedding 2025"/></div>
+  <div class="f-row"><div class="fg"><label class="fl">Category</label><input class="fi" id="np-c" placeholder="Wedding · Client"/></div><div class="fg"><label class="fl">Year</label><input class="fi" id="np-y" placeholder="2025"/></div></div>
+  <div class="f-actions"><button class="btn btn-ghost" onclick="closeModal('m-new-proj')">Cancel</button><button class="btn btn-primary" onclick="createProject()">✅ Create</button></div>
+</div></div>
+
+<div class="modal-overlay" id="m-add-price"><div class="modal" style="max-width:440px;">
+  <div class="m-hdr"><div class="m-title">💰 Add Package</div><button class="m-close" onclick="closeModal('m-add-price')">✕</button></div>
+  <div class="fg"><label class="fl">Package Name *</label><input class="fi" id="pp-n" placeholder="Wedding Basic"/></div>
+  <div class="f-row"><div class="fg"><label class="fl">Price (₹) *</label><input class="fi" id="pp-p" placeholder="25000"/></div><div class="fg"><label class="fl">Duration</label><input class="fi" id="pp-d" placeholder="4 Hours"/></div></div>
+  <div class="fg"><label class="fl">Features (one per line)</label><textarea class="fta" id="pp-f" placeholder="Candid Photography&#10;200 Edited Photos&#10;Online Gallery"></textarea></div>
+  <div style="display:flex;align-items:center;gap:0.55rem;margin-bottom:0.85rem;"><input type="checkbox" id="pp-ft" style="accent-color:var(--purple);width:13px;height:13px"/><label class="fl" for="pp-ft" style="margin:0;cursor:pointer">Mark as Featured / Popular</label></div>
+  <div class="f-actions"><button class="btn btn-ghost" onclick="closeModal('m-add-price')">Cancel</button><button class="btn btn-primary" onclick="savePricing()">💾 Save</button></div>
+</div></div>
+
+<div class="modal-overlay" id="m-add-test"><div class="modal" style="max-width:440px;">
+  <div class="m-hdr"><div class="m-title">⭐ Add Review</div><button class="m-close" onclick="closeModal('m-add-test')">✕</button></div>
+  <div class="fg"><label class="fl">Client Name *</label><input class="fi" id="tm-n" placeholder="Client Name"/></div>
+  <div class="f-row"><div class="fg"><label class="fl">Service</label><input class="fi" id="tm-s" placeholder="Wedding Photography"/></div><div class="fg"><label class="fl">Rating</label><select class="fs" id="tm-r"><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option></select></div></div>
+  <div class="fg"><label class="fl">Review Text *</label><textarea class="fta" id="tm-t" placeholder="What did the client say..."></textarea></div>
+  <div style="display:flex;align-items:center;gap:0.55rem;margin-bottom:0.85rem;"><input type="checkbox" id="tm-p" checked style="accent-color:var(--green);width:13px;height:13px"/><label class="fl" for="tm-p" style="margin:0;cursor:pointer">Publish on website</label></div>
+  <div class="f-actions"><button class="btn btn-ghost" onclick="closeModal('m-add-test')">Cancel</button><button class="btn btn-primary" onclick="saveTestimonial()">💾 Save</button></div>
+</div></div>
 
 <script>
-// ════════════════════════════════════════════════════
-// STATE
-// ════════════════════════════════════════════════════
-let bookings = JSON.parse(localStorage.getItem('pp_bookings') || '[]');
-let projects = JSON.parse(localStorage.getItem('pp_projects') || '[]');
-let pricing  = JSON.parse(localStorage.getItem('pp_pricing')  || '[]');
-let testimonials = JSON.parse(localStorage.getItem('pp_testimonials') || '[]');
-let settings = JSON.parse(localStorage.getItem('pp_settings') || JSON.stringify({
-  name:'The Prince Production — Photography',
-  owner:'Prem Shanker',phone:'+91 6350605427',
-  location:'Udaipur, Rajasthan',ig:'',yt:'',
-  user:'admin',pass:'prince2015'
-}));
+// ══════════════════════════════════════════════════════
+// ONLINE APIs — ImgBB (image hosting) + JSONBin (database)
+// ══════════════════════════════════════════════════════
 
-// Seed default data if empty
-if(!pricing.length){
-  pricing=[
-    {id:1,name:'Basic Wedding',price:'₹15,000',duration:'4 Hours',featured:false,features:['1 Photographer','Candid Photography','100 Edited Photos','Online Gallery','7 Day Delivery']},
-    {id:2,name:'Standard Wedding',price:'₹30,000',duration:'8 Hours',featured:true,features:['2 Photographers','Candid + Traditional','300 Edited Photos','Drone Shoot','Wedding Album','14 Day Delivery']},
-    {id:3,name:'Premium Cinematic',price:'₹60,000',duration:'Full Day',featured:false,features:['Full Team','Cinematography','4K Video Film','Drone Aerial','500+ Photos','Premium Album','30 Day Delivery']},
-    {id:4,name:'Documentary',price:'₹20,000',duration:'Per Day',featured:false,features:['Professional Director','Cinema Camera FX3','Gimbal Stabilizer','Full Edit','Color Grade','Music Sync']},
-  ];
-  save('pricing');
-}
-if(!testimonials.length){
-  testimonials=[
-    {id:1,name:'Rajesh Sharma',service:'Wedding Photography',rating:5,text:'Prem bhai ne hamare wedding ki photography bohot hi khoobsoorat tarike se ki. Har ek moment perfectly capture hua. Highly recommended!',published:true},
-    {id:2,name:'Priya Gupta',service:'Candid Photography',rating:5,text:'The Prince Production is outstanding! Our pre-wedding shoot in Udaipur was absolutely magical. Professional team, stunning results.',published:true},
-    {id:3,name:'Arjun Mehta',service:'Drone & Aerial',rating:5,text:'Amazing drone footage of our resort event. Prem sir and his team are true professionals. The aerial shots were breathtaking!',published:true},
-  ];
-  save('testimonials');
-}
-if(!projects.length){
-  projects=[
-    {id:1,name:'Royal Wedding',category:'Wedding · Client',year:'2024',imgs:[],createdAt:new Date().toLocaleDateString('en-IN')},
-    {id:2,name:'Cultural Documentary',category:'Documentary',year:'2024',imgs:[],createdAt:new Date().toLocaleDateString('en-IN')},
-    {id:3,name:'Aerial Cinematic',category:'Drone · Aerial',year:'2025',imgs:[],createdAt:new Date().toLocaleDateString('en-IN')},
-  ];
-  save('projects');
+let IMGBB_KEY   = localStorage.getItem('pp_imgbb_key')  || '';
+let JBIN_KEY    = localStorage.getItem('pp_jbin_key')   || '';
+let JBIN_BIN    = localStorage.getItem('pp_jbin_bin')   || '';
+let ADMIN_USER  = localStorage.getItem('pp_admin_user') || 'admin';
+let ADMIN_PASS  = localStorage.getItem('pp_admin_pass') || 'prince2015';
+
+const isSetup = () => IMGBB_KEY && JBIN_KEY && JBIN_BIN;
+
+function saveApiKeys(){
+  const k1=document.getElementById('sb-imgbb').value.trim();
+  const k2=document.getElementById('sb-jkey').value.trim();
+  const k3=document.getElementById('sb-binid').value.trim();
+  if(!k1||!k2||!k3){toast('Fill all 3 fields!','error');return;}
+  IMGBB_KEY=k1; JBIN_KEY=k2; JBIN_BIN=k3;
+  localStorage.setItem('pp_imgbb_key',k1);
+  localStorage.setItem('pp_jbin_key',k2);
+  localStorage.setItem('pp_jbin_bin',k3);
+  document.getElementById('setup-banner').style.display='none';
+  toast('✅ Connected! Loading data...','success');
+  loadData();
 }
 
-function save(key){ localStorage.setItem('pp_'+key, JSON.stringify(eval(key))); }
-
-// ════════════════════════════════════════════════════
-// AUTH
-// ════════════════════════════════════════════════════
-function doLogin(){
-  const u=document.getElementById('login-user').value.trim();
-  const p=document.getElementById('login-pass').value;
-  if(u===settings.user && p===settings.pass){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app').classList.add('active');
-    refreshAll();
-    toast('Welcome back, '+settings.owner+' 👋','success');
-  } else {
-    document.getElementById('login-error').style.display='block';
-    document.getElementById('login-pass').value='';
-  }
-}
-function doLogout(){
-  if(!confirm('Logout from admin panel?'))return;
-  document.getElementById('app').classList.remove('active');
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('login-pass').value='';
-}
-
-// ════════════════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════════════════
-let currentPage='dashboard';
-function goTo(page, el){
-  document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  if(el) el.classList.add('active');
-  else {
-    document.querySelectorAll('.nav-item').forEach(n=>{
-      if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+page+"'")) n.classList.add('active');
+// ── JSONBin ─────────────────────────────────────────
+async function dbRead(){
+  if(!isSetup()) return null;
+  try{
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${JBIN_BIN}/latest`,{
+      headers:{'X-Master-Key':JBIN_KEY,'X-Bin-Meta':'false'}
     });
-  }
-  const titles={dashboard:'Dashboard',bookings:'Bookings',projects:'Projects & Gallery',pricing:'Pricing Plans',testimonials:'Testimonials',settings:'Settings'};
-  document.getElementById('topbar-title').textContent = titles[page]||page;
-  currentPage=page;
-  if(page==='bookings')renderBookings();
-  if(page==='projects')renderProjects();
-  if(page==='pricing')renderPricing();
-  if(page==='testimonials')renderTestimonials();
-  // close mobile sidebar
-  document.getElementById('sidebar').classList.remove('open');
+    if(!r.ok) throw r.status;
+    return await r.json();
+  }catch(e){console.error('dbRead',e);return null;}
 }
-function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
-
-// ════════════════════════════════════════════════════
-// REFRESH ALL
-// ════════════════════════════════════════════════════
-function refreshAll(){
-  updateDate();
-  updateStats();
-  renderDashBookings();
-  renderBookings();
-  renderProjects();
-  renderPricing();
-  renderTestimonials();
-}
-function updateDate(){
-  const now=new Date();
-  document.getElementById('topbar-date').textContent=now.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-setInterval(updateDate,60000);
-
-function updateStats(){
-  const total=bookings.length;
-  const nw=bookings.filter(b=>b.status==='new').length;
-  const conf=bookings.filter(b=>b.status==='confirmed').length;
-  const done=bookings.filter(b=>b.status==='done').length;
-  ['ds-total','ds-new','ds-confirmed','ds-done'].forEach((id,i)=>{
-    document.getElementById(id).textContent=[total,nw,conf,done][i];
-  });
-  document.getElementById('nb-bookings').textContent=nw;
+async function dbWrite(data){
+  if(!isSetup()) return false;
+  try{
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${JBIN_BIN}`,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JBIN_KEY},
+      body:JSON.stringify(data)
+    });
+    return r.ok;
+  }catch(e){console.error('dbWrite',e);return false;}
 }
 
-// ════════════════════════════════════════════════════
-// BOOKINGS
-// ════════════════════════════════════════════════════
-function renderDashBookings(){
-  const tbody=document.getElementById('dash-bookings-body');
-  const recent=bookings.slice(-5).reverse();
-  if(!recent.length){
-    tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No Bookings Yet</div><div class="empty-desc">Client bookings from website appear here</div></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=recent.map(b=>`
-    <tr>
-      <td><strong>${b.name}</strong><br><span style="font-size:0.68rem;color:var(--text-dim);">${b.phone}</span></td>
-      <td style="font-size:0.78rem;">${b.services||'—'}</td>
-      <td style="font-size:0.78rem;">${b.date||'—'}</td>
-      <td>${statusBadge(b.status)}</td>
-      <td><button class="btn btn-ghost btn-sm" onclick="viewBooking(${b.id})">View</button></td>
-    </tr>`).join('');
+// ── ImgBB Upload ────────────────────────────────────
+async function uploadImgBB(file){
+  if(!IMGBB_KEY){toast('❌ ImgBB key missing! Go to Settings','error');return null;}
+  const fd=new FormData();
+  fd.append('image',file);
+  try{
+    const r=await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`,{method:'POST',body:fd});
+    const d=await r.json();
+    if(d.success) return d.data.url;
+    throw d.error?.message||'Upload failed';
+  }catch(e){console.error('imgbb',e);toast('❌ Image upload failed: '+e,'error');return null;}
 }
 
-function renderBookings(){
-  const search=(document.getElementById('booking-search')?.value||'').toLowerCase();
-  const filter=document.getElementById('booking-filter')?.value||'';
-  let list=bookings.filter(b=>{
-    const match=!search||(b.name||'').toLowerCase().includes(search)||(b.phone||'').includes(search)||(b.services||'').toLowerCase().includes(search);
-    const statusMatch=!filter||b.status===filter;
-    return match&&statusMatch;
-  });
-  const tbody=document.getElementById('bookings-body');
-  if(!list.length){
-    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">No Bookings Found</div></div></td></tr>';
-    return;
-  }
-  tbody.innerHTML=list.slice().reverse().map((b,ri)=>`
-    <tr>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-dim);">#${String(b.id).slice(-4)}</td>
-      <td>
-        <strong>${b.name}</strong>
-        ${b.location?`<br><span style="font-size:0.68rem;color:var(--text-dim);">📍${b.location}</span>`:''}
-      </td>
-      <td><a href="tel:${b.phone}" style="color:var(--text);text-decoration:none;">${b.phone}</a></td>
-      <td style="font-size:0.78rem;white-space:nowrap;">${b.date||'—'}</td>
-      <td style="font-size:0.72rem;max-width:150px;">${b.services||'—'}</td>
-      <td style="font-size:0.75rem;">${b.budget||'—'}</td>
-      <td>${statusBadge(b.status)}</td>
-      <td>
-        <div style="display:flex;gap:0.35rem;flex-wrap:wrap;">
-          <button class="btn btn-ghost btn-sm" onclick="viewBooking(${b.id})">👁</button>
-          <button class="btn btn-wa btn-sm" onclick="openWhatsApp('${b.phone}','${b.name}')">💬</button>
-          <button class="btn btn-ghost btn-sm" onclick="generateInvoice(${b.id})">🧾</button>
-          ${b.status==='new'?`<button class="btn btn-success btn-sm" onclick="changeStatus(${b.id},'confirmed')">✓</button>`:''}
-          ${b.status==='confirmed'?`<button class="btn btn-ghost btn-sm" onclick="changeStatus(${b.id},'done')">✅</button>`:''}
-          <button class="btn btn-danger btn-sm" onclick="deleteBooking(${b.id})">✕</button>
-        </div>
-      </td>
-    </tr>`).join('');
-}
-
-function statusBadge(s){
-  const map={new:'badge-new',confirmed:'badge-confirmed',done:'badge-done',cancelled:'badge-cancelled'};
-  const label={new:'🆕 New',confirmed:'📋 Confirmed',done:'✅ Done',cancelled:'❌ Cancelled'};
-  return `<span class="badge ${map[s]||'badge-new'}">${label[s]||s}</span>`;
-}
-
-function viewBooking(id){
-  const b=bookings.find(x=>x.id===id);
-  if(!b)return;
-  document.getElementById('modal-booking-title').textContent='Booking — '+b.name;
-  document.getElementById('modal-booking-body').innerHTML=`
-    <div class="booking-detail-grid">
-      <div class="detail-item"><div class="detail-label">Client Name</div><div class="detail-val">${b.name}</div></div>
-      <div class="detail-item"><div class="detail-label">Phone</div><div class="detail-val"><a href="tel:${b.phone}" style="color:var(--text);text-decoration:none;">${b.phone}</a></div></div>
-      <div class="detail-item"><div class="detail-label">Email</div><div class="detail-val">${b.email||'—'}</div></div>
-      <div class="detail-item"><div class="detail-label">Shoot Date</div><div class="detail-val">${b.date||'—'}</div></div>
-      <div class="detail-item"><div class="detail-label">Services</div><div class="detail-val">${b.services||'—'}</div></div>
-      <div class="detail-item"><div class="detail-label">Budget</div><div class="detail-val">${b.budget||'—'}</div></div>
-      <div class="detail-item"><div class="detail-label">Location</div><div class="detail-val">${b.location||'—'}</div></div>
-      <div class="detail-item"><div class="detail-label">Status</div><div class="detail-val">${statusBadge(b.status)}</div></div>
-    </div>
-    ${b.message?`<div class="detail-item" style="margin-top:0.75rem;"><div class="detail-label">Notes / Message</div><div class="detail-val" style="line-height:1.6;">${b.message}</div></div>`:''}
-    <div class="detail-item" style="margin-top:0.75rem;"><div class="detail-label">Received</div><div class="detail-val" style="font-size:0.72rem;">${b.created||'—'}</div></div>
-  `;
-  document.getElementById('modal-booking-actions').innerHTML=`
-    <button class="btn btn-ghost" onclick="closeModal('modal-booking')">Close</button>
-    <button class="btn btn-wa" onclick="openWhatsApp('${b.phone}','${b.name}')">💬 WhatsApp</button>
-    <button class="btn btn-ghost" onclick="generateInvoice(${b.id})">🧾 Invoice</button>
-    ${b.status==='new'?`<button class="btn btn-success" onclick="changeStatus(${b.id},'confirmed');closeModal('modal-booking')">✓ Confirm</button>`:''}
-    ${b.status==='confirmed'?`<button class="btn btn-primary" onclick="changeStatus(${b.id},'done');closeModal('modal-booking')">✅ Mark Done</button>`:''}
-  `;
-  openModal('modal-booking');
-}
-
-function changeStatus(id,status){
-  const b=bookings.find(x=>x.id===id);
-  if(!b)return;
-  b.status=status;
-  save('bookings');updateStats();renderBookings();renderDashBookings();
-  toast(`Booking ${status}!`,'success');
-}
-
-function deleteBooking(id){
-  if(!confirm('Delete this booking permanently?'))return;
-  bookings=bookings.filter(x=>x.id!==id);
-  save('bookings');updateStats();renderBookings();renderDashBookings();
-  toast('Booking deleted','info');
-}
-
-function openAddBooking(){
-  ['ab-name','ab-phone','ab-email','ab-services','ab-budget','ab-location','ab-notes'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.value='';
-  });
-  document.getElementById('ab-date').value='';
-  openModal('modal-add-booking');
-}
-
-function saveManualBooking(){
-  const name=document.getElementById('ab-name').value.trim();
-  const phone=document.getElementById('ab-phone').value.trim();
-  const date=document.getElementById('ab-date').value;
-  if(!name||!phone){toast('Name and Phone required!','error');return;}
-  const b={
-    id:Date.now(),name,phone,
-    email:document.getElementById('ab-email').value.trim(),
-    date,services:document.getElementById('ab-services').value.trim(),
-    budget:document.getElementById('ab-budget').value.trim(),
-    location:document.getElementById('ab-location').value.trim(),
-    message:document.getElementById('ab-notes').value.trim(),
-    status:'confirmed',created:new Date().toLocaleString('en-IN'),
-    source:'manual'
-  };
-  bookings.push(b);
-  save('bookings');updateStats();renderBookings();renderDashBookings();
-  closeModal('modal-add-booking');
-  toast('Booking added! ✅','success');
-}
-
-function exportBookings(){
-  if(!bookings.length){toast('No bookings to export','info');return;}
-  const headers=['ID','Name','Phone','Email','Date','Services','Budget','Location','Status','Received'];
-  const rows=bookings.map(b=>[b.id,b.name,b.phone,b.email,b.date,b.services,b.budget,b.location,b.status,b.created]);
-  const csv=[headers,...rows].map(r=>r.map(c=>`"${c||''}"`).join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='ThePrinceProduction_Bookings.csv';a.click();
-  toast('Exported successfully!','success');
-}
-
-function openWhatsApp(phone,name){
-  const p=phone.replace(/\D/g,'');
-  const msg=encodeURIComponent(`Namaste ${name||''}! I'm contacting you from The Prince Production — Photography. 📸\n\nRegarding your booking inquiry — please let us know if you have any questions.\n\n📞 Prem Shanker | +91 6350605427\n📍 Udaipur, Rajasthan`);
-  if(p) window.open(`https://wa.me/${p.startsWith('91')?p:'91'+p}?text=${msg}`,'_blank');
-  else window.open('https://wa.me/916350605427','_blank');
-}
-
-function generateInvoice(id){
-  const b=bookings.find(x=>x.id===id);
-  if(!b)return;
-  const invNum='INV-'+String(b.id).slice(-6).toUpperCase();
-  document.getElementById('invoice-content').innerHTML=`
-    <div class="invoice-box" id="printable-invoice">
-      <div class="invoice-header">
-        <div>
-          <div class="invoice-company">The Prince Production</div>
-          <div class="invoice-sub">Photography &amp; Videography</div>
-          <div style="font-size:0.68rem;color:#888;margin-top:0.25rem;">Owner: Prem Shanker</div>
-          <div style="font-size:0.68rem;color:#888;">📞 +91 6350605427</div>
-          <div style="font-size:0.68rem;color:#888;">📍 Udaipur, Rajasthan</div>
-        </div>
-        <div class="invoice-num">
-          <h3>${invNum}</h3>
-          <p>Date: ${new Date().toLocaleDateString('en-IN')}</p>
-          <p>Shoot Date: ${b.date||'TBD'}</p>
-        </div>
-      </div>
-      <hr class="invoice-divider"/>
-      <div style="font-size:0.78rem;margin-bottom:0.5rem;color:#555;text-transform:uppercase;letter-spacing:0.1em;">Billed To</div>
-      <div style="font-size:0.9rem;font-weight:700;">${b.name}</div>
-      <div style="font-size:0.78rem;color:#666;">${b.phone}${b.email?' · '+b.email:''}</div>
-      ${b.location?`<div style="font-size:0.78rem;color:#666;">📍 ${b.location}</div>`:''}
-      <table class="invoice-table">
-        <thead><tr><th>Service</th><th>Details</th><th>Amount</th></tr></thead>
-        <tbody>
-          <tr><td>${b.services||'Photography Services'}</td><td>${b.location||'Udaipur'}</td><td>${b.budget||'As Discussed'}</td></tr>
-        </tbody>
-        <tfoot>
-          <tr class="invoice-total-row"><td colspan="2">Total Amount</td><td>${b.budget||'As Discussed'}</td></tr>
-        </tfoot>
-      </table>
-      <hr class="invoice-divider"/>
-      <div class="invoice-footer">
-        Thank you for choosing The Prince Production — Photography!<br/>
-        Payment via Cash / UPI / Bank Transfer · Prem Shanker · +91 6350605427<br/>
-        Udaipur, Rajasthan · Est. 2015
-      </div>
-    </div>`;
-  openModal('modal-invoice');
-}
-
-function printInvoice(){
-  const content=document.getElementById('printable-invoice').innerHTML;
-  const win=window.open('','_blank');
-  win.document.write(`<html><head><title>Invoice</title><style>body{font-family:'Kanit',sans-serif;padding:2rem;}*{box-sizing:border-box;}</style></head><body>${content}</body></html>`);
-  win.document.close();win.print();
-}
-
-// ════════════════════════════════════════════════════
-// PROJECTS
-// ════════════════════════════════════════════════════
-// ── GOOGLE DRIVE URL CONVERTER
-function convertDriveUrl(url){
+// ── Google Drive / URL converter ──────────────────
+function toDirect(url){
   if(!url) return url;
   url=url.trim();
   let m=url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
   if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
   m=url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
   if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
-  m=url.match(/drive\.google\.com\/uc\?.*id=([a-zA-Z0-9_-]+)/);
-  if(m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
-  return url;
+  m=url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if(m&&url.includes('drive.google.com')) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  return url; // direct URL
 }
 
-// ── IndexedDB for large image storage
-let imgDB=null;
-function openImgDB(){
-  return new Promise((res,rej)=>{
-    if(imgDB){res(imgDB);return;}
-    const req=indexedDB.open('pp_images',1);
-    req.onupgradeneeded=e=>e.target.result.createObjectStore('imgs',{keyPath:'key'});
-    req.onsuccess=e=>{imgDB=e.target.result;res(imgDB);};
-    req.onerror=()=>rej('DB error');
-  });
-}
-function saveImgToDB(key,dataUrl){
-  return openImgDB().then(db=>new Promise((res,rej)=>{
-    const tx=db.transaction('imgs','readwrite');
-    tx.objectStore('imgs').put({key,dataUrl});
-    tx.oncomplete=()=>res();tx.onerror=()=>rej();
-  }));
-}
-function getImgFromDB(key){
-  return openImgDB().then(db=>new Promise((res)=>{
-    const tx=db.transaction('imgs','readonly');
-    const req=tx.objectStore('imgs').get(key);
-    req.onsuccess=()=>res(req.result?req.result.dataUrl:null);
-    req.onerror=()=>res(null);
-  }));
-}
-function deleteImgFromDB(key){
-  return openImgDB().then(db=>new Promise((res)=>{
-    const tx=db.transaction('imgs','readwrite');
-    tx.objectStore('imgs').delete(key);
-    tx.oncomplete=()=>res();
-  }));
+// ══════════════════════════════════════════════════════
+// STATE + DEFAULTS
+// ══════════════════════════════════════════════════════
+let DB={projects:[],bookings:[],pricing:[],testimonials:[]};
+
+const DEF_PRICING=[
+  {id:1,name:'Basic Wedding',price:'₹15,000',duration:'4 Hours',featured:false,features:['1 Photographer','Candid Photography','100 Edited Photos','Online Gallery']},
+  {id:2,name:'Standard Wedding',price:'₹30,000',duration:'8 Hours',featured:true,features:['2 Photographers','Candid + Traditional','300 Edited Photos','Drone Shoot','Album']},
+  {id:3,name:'Premium Cinematic',price:'₹60,000',duration:'Full Day',featured:false,features:['Full Team','Sony FX3','4K Video','Drone','500+ Photos','Premium Album']},
+  {id:4,name:'Documentary',price:'₹20,000',duration:'Per Day',featured:false,features:['Professional Director','Cinema Camera','Gimbal','Full Edit','Color Grade']},
+];
+const DEF_TEST=[
+  {id:1,name:'Rajesh Sharma',service:'Wedding Photography',rating:5,text:'Prem bhai ne hamare wedding ki photography bohot khoobsoorat tarike se ki. Highly recommended!',published:true},
+  {id:2,name:'Priya Gupta',service:'Candid Photography',rating:5,text:'The Prince Production is outstanding! Our shoot was absolutely magical.',published:true},
+  {id:3,name:'Arjun Mehta',service:'Drone & Aerial',rating:5,text:'Amazing drone footage! Prem sir and his team are true professionals.',published:true},
+];
+const DEF_PROJ=[
+  {id:1,name:'Royal Wedding',category:'Wedding · Client',year:'2024',imgs:[]},
+  {id:2,name:'Cultural Documentary',category:'Documentary',year:'2024',imgs:[]},
+  {id:3,name:'Aerial Cinematic',category:'Drone · Aerial',year:'2025',imgs:[]},
+];
+
+async function loadData(){
+  setStatus('Connecting...','#fb923c');
+  if(!isSetup()){
+    DB={projects:DEF_PROJ,bookings:[],pricing:DEF_PRICING,testimonials:DEF_TEST};
+    setStatus('Offline — Setup Required','#f87171');
+    showAlert(false); refreshAll(); return;
+  }
+  const data=await dbRead();
+  if(data){
+    DB.projects     = data.projects     ||DEF_PROJ;
+    DB.bookings     = data.bookings     ||[];
+    DB.pricing      = data.pricing      ||DEF_PRICING;
+    DB.testimonials = data.testimonials ||DEF_TEST;
+    setStatus('Online ✅','#4ade80');
+    showAlert(true);
+  } else {
+    DB={projects:DEF_PROJ,bookings:[],pricing:DEF_PRICING,testimonials:DEF_TEST};
+    setStatus('Connection Failed','#f87171');
+    showAlert(false);
+  }
+  refreshAll();
 }
 
+async function saveDB(){
+  if(!isSetup()){toast('⚠️ Setup online storage first (Settings)','error');return false;}
+  const ok=await dbWrite(DB);
+  if(ok){setStatus('Saved ✅','#4ade80');return true;}
+  else{toast('❌ Save failed! Check internet','error');return false;}
+}
+
+function setStatus(t,c){
+  const el=document.getElementById('s-txt'),dot=document.getElementById('s-dot');
+  if(el){el.textContent=t;el.style.color=c;}
+  if(dot) dot.style.background=c;
+}
+
+function showAlert(ok){
+  const el=document.getElementById('cfg-alert');if(!el)return;
+  if(!ok) el.innerHTML=`<div class="alert-warn">⚠️ Online storage not configured — photos will NOT sync across devices. <button class="btn btn-sm" style="background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.4);color:#fb923c;margin-left:auto" onclick="document.getElementById('setup-banner').style.display='block';window.scrollTo(0,0)">Setup Now</button></div>`;
+  else el.innerHTML='<div class="alert-ok">✅ Online storage connected — photos & bookings sync across all devices!</div>';
+}
+
+// ══════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim(),p=document.getElementById('l-pass').value;
+  if(u===ADMIN_USER&&p===ADMIN_PASS){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('active');
+    document.getElementById('setup-banner').style.display=isSetup()?'none':'block';
+    loadData();
+    toast('Welcome back, Prem Shanker 👋','success');
+  } else {
+    document.getElementById('l-err').style.display='block';
+    document.getElementById('l-pass').value='';
+  }
+}
+function doLogout(){
+  if(!confirm('Logout?'))return;
+  document.getElementById('app').classList.remove('active');
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('l-pass').value='';
+}
+document.getElementById('l-user').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('l-pass').focus();});
+
+// ══════════════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════════════
+function goTo(page,el){
+  document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  if(el) el.classList.add('active');
+  const titles={dashboard:'Dashboard',bookings:'Bookings',projects:'Projects & Gallery',pricing:'Pricing Plans',testimonials:'Testimonials',settings:'Settings'};
+  document.getElementById('pg-title').textContent=titles[page]||page;
+  document.getElementById('sidebar').classList.remove('open');
+  if(page==='projects') renderProjects();
+  if(page==='pricing') renderPricing();
+  if(page==='testimonials') renderTestimonials();
+  if(page==='bookings') renderBookings();
+  if(page==='settings') loadSettingsPage();
+}
+
+function refreshAll(){
+  updateStats();renderDashBookings();renderBookings();renderProjects();renderPricing();renderTestimonials();
+  setInterval(()=>{document.getElementById('t-date').textContent=new Date().toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});},1000);
+}
+function updateStats(){
+  const t=DB.bookings.length,n=DB.bookings.filter(b=>b.status==='new').length,c=DB.bookings.filter(b=>b.status==='confirmed').length,d=DB.bookings.filter(b=>b.status==='done').length;
+  document.getElementById('st-total').textContent=t;document.getElementById('st-new').textContent=n;document.getElementById('st-conf').textContent=c;document.getElementById('st-done').textContent=d;document.getElementById('nb').textContent=n;
+}
+
+// ══════════════════════════════════════════════════════
+// BOOKINGS
+// ══════════════════════════════════════════════════════
+function sBadge(s){const m={new:'b-new',confirmed:'b-conf',done:'b-done',cancelled:'b-cancel'},l={new:'🆕 New',confirmed:'📋 Confirmed',done:'✅ Done',cancelled:'❌ Cancelled'};return `<span class="badge ${m[s]||'b-new'}">${l[s]||s}</span>`;}
+
+function renderDashBookings(){
+  const tb=document.getElementById('dash-tb'),rec=DB.bookings.slice(-5).reverse();
+  if(!rec.length){tb.innerHTML='<tr><td colspan="5"><div class="empty-st"><div class="empty-ic">📭</div><div class="empty-t">No Bookings Yet</div></div></td></tr>';return;}
+  tb.innerHTML=rec.map(b=>`<tr><td><strong>${b.name}</strong><br><span style="font-size:0.62rem;color:var(--dim)">${b.phone}</span></td><td style="font-size:0.7rem">${b.services||'—'}</td><td style="font-size:0.7rem">${b.date||'—'}</td><td>${sBadge(b.status)}</td><td><button class="btn btn-ghost btn-sm" onclick="viewBooking(${b.id})">View</button></td></tr>`).join('');
+}
+function renderBookings(){
+  const srch=(document.getElementById('bsrch')?.value||'').toLowerCase(),flt=document.getElementById('bfilt')?.value||'';
+  let list=DB.bookings.filter(b=>(!srch||(b.name||'').toLowerCase().includes(srch)||(b.phone||'').includes(srch)||(b.services||'').toLowerCase().includes(srch))&&(!flt||b.status===flt));
+  const tb=document.getElementById('book-tb');
+  if(!list.length){tb.innerHTML='<tr><td colspan="8"><div class="empty-st"><div class="empty-ic">📭</div><div class="empty-t">No Bookings Found</div></div></td></tr>';return;}
+  tb.innerHTML=list.slice().reverse().map(b=>`<tr>
+    <td style="font-size:0.62rem;color:var(--dim)">#${String(b.id).slice(-4)}</td>
+    <td><strong>${b.name}</strong>${b.location?`<br><span style="font-size:0.62rem;color:var(--dim)">📍${b.location}</span>`:''}</td>
+    <td><a href="tel:${b.phone}" style="color:var(--text);text-decoration:none">${b.phone}</a></td>
+    <td style="font-size:0.7rem">${b.date||'—'}</td>
+    <td style="font-size:0.66rem;max-width:120px">${b.services||'—'}</td>
+    <td style="font-size:0.7rem">${b.budget||'—'}</td>
+    <td>${sBadge(b.status)}</td>
+    <td><div style="display:flex;gap:0.28rem;flex-wrap:wrap">
+      <button class="btn btn-ghost btn-sm" onclick="viewBooking(${b.id})">👁</button>
+      <button class="btn btn-wa btn-sm" onclick="openWA('${b.phone}','${b.name}')">💬</button>
+      <button class="btn btn-ghost btn-sm" onclick="genInv(${b.id})">🧾</button>
+      ${b.status==='new'?`<button class="btn btn-success btn-sm" onclick="chgSt(${b.id},'confirmed')">✓</button>`:''}
+      ${b.status==='confirmed'?`<button class="btn btn-ghost btn-sm" onclick="chgSt(${b.id},'done')">✅</button>`:''}
+      <button class="btn btn-danger btn-sm" onclick="delBook(${b.id})">✕</button>
+    </div></td></tr>`).join('');
+}
+function viewBooking(id){
+  const b=DB.bookings.find(x=>x.id===id);if(!b)return;
+  document.getElementById('mbd-title').textContent='Booking — '+b.name;
+  document.getElementById('mbd-body').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem">${[['Client',b.name],['Phone',`<a href="tel:${b.phone}" style="color:var(--text)">${b.phone}</a>`],['Email',b.email||'—'],['Date',b.date||'—'],['Services',b.services||'—'],['Budget',b.budget||'—'],['Location',b.location||'—'],['Status',sBadge(b.status)]].map(([k,v])=>`<div style="background:var(--bg3);border-radius:0.55rem;padding:0.72rem"><div style="font-size:0.56rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.18rem">${k}</div><div style="font-size:0.8rem">${v}</div></div>`).join('')}</div>${b.message?`<div style="background:var(--bg3);border-radius:0.55rem;padding:0.72rem;margin-top:0.65rem"><div style="font-size:0.56rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.18rem">Notes</div><div style="font-size:0.78rem;line-height:1.6">${b.message}</div></div>`:''}`;
+  document.getElementById('mbd-act').innerHTML=`<button class="btn btn-ghost" onclick="closeModal('m-book-det')">Close</button><button class="btn btn-wa" onclick="openWA('${b.phone}','${b.name}')">💬 WhatsApp</button><button class="btn btn-ghost" onclick="genInv(${b.id})">🧾 Invoice</button>${b.status==='new'?`<button class="btn btn-success" onclick="chgSt(${b.id},'confirmed');closeModal('m-book-det')">✓ Confirm</button>`:''}`;
+  openModal('m-book-det');
+}
+async function chgSt(id,status){
+  const b=DB.bookings.find(x=>x.id===id);if(!b)return;
+  b.status=status;const ok=await saveDB();
+  if(ok){updateStats();renderBookings();renderDashBookings();toast(`Booking ${status}!`,'success');}
+}
+async function delBook(id){
+  if(!confirm('Delete this booking?'))return;
+  DB.bookings=DB.bookings.filter(x=>x.id!==id);const ok=await saveDB();
+  if(ok){updateStats();renderBookings();renderDashBookings();toast('Deleted','info');}
+}
+function openAddBooking(){['ab-n','ab-ph','ab-em','ab-sv','ab-bg','ab-lc','ab-nt'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('ab-dt').value='';openModal('m-add-book');}
+async function saveManualBooking(){
+  const n=document.getElementById('ab-n').value.trim(),ph=document.getElementById('ab-ph').value.trim();
+  if(!n||!ph){toast('Name and Phone required!','error');return;}
+  const b={id:Date.now(),name:n,phone:ph,email:document.getElementById('ab-em').value.trim(),date:document.getElementById('ab-dt').value,services:document.getElementById('ab-sv').value.trim(),budget:document.getElementById('ab-bg').value.trim(),location:document.getElementById('ab-lc').value.trim(),message:document.getElementById('ab-nt').value.trim(),status:'confirmed',created:new Date().toLocaleString('en-IN'),source:'manual'};
+  DB.bookings.push(b);const ok=await saveDB();
+  if(ok){updateStats();renderBookings();renderDashBookings();closeModal('m-add-book');toast('Booking added! ✅','success');}
+}
+function exportCSV(){
+  if(!DB.bookings.length){toast('No bookings','info');return;}
+  const h=['ID','Name','Phone','Email','Date','Services','Budget','Location','Status'];
+  const csv=[h,...DB.bookings.map(b=>[b.id,b.name,b.phone,b.email,b.date,b.services,b.budget,b.location,b.status])].map(r=>r.map(c=>`"${c||''}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='bookings.csv';a.click();
+  toast('Exported!','success');
+}
+function openWA(phone,name){
+  const p=phone.replace(/\D/g,'');
+  window.open(`https://wa.me/${p.startsWith('91')?p:'91'+p}?text=${encodeURIComponent(`Namaste ${name}! The Prince Production se contact kar rahe hain. 📸\nPrem Shanker | +91 6350605427`)}`, '_blank');
+}
+function genInv(id){
+  const b=DB.bookings.find(x=>x.id===id);if(!b)return;
+  const n='INV-'+String(b.id).slice(-6).toUpperCase();
+  document.getElementById('inv-body').innerHTML=`<div class="inv-box" id="print-inv"><div class="inv-hdr"><div><div class="inv-co">The Prince Production</div><div style="font-size:0.6rem;color:#888">Photography · Est. 2015</div><div style="font-size:0.6rem;color:#888">Prem Shanker · +91 6350605427 · Udaipur, Rajasthan</div></div><div style="text-align:right"><div style="font-size:0.95rem;font-weight:800;color:#B600A8">${n}</div><div style="font-size:0.62rem;color:#888">${new Date().toLocaleDateString('en-IN')}</div><div style="font-size:0.62rem;color:#888">Shoot: ${b.date||'TBD'}</div></div></div><hr class="inv-d"/><div style="font-size:0.86rem;font-weight:700">${b.name}</div><div style="font-size:0.7rem;color:#666">${b.phone}${b.email?' · '+b.email:''}</div>${b.location?`<div style="font-size:0.7rem;color:#666">📍 ${b.location}</div>`:''}<table class="inv-tbl"><thead><tr><th>Service</th><th>Details</th><th>Amount</th></tr></thead><tbody><tr><td>${b.services||'Photography'}</td><td>${b.location||'Udaipur'}</td><td>${b.budget||'As Discussed'}</td></tr></tbody><tfoot><tr class="inv-total"><td colspan="2">Total</td><td>${b.budget||'As Discussed'}</td></tr></tfoot></table><hr class="inv-d"/><div class="inv-footer">Thank you for choosing The Prince Production!<br>Payment: Cash / UPI / Bank Transfer</div></div>`;
+  openModal('m-invoice');
+}
+function printInv(){const w=window.open('');w.document.write('<html><head><title>Invoice</title><style>body{font-family:Kanit,sans-serif;padding:2rem}*{box-sizing:border-box}</style></head><body>'+document.getElementById('print-inv').innerHTML+'</body></html>');w.document.close();w.print();}
+
+// ══════════════════════════════════════════════════════
+// PROJECTS — ImgBB upload + URL/Drive support
+// ══════════════════════════════════════════════════════
 function renderProjects(){
   const el=document.getElementById('projects-list');
-  if(!projects.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">🖼️</div><div class="empty-title">No Projects Yet</div><div class="empty-desc">Add your first project to get started</div></div>';return;}
-  el.innerHTML=projects.map(p=>`
-    <div style="background:var(--bg2);border:1.5px solid var(--border);border-radius:1.2rem;padding:1.5rem;margin-bottom:1.2rem;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.75rem;">
-        <div>
-          <div style="font-size:0.88rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">${p.name}</div>
-          <div style="font-size:0.68rem;color:var(--text-dim);margin-top:0.2rem;">${p.category} · ${p.year} · 📸 ${p.imgs.length} photos</div>
-        </div>
-        <button class="btn btn-danger btn-sm" onclick="deleteProject(${p.id})">🗑 Delete</button>
+  if(!DB.projects.length){el.innerHTML='<div class="empty-st"><div class="empty-ic">🖼️</div><div class="empty-t">No Projects Yet</div><div style="font-size:0.75rem">Add your first project above</div></div>';return;}
+  el.innerHTML=DB.projects.map(p=>`
+    <div class="proj-card">
+      <div class="proj-hdr">
+        <div><div class="proj-name">${p.name}</div><div class="proj-meta">${p.category} · ${p.year} · 📸 ${(p.imgs||[]).length} photos</div></div>
+        <button class="btn btn-danger btn-sm" onclick="delProj(${p.id})">🗑 Delete</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+      <div class="proj-add-row">
         <div>
-          <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem;">📁 Upload from Device</div>
-          <label style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem;border:2px dashed rgba(215,226,234,0.15);border-radius:0.75rem;cursor:pointer;font-size:0.75rem;color:var(--text-dim);">
-            <span>📂 Choose Photos</span>
-            <input type="file" accept="image/*" multiple style="display:none;" onchange="addProjectImgs(event,${p.id})"/>
+          <div style="font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.32rem">📁 Upload from Device</div>
+          <label class="upload-lbl">
+            📂 Choose Photos (Multiple OK)
+            <input type="file" accept="image/*" multiple style="display:none" onchange="uploadProjFiles(event,${p.id})"/>
           </label>
+          <div class="up-prog" id="up-${p.id}"></div>
         </div>
         <div>
-          <div style="font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.4rem;">🔗 Google Drive / Image URL</div>
-          <div style="display:flex;gap:0.4rem;">
-            <input id="url-input-${p.id}" class="form-input" style="font-size:0.75rem;padding:0.6rem 0.8rem;" placeholder="Paste Drive link or image URL..."/>
-            <button class="btn btn-primary btn-sm" onclick="addUrlToProject(${p.id})">➕</button>
+          <div style="font-size:0.58rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.32rem">🔗 Google Drive / Any Image URL</div>
+          <div class="url-row">
+            <input id="ui-${p.id}" class="fi" style="font-size:0.73rem;padding:0.52rem 0.78rem" placeholder="Paste Google Drive link or .jpg/.png URL..."/>
+            <button class="btn btn-primary btn-sm" onclick="addUrlProj(${p.id})" style="white-space:nowrap">➕ Add</button>
           </div>
-          <div style="font-size:0.58rem;color:var(--text-dimmer);margin-top:0.3rem;">drive.google.com links ya direct image URL</div>
+          <div style="font-size:0.55rem;color:var(--dimmer);margin-top:0.22rem">✅ drive.google.com/file/d/... · Any direct image URL</div>
         </div>
       </div>
-      <div id="proj-gallery-${p.id}" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:0.5rem;"></div>
-      ${!p.imgs.length?'<div style="font-size:0.72rem;color:var(--text-dimmer);padding:0.75rem;text-align:center;border:1px dashed rgba(215,226,234,0.08);border-radius:0.75rem;">No photos yet</div>':''}
+      <div class="proj-gallery">
+        ${(p.imgs||[]).map((src,i)=>`
+          <div class="pimg-wrap">
+            <img src="${src}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=display:flex;align-items:center;justify-content:center;height:100%;font-size:0.6rem;color:var(--dim);text-align:center;padding:0.3rem>Load Failed</div>'"/>
+            <button class="pimg-del" onclick="delProjImg(${p.id},${i})">✕</button>
+          </div>`).join('')}
+        ${!(p.imgs||[]).length?'<div style="grid-column:1/-1;font-size:0.7rem;color:var(--dimmer);padding:0.65rem;text-align:center;border:1px dashed rgba(215,226,234,0.07);border-radius:0.5rem">No photos yet — upload or add URL above</div>':''}
+      </div>
     </div>`).join('');
-  projects.forEach(p=>loadProjectGallery(p));
 }
 
-async function loadProjectGallery(p){
-  const grid=document.getElementById(`proj-gallery-${p.id}`);
-  if(!grid||!p.imgs.length) return;
-  grid.innerHTML='';
-  for(let i=0;i<p.imgs.length;i++){
-    const entry=p.imgs[i];
-    let src=entry.startsWith('dbkey:')?(await getImgFromDB(entry.replace('dbkey:',''))||''):entry;
-    if(!src) continue;
-    const wrap=document.createElement('div');
-    wrap.className='gallery-item';
-    wrap.innerHTML=`<img src="${src}" alt="photo" onerror="this.parentElement.style.background='#1a1a1a'" loading="lazy"/><div class="gallery-item-overlay"><button class="btn btn-danger btn-sm" onclick="removeProjectImg(${p.id},${i})" style="padding:0.25rem 0.5rem;">✕</button></div>`;
-    grid.appendChild(wrap);
+async function uploadProjFiles(event,id){
+  const proj=DB.projects.find(p=>p.id===id);if(!proj)return;
+  if(!IMGBB_KEY){toast('❌ ImgBB key not set! Go to Settings to add it','error');return;}
+  const files=[...event.target.files];if(!files.length)return;
+  const prog=document.getElementById(`up-${id}`);
+  prog.style.display='block';
+  let done=0,ok=0;
+  for(const file of files){
+    prog.textContent=`⏳ Uploading ${done+1}/${files.length} — ${file.name}...`;
+    const url=await uploadImgBB(file);
+    if(url){if(!proj.imgs)proj.imgs=[];proj.imgs.push(url);ok++;}
+    done++;
   }
+  prog.style.display='none';
+  if(ok>0){
+    const saved=await saveDB();
+    if(saved){renderProjects();toast(`✅ ${ok} photo${ok>1?'s':''} uploaded & live on website!`,'success');}
+  } else toast('❌ All uploads failed. Check ImgBB API key in Settings.','error');
 }
 
-function addProjectImgs(event,id){
-  const proj=projects.find(p=>p.id===id);if(!proj)return;
-  const files=[...event.target.files];
-  if(!files.length) return;
-  let done=0;
-  toast(`Uploading ${files.length} photo${files.length>1?'s':''} ...`,'info');
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=async e=>{
-      const dbKey=`proj_${id}_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-      await saveImgToDB(dbKey,e.target.result);
-      proj.imgs.push('dbkey:'+dbKey);
-      done++;
-      if(done===files.length){save('projects');renderProjects();toast(`✅ ${files.length} photo${files.length>1?'s':''} uploaded!`,'success');}
-    };
-    reader.onerror=()=>{done++;toast('❌ File read error','error');};
-    reader.readAsDataURL(file);
-  });
+async function addUrlProj(id){
+  const proj=DB.projects.find(p=>p.id===id);if(!proj)return;
+  const inp=document.getElementById(`ui-${id}`);
+  const raw=inp.value.trim();if(!raw){toast('Paste a URL first','error');return;}
+  const url=toDirect(raw);
+  if(!proj.imgs) proj.imgs=[];
+  proj.imgs.push(url);
+  const saved=await saveDB();
+  if(saved){inp.value='';renderProjects();toast('✅ Image added & live on website!','success');}
 }
 
-function addUrlToProject(id){
-  const proj=projects.find(p=>p.id===id);if(!proj)return;
-  const inp=document.getElementById(`url-input-${id}`);
-  const rawUrl=inp.value.trim();
-  if(!rawUrl){toast('Please paste a URL first','error');return;}
-  const finalUrl=convertDriveUrl(rawUrl);
-  proj.imgs.push(finalUrl);
-  save('projects');
-  inp.value='';
-  renderProjects();
-  toast('✅ Image added!','success');
-}
-
-function removeProjectImg(id,idx){
-  const proj=projects.find(p=>p.id===id);if(!proj)return;
-  const entry=proj.imgs[idx];
-  if(entry&&entry.startsWith('dbkey:')) deleteImgFromDB(entry.replace('dbkey:',''));
+async function delProjImg(id,idx){
+  const proj=DB.projects.find(p=>p.id===id);if(!proj)return;
   proj.imgs.splice(idx,1);
-  save('projects');renderProjects();toast('Photo removed','info');
+  const saved=await saveDB();
+  if(saved){renderProjects();toast('Photo removed','info');}
 }
 
-function deleteProject(id){
-  if(!confirm('Delete this project and all its photos?'))return;
-  const proj=projects.find(p=>p.id===id);
-  if(proj) proj.imgs.forEach(e=>{if(e.startsWith('dbkey:')) deleteImgFromDB(e.replace('dbkey:',''));});
-  projects=projects.filter(p=>p.id!==id);
-  save('projects');renderProjects();toast('Project deleted','info');
+async function delProj(id){
+  if(!confirm('Delete this project?'))return;
+  DB.projects=DB.projects.filter(p=>p.id!==id);
+  const saved=await saveDB();
+  if(saved){renderProjects();toast('Deleted','info');}
 }
 
-let apImgData=[];
-function openAddProject(){
-  apImgData=[];
-  ['ap-name','ap-cat','ap-year'].forEach(id=>{document.getElementById(id).value='';});
-  document.getElementById('ap-preview').innerHTML='';
-  const ul=document.getElementById('ap-url-list');if(ul)ul.innerHTML='';
-  openModal('modal-add-project');
+async function createProject(){
+  const n=document.getElementById('np-n').value.trim();
+  if(!n){toast('Name required!','error');return;}
+  const p={id:Date.now(),name:n,category:document.getElementById('np-c').value.trim()||'Photography',year:document.getElementById('np-y').value.trim()||new Date().getFullYear().toString(),imgs:[],createdAt:new Date().toLocaleDateString('en-IN')};
+  DB.projects.push(p);
+  const saved=await saveDB();
+  if(saved){renderProjects();closeModal('m-new-proj');toast('Project created! Now add photos.','success');}
 }
 
-function previewProjectImgs(event){
-  const files=[...event.target.files];
-  const preview=document.getElementById('ap-preview');
-  files.slice(0,10).forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=e=>{
-      apImgData.push({isFile:true,data:e.target.result});
-      const img=document.createElement('img');
-      img.src=e.target.result;
-      img.style.cssText='width:80px;height:80px;object-fit:cover;border-radius:0.5rem;border:1px solid rgba(215,226,234,0.15);';
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-function addUrlToNewProject(){
-  const inp=document.getElementById('ap-url-input');
-  if(!inp) return;
-  const rawUrl=inp.value.trim();
-  if(!rawUrl){toast('Enter a URL first','error');return;}
-  const finalUrl=convertDriveUrl(rawUrl);
-  apImgData.push({isFile:false,data:finalUrl});
-  const list=document.getElementById('ap-url-list');
-  if(list){
-    const div=document.createElement('div');
-    div.style.cssText='display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem;';
-    div.innerHTML=`<img src="${finalUrl}" style="width:48px;height:48px;object-fit:cover;border-radius:0.4rem;" loading="lazy"/><span style="font-size:0.68rem;color:var(--text-dim);">${rawUrl.slice(0,50)}...</span>`;
-    list.appendChild(div);
-  }
-  inp.value='';
-  toast('URL added ✅','success');
-}
-
-async function saveProject(){
-  const name=document.getElementById('ap-name').value.trim();
-  if(!name){toast('Project name required!','error');return;}
-  const imgs=[];
-  for(const item of apImgData){
-    if(item.isFile){
-      const dbKey=`proj_new_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-      await saveImgToDB(dbKey,item.data);
-      imgs.push('dbkey:'+dbKey);
-    } else {
-      imgs.push(item.data);
-    }
-  }
-  const proj={id:Date.now(),name,category:document.getElementById('ap-cat').value.trim()||'Photography',year:document.getElementById('ap-year').value.trim()||new Date().getFullYear().toString(),imgs,createdAt:new Date().toLocaleDateString('en-IN')};
-  projects.push(proj);save('projects');renderProjects();
-  closeModal('modal-add-project');toast('Project added!','success');
-  apImgData=[];
-}
-
-// ════════════════════════════════════════════════════
-// PRICING
-// ════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// PRICING + TESTIMONIALS
+// ══════════════════════════════════════════════════════
 function renderPricing(){
-  const el=document.getElementById('pricing-grid');
-  el.innerHTML=pricing.map(p=>`
-    <div class="pricing-card ${p.featured?'featured':''}">
-      ${p.featured?`<div style="font-size:0.62rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.5rem;">⭐ Most Popular</div>`:''}
-      <div class="pricing-name">${p.name}</div>
-      <div class="pricing-amount">${p.price}</div>
-      <div class="pricing-unit">${p.duration}</div>
-      <div class="pricing-features">
-        ${(p.features||[]).map(f=>`<div class="pricing-feature">${f}</div>`).join('')}
-      </div>
-      <div class="pricing-actions">
-        <button class="btn btn-danger btn-sm" onclick="deletePricing(${p.id})">🗑</button>
-        <button class="btn ${p.featured?'btn-ghost':'btn-primary'} btn-sm" onclick="toggleFeatured(${p.id})">
-          ${p.featured?'Unfeature':'⭐ Feature'}
-        </button>
-      </div>
-    </div>`).join('');
+  const el=document.getElementById('price-grid');
+  if(!DB.pricing.length){el.innerHTML='<div class="empty-st"><div class="empty-ic">💰</div><div class="empty-t">No Packages</div></div>';return;}
+  el.innerHTML=DB.pricing.map(p=>`<div class="pc ${p.featured?'featured':''}">
+    ${p.featured?'<div style="font-size:0.58rem;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.38rem">⭐ Popular</div>':''}
+    <div class="pc-name">${p.name}</div><div class="pc-price">${p.price}</div><div class="pc-unit">${p.duration}</div>
+    <div class="pc-features">${(p.features||[]).map(f=>`<div class="pc-feat">${f}</div>`).join('')}</div>
+    <div style="display:flex;gap:0.38rem;margin-top:0.85rem">
+      <button class="btn btn-danger btn-sm" onclick="delPrice(${p.id})">🗑</button>
+      <button class="btn ${p.featured?'btn-ghost':'btn-primary'} btn-sm" onclick="togFeat(${p.id})">${p.featured?'Unfeature':'⭐ Feature'}</button>
+    </div></div>`).join('');
 }
-
-function openAddPricing(){
-  ['pp-name','pp-price','pp-dur','pp-features'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('pp-featured').checked=false;
-  openModal('modal-add-pricing');
+async function savePricing(){
+  const n=document.getElementById('pp-n').value.trim(),p=document.getElementById('pp-p').value.trim();
+  if(!n||!p){toast('Name and price required!','error');return;}
+  DB.pricing.push({id:Date.now(),name:n,price:p.startsWith('₹')?p:'₹'+p,duration:document.getElementById('pp-d').value.trim()||'Per Event',features:document.getElementById('pp-f').value.split('\n').map(s=>s.trim()).filter(Boolean),featured:document.getElementById('pp-ft').checked});
+  const ok=await saveDB();if(ok){renderPricing();closeModal('m-add-price');toast('Package added!','success');}
 }
+async function delPrice(id){if(!confirm('Delete?'))return;DB.pricing=DB.pricing.filter(p=>p.id!==id);const ok=await saveDB();if(ok){renderPricing();toast('Deleted','info');}}
+async function togFeat(id){const p=DB.pricing.find(x=>x.id===id);if(!p)return;p.featured=!p.featured;const ok=await saveDB();if(ok){renderPricing();toast(p.featured?'Featured!':'Unfeatured','info');}}
 
-function savePricing(){
-  const name=document.getElementById('pp-name').value.trim();
-  const price=document.getElementById('pp-price').value.trim();
-  if(!name||!price){toast('Name and price required!','error');return;}
-  const feats=document.getElementById('pp-features').value.split('\n').map(s=>s.trim()).filter(Boolean);
-  const pkg={
-    id:Date.now(),name,
-    price:price.startsWith('₹')?price:'₹'+price,
-    duration:document.getElementById('pp-dur').value.trim()||'Per Event',
-    features:feats,
-    featured:document.getElementById('pp-featured').checked
-  };
-  pricing.push(pkg);save('pricing');renderPricing();
-  closeModal('modal-add-pricing');toast('Package added!','success');
-}
-
-function deletePricing(id){
-  if(!confirm('Delete this package?'))return;
-  pricing=pricing.filter(p=>p.id!==id);save('pricing');renderPricing();toast('Package deleted','info');
-}
-
-function toggleFeatured(id){
-  const p=pricing.find(x=>x.id===id);if(!p)return;
-  p.featured=!p.featured;save('pricing');renderPricing();
-  toast(p.featured?'Marked as featured!':'Removed from featured','info');
-}
-
-// ════════════════════════════════════════════════════
-// TESTIMONIALS
-// ════════════════════════════════════════════════════
 function renderTestimonials(){
-  const el=document.getElementById('testimonials-grid');
-  if(!testimonials.length){el.innerHTML='<div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-title">No Reviews Yet</div><div class="empty-desc">Add client testimonials to build trust</div></div>';return;}
-  el.innerHTML=testimonials.map(t=>`
-    <div class="testimonial-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-        <div class="testimonial-stars">${'⭐'.repeat(t.rating)}</div>
-        <span class="testimonial-status ${t.published?'ts-published':'ts-pending'}">${t.published?'Published':'Draft'}</span>
-      </div>
-      <div class="testimonial-quote">"${t.text}"</div>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">${t.name.charAt(0).toUpperCase()}</div>
-        <div>
-          <div class="testimonial-name">${t.name}</div>
-          <div class="testimonial-meta">${t.service}</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:0.5rem;margin-top:1rem;">
-        <button class="btn btn-ghost btn-sm" onclick="togglePublish(${t.id})">${t.published?'Unpublish':'Publish'}</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteTestimonial(${t.id})">🗑 Delete</button>
-      </div>
-    </div>`).join('');
+  const el=document.getElementById('test-grid');
+  if(!DB.testimonials.length){el.innerHTML='<div class="empty-st"><div class="empty-ic">⭐</div><div class="empty-t">No Reviews</div></div>';return;}
+  el.innerHTML=DB.testimonials.map(t=>`<div class="tc">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem"><div class="tc-stars">${'⭐'.repeat(t.rating)}</div><span class="tc-pub ${t.published?'pub-y':'pub-n'}">${t.published?'Published':'Draft'}</span></div>
+    <div class="tc-quote">"${t.text}"</div>
+    <div class="tc-author"><div class="tc-av">${t.name.charAt(0).toUpperCase()}</div><div><div class="tc-name">${t.name}</div><div class="tc-meta">${t.service}</div></div></div>
+    <div style="display:flex;gap:0.38rem;margin-top:0.85rem">
+      <button class="btn btn-ghost btn-sm" onclick="togPub(${t.id})">${t.published?'Unpublish':'Publish'}</button>
+      <button class="btn btn-danger btn-sm" onclick="delTest(${t.id})">🗑</button>
+    </div></div>`).join('');
 }
-
-function openAddTestimonial(){
-  ['tm-name','tm-service','tm-text'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('tm-rating').value='5';
-  document.getElementById('tm-published').checked=true;
-  openModal('modal-add-testimonial');
+async function saveTestimonial(){
+  const n=document.getElementById('tm-n').value.trim(),tx=document.getElementById('tm-t').value.trim();
+  if(!n||!tx){toast('Name and review required!','error');return;}
+  DB.testimonials.push({id:Date.now(),name:n,service:document.getElementById('tm-s').value.trim()||'Photography',rating:parseInt(document.getElementById('tm-r').value)||5,text:tx,published:document.getElementById('tm-p').checked});
+  const ok=await saveDB();if(ok){renderTestimonials();closeModal('m-add-test');toast('Review added!','success');}
 }
+async function togPub(id){const t=DB.testimonials.find(x=>x.id===id);if(!t)return;t.published=!t.published;const ok=await saveDB();if(ok){renderTestimonials();toast(t.published?'Published!':'Unpublished','info');}}
+async function delTest(id){if(!confirm('Delete?'))return;DB.testimonials=DB.testimonials.filter(t=>t.id!==id);const ok=await saveDB();if(ok){renderTestimonials();toast('Deleted','info');}}
 
-function saveTestimonial(){
-  const name=document.getElementById('tm-name').value.trim();
-  const text=document.getElementById('tm-text').value.trim();
-  if(!name||!text){toast('Name and review text required!','error');return;}
-  const t={
-    id:Date.now(),name,
-    service:document.getElementById('tm-service').value.trim()||'Photography',
-    rating:parseInt(document.getElementById('tm-rating').value)||5,
-    text,published:document.getElementById('tm-published').checked
-  };
-  testimonials.push(t);save('testimonials');renderTestimonials();
-  closeModal('modal-add-testimonial');toast('Review added!','success');
-}
-
-function togglePublish(id){
-  const t=testimonials.find(x=>x.id===id);if(!t)return;
-  t.published=!t.published;save('testimonials');renderTestimonials();
-  toast(t.published?'Review published!':'Review unpublished','info');
-}
-
-function deleteTestimonial(id){
-  if(!confirm('Delete this review?'))return;
-  testimonials=testimonials.filter(t=>t.id!==id);save('testimonials');renderTestimonials();toast('Review deleted','info');
-}
-
-// ════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // SETTINGS
-// ════════════════════════════════════════════════════
-function saveSettings(){
-  const newPass=document.getElementById('set-pass').value;
-  settings={
-    name:document.getElementById('set-name').value,
-    owner:document.getElementById('set-owner').value,
-    phone:document.getElementById('set-phone').value,
-    location:document.getElementById('set-location').value,
-    ig:document.getElementById('set-ig').value,
-    yt:document.getElementById('set-yt').value,
-    user:document.getElementById('set-user').value,
-    pass:newPass||settings.pass
-  };
-  save('settings');
-  document.getElementById('set-pass').value='';
-  toast('Settings saved!','success');
+// ══════════════════════════════════════════════════════
+function loadSettingsPage(){
+  const s={imgbb:IMGBB_KEY,jkey:JBIN_KEY,binid:JBIN_BIN,user:ADMIN_USER};
+  Object.entries({imgbb:'s-imgbb',jkey:'s-jkey',binid:'s-binid',user:'s-user'}).forEach(([k,id])=>{const el=document.getElementById(id);if(el)el.value=s[k];});
+}
+async function saveSettings(){
+  const np=document.getElementById('s-pass').value;
+  ADMIN_USER=document.getElementById('s-user').value||ADMIN_USER;
+  if(np) ADMIN_PASS=np;
+  localStorage.setItem('pp_admin_user',ADMIN_USER);
+  localStorage.setItem('pp_admin_pass',ADMIN_PASS);
+  const k1=document.getElementById('s-imgbb').value.trim(),k2=document.getElementById('s-jkey').value.trim(),k3=document.getElementById('s-binid').value.trim();
+  if(k1){IMGBB_KEY=k1;localStorage.setItem('pp_imgbb_key',k1);}
+  if(k2){JBIN_KEY=k2;localStorage.setItem('pp_jbin_key',k2);}
+  if(k3){JBIN_BIN=k3;localStorage.setItem('pp_jbin_bin',k3);}
+  document.getElementById('s-pass').value='';
+  toast('✅ Settings saved!','success');
+  if(isSetup()) loadData();
 }
 
-// ════════════════════════════════════════════════════
-// MODAL UTILS
-// ════════════════════════════════════════════════════
-function openModal(id){document.getElementById(id).classList.add('active');}
-function closeModal(id){document.getElementById(id).classList.remove('active');}
-document.querySelectorAll('.modal-overlay').forEach(m=>{
-  m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('active');});
-});
+// ══════════════════════════════════════════════════════
+// MODALS + TOAST
+// ══════════════════════════════════════════════════════
+function openModal(id){document.getElementById(id)?.classList.add('active');}
+function closeModal(id){document.getElementById(id)?.classList.remove('active');}
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('active');}));
 
-// ════════════════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════════════════
 function toast(msg,type='info'){
   const icons={success:'✅',error:'❌',info:'ℹ️'};
   const el=document.createElement('div');
   el.className=`toast ${type}`;
-  el.innerHTML=`<span>${icons[type]||'ℹ️'}</span> ${msg}`;
-  document.getElementById('toast-container').appendChild(el);
-  setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(60px)';el.style.transition='all 0.3s';setTimeout(()=>el.remove(),300);},3500);
+  el.innerHTML=`<span>${icons[type]}</span> ${msg}`;
+  document.getElementById('toast-wrap').appendChild(el);
+  setTimeout(()=>{el.style.opacity='0';el.style.transform='translateX(45px)';el.style.transition='all 0.28s';setTimeout(()=>el.remove(),300);},3500);
 }
-
-// ════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════
-updateDate();
-// Check if already logged in (session)
-// Enter key on login
-document.getElementById('login-user').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('login-pass').focus();});
 </script>
 </body>
 </html>

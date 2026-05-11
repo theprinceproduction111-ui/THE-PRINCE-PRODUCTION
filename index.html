@@ -326,22 +326,12 @@ body::after{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;b
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- PROJECTS — Dynamic from Admin Panel -->
 <section id="projects">
   <h2 class="projects-title hero-heading fade-up">Projects</h2>
   <div id="cards-container">
-    <div class="card-slot"><div class="project-card" id="card0">
-      <div class="card-top"><span class="card-num">01</span><div class="card-meta"><div class="card-category">Wedding · Client Project</div><div class="card-name">Royal Wedding</div></div><a class="live-btn" href="#booking">Book Similar</a></div>
-      <div class="card-imgs"><div class="card-col1"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85" alt="" loading="lazy"/><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85" alt="" loading="lazy"/></div><div class="card-col2"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85" alt="" loading="lazy"/></div></div>
-    </div></div>
-    <div class="card-slot"><div class="project-card" id="card1">
-      <div class="card-top"><span class="card-num">02</span><div class="card-meta"><div class="card-category">Documentary · Personal</div><div class="card-name">Cultural Heritage</div></div><a class="live-btn" href="#booking">Book Similar</a></div>
-      <div class="card-imgs"><div class="card-col1"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85" alt="" loading="lazy"/><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85" alt="" loading="lazy"/></div><div class="card-col2"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85" alt="" loading="lazy"/></div></div>
-    </div></div>
-    <div class="card-slot"><div class="project-card" id="card2">
-      <div class="card-top"><span class="card-num">03</span><div class="card-meta"><div class="card-category">Aerial · Drone</div><div class="card-name">Aerial Cinematic</div></div><a class="live-btn" href="#booking">Book Similar</a></div>
-      <div class="card-imgs"><div class="card-col1"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85" alt="" loading="lazy"/><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85" alt="" loading="lazy"/></div><div class="card-col2"><img class="card-img" src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85" alt="" loading="lazy"/></div></div>
-    </div></div>
+    <!-- Cards are dynamically loaded from admin panel data -->
+    <div id="projects-loading" style="text-align:center;padding:4rem;color:rgba(215,226,234,0.3);font-size:0.9rem;text-transform:uppercase;letter-spacing:0.15em;">Loading projects...</div>
   </div>
 </section>
 
@@ -741,10 +731,179 @@ document.querySelectorAll('.fade-up,.fade-left,.fade-right,.service-item').forEa
 const abt=document.getElementById('about-text');
 if(abt){const txt=abt.textContent;abt.innerHTML='';[...txt].forEach(c=>{const s=document.createElement('span');s.style.cssText='display:inline;position:relative;white-space:pre;';const b=document.createElement('span');b.style.opacity='0';b.textContent=c;const a=document.createElement('span');a.textContent=c;a.style.cssText='position:absolute;top:0;left:0;opacity:0.12;transition:opacity 0.12s;white-space:pre;';s.appendChild(b);s.appendChild(a);abt.appendChild(s);});const chars=abt.querySelectorAll('span > span:last-child');function ac(){const r=abt.getBoundingClientRect(),wh=window.innerHeight,p=1-Math.max(0,Math.min(1,(r.top-wh*0.2)/(wh*0.6))),l=Math.floor(p*chars.length);chars.forEach((c,i)=>c.style.opacity=i<l?'1':'0.12');}window.addEventListener('scroll',ac,{passive:true});ac();}
 
-// ── STICKY CARDS
-const cards=[document.getElementById('card0'),document.getElementById('card1'),document.getElementById('card2')];
-function updC(){cards.forEach((c,i)=>{if(!c)return;const sl=c.closest('.card-slot'),r=sl.getBoundingClientRect(),sc=Math.max(0,Math.min(1,-r.top/(r.height-window.innerHeight*0.85))),ts=1-(cards.length-1-i)*0.03,scale=1-(1-ts)*Math.min(1,sc+0.3);c.style.transform=`scale(${scale})`;c.style.top=(5.5+i*28)+'px';});}
-window.addEventListener('scroll',updC,{passive:true});updC();
+// ════════════════════════════════════════════════════
+// DYNAMIC PROJECTS — Loads from Admin Panel (IndexedDB + localStorage)
+// ════════════════════════════════════════════════════
+
+// IndexedDB — same as admin panel uses
+let siteImgDB = null;
+function openSiteImgDB(){
+  return new Promise((res,rej)=>{
+    if(siteImgDB){res(siteImgDB);return;}
+    const req = indexedDB.open('pp_images', 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore('imgs',{keyPath:'key'});
+    req.onsuccess = e => { siteImgDB = e.target.result; res(siteImgDB); };
+    req.onerror = () => rej('DB error');
+  });
+}
+async function getSiteImg(key){
+  try {
+    const db = await openSiteImgDB();
+    return new Promise(res => {
+      const req = db.transaction('imgs','readonly').objectStore('imgs').get(key);
+      req.onsuccess = () => res(req.result ? req.result.dataUrl : null);
+      req.onerror = () => res(null);
+    });
+  } catch(e){ return null; }
+}
+
+// Resolve image src — handles dbkey: (IndexedDB) and direct URLs
+async function resolveSrc(entry){
+  if(!entry) return null;
+  if(entry.startsWith('dbkey:')){
+    return await getSiteImg(entry.replace('dbkey:',''));
+  }
+  return entry; // direct URL or Google Drive URL
+}
+
+// DEFAULT projects shown if admin has not added any
+const DEFAULT_PROJECTS = [
+  {
+    id:1, name:'Royal Wedding', category:'Wedding · Client Project',
+    imgs:[
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png&w=1280&q=85'
+    ]
+  },
+  {
+    id:2, name:'Cultural Heritage', category:'Documentary · Personal',
+    imgs:[
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png&w=1280&q=85'
+    ]
+  },
+  {
+    id:3, name:'Aerial Cinematic', category:'Aerial · Drone',
+    imgs:[
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85',
+      'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png&w=1280&q=85'
+    ]
+  }
+];
+
+let siteCards = [];
+
+async function buildProjectCard(proj, index){
+  const num = String(index+1).padStart(2,'0');
+  const imgs = proj.imgs || [];
+
+  // Resolve up to 3 images
+  const src0 = imgs[0] ? await resolveSrc(imgs[0]) : null;
+  const src1 = imgs[1] ? await resolveSrc(imgs[1]) : null;
+  const src2 = imgs[2] ? await resolveSrc(imgs[2]) : null;
+
+  const fallback = 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23111' width='400' height='300'/%3E%3Ctext fill='%23333' font-family='sans-serif' font-size='14' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3ENo Image%3C/text%3E%3C/svg%3E';
+
+  const slot = document.createElement('div');
+  slot.className = 'card-slot';
+  slot.innerHTML = `
+    <div class="project-card" id="card${index}">
+      <div class="card-top">
+        <span class="card-num">${num}</span>
+        <div class="card-meta">
+          <div class="card-category">${proj.category||'Photography'}</div>
+          <div class="card-name">${proj.name}</div>
+        </div>
+        <a class="live-btn" href="#booking">Book Similar</a>
+      </div>
+      <div class="card-imgs">
+        <div class="card-col1">
+          <img class="card-img" src="${src0||fallback}" alt="${proj.name}" loading="lazy" onerror="this.src='${fallback}'"/>
+          <img class="card-img" src="${src1||fallback}" alt="${proj.name}" loading="lazy" onerror="this.src='${fallback}'"/>
+        </div>
+        <div class="card-col2">
+          <img class="card-img" src="${src2||fallback}" alt="${proj.name}" loading="lazy" onerror="this.src='${fallback}'"/>
+        </div>
+      </div>
+    </div>`;
+  return slot;
+}
+
+async function loadSiteProjects(){
+  const container = document.getElementById('cards-container');
+  container.innerHTML = '<div style="text-align:center;padding:4rem;color:rgba(215,226,234,0.3);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.15em;">Loading projects...</div>';
+
+  let projects = [];
+
+  // Try JSONBin first (online, syncs across devices)
+  const JBIN_KEY = localStorage.getItem('pp_jbin_key') || '';
+  const JBIN_BIN = localStorage.getItem('pp_jbin_bin') || '';
+
+  if(JBIN_KEY && JBIN_BIN){
+    try{
+      const r = await fetch(`https://api.jsonbin.io/v3/b/${JBIN_BIN}/latest`,{
+        headers:{'X-Master-Key':JBIN_KEY,'X-Bin-Meta':'false'}
+      });
+      if(r.ok){
+        const data = await r.json();
+        projects = data.projects || [];
+      }
+    } catch(e){ console.log('JSONBin fetch failed, using defaults'); }
+  }
+
+  // If no online projects — use defaults
+  if(!projects.length) projects = DEFAULT_PROJECTS;
+
+  // Clear and build
+  container.innerHTML = '';
+  for(let i=0; i<projects.length; i++){
+    const slot = await buildProjectCard(projects[i], i);
+    container.appendChild(slot);
+  }
+
+  // Init sticky cards
+  siteCards = [...container.querySelectorAll('.project-card')];
+  initStickyCards();
+
+  // Fade in
+  container.querySelectorAll('.project-card').forEach((c,i)=>{
+    c.style.opacity='0';c.style.transform='translateY(30px)';
+    setTimeout(()=>{
+      c.style.transition='opacity 0.6s ease, transform 0.6s ease';
+      c.style.opacity='1';c.style.transform='translateY(0)';
+    },i*150+100);
+  });
+}
+
+// ── STICKY CARDS (dynamic)
+function initStickyCards(){
+  window.removeEventListener('scroll', updC);
+  window.addEventListener('scroll', updC, {passive:true});
+  updC();
+}
+
+function updC(){
+  siteCards.forEach((c,i)=>{
+    if(!c) return;
+    const sl = c.closest('.card-slot');
+    if(!sl) return;
+    const r = sl.getBoundingClientRect();
+    const sc = Math.max(0,Math.min(1,-r.top/(r.height-window.innerHeight*0.85)));
+    const ts = 1-(siteCards.length-1-i)*0.03;
+    const scale = 1-(1-ts)*Math.min(1,sc+0.3);
+    c.style.transform = `scale(${scale})`;
+    c.style.top = (5.5+i*28)+'px';
+  });
+}
+
+// Load projects on page load
+loadSiteProjects();
+
+// Reload projects periodically to catch admin updates (every 60 seconds)
+setInterval(loadSiteProjects, 60000);
 
 // ── BOOKING
 function submitBooking(){

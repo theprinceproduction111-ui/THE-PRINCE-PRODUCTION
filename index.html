@@ -886,42 +886,35 @@ async function buildProjectCard(proj, index){
 }
 
 async function loadSiteProjects(){
-  const container = document.getElementById('cards-container');
-  container.innerHTML = '<div style="text-align:center;padding:4rem;color:rgba(215,226,234,0.3);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.15em;">Loading projects...</div>';
-
-  let projects = [];
-
-  // Try JSONBin first (online, syncs across devices)
+  // ONLY replace cards if admin has actual data in JSONBin
+  // Otherwise keep the static default cards already in HTML
   const JBIN_KEY = localStorage.getItem('pp_jbin_key') || '';
   const JBIN_BIN = localStorage.getItem('pp_jbin_bin') || '';
 
-  if(JBIN_KEY && JBIN_BIN){
-    try{
-      const r = await fetch('https://api.jsonbin.io/v3/b/'+JBIN_BIN+'/latest',{
-        headers:{'X-Master-Key':JBIN_KEY,'X-Bin-Meta':'false'}
-      });
-      if(r.ok){
-        const data = await r.json();
-        if(data.projects && data.projects.length) projects = data.projects;
-      }
-    } catch(e){ console.log('JSONBin fetch failed, using defaults'); }
-  }
+  if(!JBIN_KEY || !JBIN_BIN) return; // No config — keep static cards
 
-  // Always use defaults if no online projects
-  if(!projects.length) projects = DEFAULT_PROJECTS;
+  let projects = [];
+  try{
+    const r = await fetch('https://api.jsonbin.io/v3/b/'+JBIN_BIN+'/latest',{
+      headers:{'X-Master-Key':JBIN_KEY,'X-Bin-Meta':'false'}
+    });
+    if(r.ok){
+      const data = await r.json();
+      if(data.projects && data.projects.length) projects = data.projects;
+    }
+  } catch(e){ return; } // Fetch failed — keep static cards
 
-  // Clear and build cards
+  if(!projects.length) return; // No admin projects — keep static cards
+
+  // Admin has projects — replace static cards with admin data
+  const container = document.getElementById('cards-container');
   container.innerHTML = '';
   for(let i=0; i<projects.length; i++){
     const slot = await buildProjectCard(projects[i], i);
     container.appendChild(slot);
   }
 
-  // Init sticky cards
-  siteCards = [...container.querySelectorAll('.project-card')];
-  initStickyCards();
-
-  // Fade in animation
+  // Fade in
   container.querySelectorAll('.project-card').forEach((c,i)=>{
     c.style.opacity='0';c.style.transform='translateY(30px)';
     setTimeout(()=>{
@@ -929,6 +922,11 @@ async function loadSiteProjects(){
       c.style.opacity='1';c.style.transform='translateY(0)';
     },i*150+100);
   });
+
+  // Re-init sticky
+  window.removeEventListener('scroll', updC);
+  window.addEventListener('scroll', updC, {passive:true});
+  updC();
 }
 
 // ── STICKY CARDS (dynamic)
